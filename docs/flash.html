@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>ratgdo esp web installer</h1>
+	<script src="jquery-3.6.0.min.js"></script>
+	<script
+	  type="module"
+	  src="https://unpkg.com/esp-web-tools@8.0.1/dist/web/install-button.js?module"
+	></script>
+	
+    <esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
+	<script>
+		var timestamp = Date.now();
+		var manifest = $("#manifest").attr("manifest",`flasher/manifest.json?v=${timestamp}`);
+	</script>
+</body>
+</html>
