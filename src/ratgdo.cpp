@@ -57,7 +57,12 @@ void setup(){
     Serial.println("|    -|     | | | |  |  |  |  |  |  |");
     Serial.println("|__|__|__|__| |_| |_____|____/|_____|");
     Serial.print("version ");
-    Serial.println(VERSION);
+    Serial.print(VERSION);
+    #ifdef DISABLE_WIFI
+    Serial.print(" (WiFi disabled)");
+    #endif
+    Serial.println("");
+
 }
 
 
