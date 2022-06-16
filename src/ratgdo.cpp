@@ -59,7 +59,6 @@ void setup(){
     Serial.println("");
     Serial.print("v");
     Serial.println(VERSION);
-
 }
 
 
