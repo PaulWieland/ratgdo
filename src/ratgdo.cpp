@@ -16,7 +16,7 @@
 void setup(){
     Serial1.begin(9600, SERIAL_8N2, SERIAL_FULL, OUTPUT_GDO, true); // 9600 baud/invert signal for door opener com
     Serial.begin(115200);
-    Serial.println("Begin setup");
+    Serial.println("");
 
     #ifndef DISABLE_WIFI
     bootstrapManager.bootstrapSetup(manageDisconnections, manageHardwareButton, callback);
@@ -56,8 +56,7 @@ void setup(){
     Serial.println("| __  |  _  |_   _|   __|    \\|     |");
     Serial.println("|    -|     | | | |  |  |  |  |  |  |");
     Serial.println("|__|__|__|__| |_| |_____|____/|_____|");
-    Serial.println("");
-    Serial.print("v");
+    Serial.print("version ");
     Serial.println(VERSION);
 }
 
@@ -100,14 +99,14 @@ void doorStateLoop(){
         }else{
             counter++; // Door is closing (sprocket spins counter clockwise when viewed from below)
         }
-        Serial.print("Position: ");
+        Serial.print("Door Position: ");
         Serial.println(counter);
     }
 
     // Wait 5 pulses before updating to door opening status
     if(counter - lastCounter > 5){
         if(doorState != "opening"){
-            Serial.println("door opening...");
+            Serial.println("Door Opening...");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), "opening", false);
             }
@@ -118,7 +117,7 @@ void doorStateLoop(){
 
     if(lastCounter - counter > 5){
         if(doorState != "closing"){
-            Serial.println("door closing...");
+            Serial.println("Door Closing...");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), "closing", false);
             }
@@ -132,7 +131,7 @@ void doorStateLoop(){
         // if the door was closing, and is now stopped, then the door is closed
         if(doorState == "closing"){
             doorState = "closed";
-            Serial.println("CLOSED");
+            Serial.println("Closed");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
             }
@@ -142,7 +141,7 @@ void doorStateLoop(){
         // if the door was opening, and is now stopped, then the door is open
         if(doorState == "opening"){
             doorState = "open";
-            Serial.println("OPEN");
+            Serial.println("Open");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
             }
@@ -191,18 +190,18 @@ void IRAM_ATTR isrLight(){
 // handle changes 
 void dryContactLoop(){
     if(dryContactDoorOpen){
-        Serial.println("dry contact: open the door");
+        Serial.println("Dry Contact: open the door");
         dryContactDoorOpen = false;
         openDoor();
     }
     if(dryContactDoorClose){
-        Serial.println("dry contact: close the door");
+        Serial.println("Dry Contact: close the door");
         dryContactDoorClose = false;
         closeDoor();
     }
 
     if(dryContactToggleLight){
-        Serial.println("dry contact: toggle the light");
+        Serial.println("Dry Contact: toggle the light");
         dryContactToggleLight = false;
         toggleLight();
     }
@@ -232,7 +231,7 @@ void obstructionDetected(){
         doorIsObstructed = true;
         digitalWrite(STATUS_OBST,HIGH);
 
-        Serial.println("obstruction detected");
+        Serial.println("Obstruction Detected");
 
         if(isConfigFileOk){
             bootstrapManager.publish(doorStatusTopic.c_str(), "obstructed", false);
@@ -246,7 +245,7 @@ void obstructionCleared(){
         doorIsObstructed = false;
         digitalWrite(STATUS_OBST,LOW);
 
-        Serial.println("obstruction cleared");
+        Serial.println("Obstruction Cleared");
 
         if(isConfigFileOk){
             bootstrapManager.publish(doorStatusTopic.c_str(), "clear", false);
@@ -298,13 +297,13 @@ void callback(char *topic, byte *payload, unsigned int length){
     Serial.println(doorCommand);
 
     if (doorCommand == "open"){
-        Serial.println("mqtt open the door");
+        Serial.println("MQTT: open the door");
         openDoor();
     }else if (doorCommand == "close"){
-        Serial.println("mqtt close the door");
+        Serial.println("MQTT: close the door");
         closeDoor();
     }else if (doorCommand == "light"){
-        Serial.println("mqtt toggle the light");
+        Serial.println("MQTT: toggle the light");
         toggleLight();
     }else{
         Serial.println("Unknown mqtt command, ignoring");

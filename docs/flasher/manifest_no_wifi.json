@@ -1,0 +1,11 @@
+{
+    "name": "ratgdo (disabled wifi)",
+    "builds": [
+      {
+        "chipFamily": "ESP8266",
+        "parts": [
+          { "path": "ratgdo_esp8266_no_wifi_v1.0.bin", "offset": 0 }
+        ]
+      }
+    ]
+  }
