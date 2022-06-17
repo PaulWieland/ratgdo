@@ -33,7 +33,7 @@ String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command
 String doorCommand = "";      // will be [open|close|light]
 
 String doorStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status
-// String doorStatus = "";      // will be [online|offline|opening|open|closing|closed|obstructed|clear]
+// String doorStatus = "";      // will be [online|offline|opening|open|closing|closed|obstructed|clear|reed_open|reed_closed]
 
 /****** GLOBAL VARS ********************************/
 bool setupComplete = false;

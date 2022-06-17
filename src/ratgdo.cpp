@@ -41,13 +41,13 @@ void setup(){
     pinMode(TRIGGER_LIGHT, INPUT_PULLUP);
     pinMode(STATUS_DOOR, OUTPUT);
     pinMode(STATUS_OBST, OUTPUT);
-    pinMode(INPUT_RPM1, INPUT);
+    pinMode(INPUT_RPM1, INPUT_PULLUP); // set to pullup to add support for reed switches
     pinMode(INPUT_RPM2, INPUT);
     pinMode(INPUT_OBST, INPUT);
 
-    attachInterrupt(TRIGGER_OPEN,isrDoorOpen,RISING);
-    attachInterrupt(TRIGGER_CLOSE,isrDoorClose,RISING);
-    attachInterrupt(TRIGGER_LIGHT,isrLight,RISING);
+    attachInterrupt(TRIGGER_OPEN,isrDoorOpen,CHANGE);
+    attachInterrupt(TRIGGER_CLOSE,isrDoorClose,CHANGE);
+    attachInterrupt(TRIGGER_LIGHT,isrLight,CHANGE);
     attachInterrupt(INPUT_OBST,isrObstruction,FALLING);
 
     delay(60); // 
@@ -87,22 +87,45 @@ void loop(){
 
 /*************************** DETECTING THE DOOR STATE ***************************/
 void doorStateLoop(){
+    static bool rotaryEncoderDetected = false;
     static int counter = 0;
     static int lastCounter = 0;
     static int lastCounterMillis = 0;
     static int RPM2_lastState = 1;
     int RPM2_state = digitalRead(INPUT_RPM2);
 
-    // If the previous and the current state of the RPM2 Signal are different, that means the door is moving
+    // Handle reed switch
+    // This may need to be debounced, but so far in testing I haven't detected any bounces
+    if(!rotaryEncoderDetected){
+        if(digitalRead(INPUT_RPM1) == LOW){
+            if(doorState != "reed_closed"){
+                Serial.println("Reed switch closed");
+                doorState = "reed_closed";
+                if(isConfigFileOk){
+                    bootstrapManager.publish(doorStatusTopic.c_str(), "reed_closed", false);
+                }
+            }
+        }else if(doorState != "reed_open"){
+            Serial.println("Reed switch open");
+            doorState = "reed_open";
+            if(isConfigFileOk){
+                bootstrapManager.publish(doorStatusTopic.c_str(), "reed_open", false);
+            }
+        }
+    }
+    // end reed switch handling
+
+    // If the previous and the current state of the RPM2 Signal are different, that means there is a rotary encoder detected and the door is moving
     if(RPM2_state != RPM2_lastState){
+        rotaryEncoderDetected = true; // this disables the reed switch handler
         lastCounterMillis = millis();
 
         // If the RPM2 state is different to the RPM1 state, that means the door is opening
         // If the two are equal, the door is closing
         if (digitalRead(INPUT_RPM1) != RPM2_state){
-            counter--; // Door is opening (sprocket spins clockwise when viewed from below)
+            counter++; // Door is closing (sprocket spins clockwise when viewed from below)
         }else{
-            counter++; // Door is closing (sprocket spins counter clockwise when viewed from below)
+            counter--; // Door is opening (sprocket spins counter clockwise when viewed from below)
         }
         Serial.print("Door Position: ");
         Serial.println(counter);
@@ -159,25 +182,43 @@ void doorStateLoop(){
 
 /*************************** DRY CONTACT CONTROL OF LIGHT & DOOR ***************************/
 void IRAM_ATTR isrDebounce(const char *type){
-    static unsigned long last_interrupt_time = 0;
-    unsigned long interrupt_time = millis();
+    static unsigned long lastOpenDoorTime = 0;
+    static unsigned long lastCloseDoorTime = 0;
+    static unsigned long lastToggleLightTime = 0;
+    unsigned long currentMillis = millis();
 
-    // Prevent ISR during the first x seconds after reboot
-    if(interrupt_time < 2000){
-        return;
+    // Prevent ISR during the first 2 seconds after reboot
+    if(currentMillis < 2000) return;
+
+    if(strcmp(type, "openDoor") == 0){
+        if(digitalRead(TRIGGER_OPEN) == LOW){
+            // save the time of the falling edge
+            lastOpenDoorTime = currentMillis;
+        }else if(currentMillis - lastOpenDoorTime > 500 && currentMillis - lastOpenDoorTime < 10000){
+            // now see if the rising edge was between 500ms and 10 seconds after the falling edge
+            dryContactDoorOpen = true;
+        }
     }
 
-    // Anything less than 200ms is a bounce and is ignored
-    if(interrupt_time - last_interrupt_time > 1000){
-        if(strcmp(type, "openDoor") == 0){
-            dryContactDoorOpen = true;
-        }else if(strcmp(type, "closeDoor") == 0){
+    if(strcmp(type, "closeDoor") == 0){
+        if(digitalRead(TRIGGER_CLOSE) == LOW){
+            // save the time of the falling edge
+            lastCloseDoorTime = currentMillis;
+        }else if(currentMillis - lastCloseDoorTime > 500 && currentMillis - lastCloseDoorTime < 10000){
+            // now see if the rising edge was between 500ms and 10 seconds after the falling edge
             dryContactDoorClose = true;
-        }else if(strcmp(type, "toggleLight") ==0){
+        }
+    }
+
+    if(strcmp(type, "toggleLight") == 0){
+        if(digitalRead(TRIGGER_LIGHT) == LOW){
+            // save the time of the falling edge
+            lastToggleLightTime = currentMillis;
+        }else if(currentMillis - lastToggleLightTime > 500 && currentMillis - lastToggleLightTime < 10000){
+            // now see if the rising edge was between 500ms and 10 seconds after the falling edge
             dryContactToggleLight = true;
         }
     }
-    last_interrupt_time = interrupt_time;
 }
 
 void IRAM_ATTR isrDoorOpen(){
@@ -192,13 +233,14 @@ void IRAM_ATTR isrLight(){
     isrDebounce("toggleLight");
 }
 
-// handle changes 
+// handle changes to the dry contact state
 void dryContactLoop(){
     if(dryContactDoorOpen){
         Serial.println("Dry Contact: open the door");
         dryContactDoorOpen = false;
         openDoor();
     }
+
     if(dryContactDoorClose){
         Serial.println("Dry Contact: close the door");
         dryContactDoorClose = false;
@@ -261,23 +303,6 @@ void obstructionCleared(){
 /********************************** MANAGE WIFI AND MQTT DISCONNECTION *****************************************/
 void manageDisconnections(){
     setupComplete = false;
-
-    // If WiFi is configured, but no connection Blink the LED
-    // if(isConfigFileOk){
-    //     static bool ledState = false;
-    //     static unsigned long lastMillis = 0;
-        
-    //     if(millis() - lastMillis > 500){
-    //         if(ledState){
-    //             ledState = false;
-    //             digitalWrite(LED_BUILTIN, HIGH); // led off
-    //         }else{
-    //             ledState = true;
-    //             digitalWrite(LED_BUILTIN, HIGH); // led on
-    //         }
-    //         lastMillis = millis();
-    //     }
-    // }
 }
 
 /********************************** MQTT SUBSCRIPTIONS *****************************************/
@@ -346,7 +371,10 @@ void transmit(const byte* payload, unsigned int length){
 }
 
 void openDoor(){
-    if(doorState == "open") return;
+    if(doorState == "open"){
+        Serial.println("The door is already open");
+        return;
+    }
     for(int i=0; i<7; i++){
         Serial.print("door_code[");
         Serial.print(i);
@@ -358,7 +386,10 @@ void openDoor(){
 }
 
 void closeDoor(){
-    if(doorState == "closed") return;
+    if(doorState == "closed"){
+        Serial.println("The door is already closed");
+        return;
+    }
     for(int i=0; i<7; i++){
         Serial.print("door_code[");
         Serial.print(i);
