@@ -104,6 +104,7 @@ void doorStateLoop(){
                 if(isConfigFileOk){
                     bootstrapManager.publish(doorStatusTopic.c_str(), "reed_closed", false);
                 }
+                digitalWrite(STATUS_DOOR,HIGH);
             }
         }else if(doorState != "reed_open"){
             Serial.println("Reed switch open");
@@ -111,6 +112,7 @@ void doorStateLoop(){
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), "reed_open", false);
             }
+            digitalWrite(STATUS_DOOR,LOW);
         }
     }
     // end reed switch handling
