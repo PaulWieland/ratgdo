@@ -11,3 +11,5 @@ TOC
 # Troubleshooing & FAQ
 
 TBD
+
+[Please open an issue on GitHub for support](https://github.com/PaulWieland/ratgdo/issues). FAQs will be added here.
