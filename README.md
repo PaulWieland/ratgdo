@@ -15,3 +15,8 @@ ratgdo is *not* a cloud device and does *not* require a subscription service. Th
 # Instructions
 
 [Visit the github io page for instructions](https://paulwieland.github.io/ratgdo/).
+
+
+# Special thanks
+
+Special thanks to kosibar, Brad and TechJunkie01 - without whom this project would not have been possible.
