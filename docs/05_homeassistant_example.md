@@ -7,7 +7,6 @@ TOC
 * [Home Assistant Example](05_homeassistant_example.md)
 * [FAQ & Troubleshooting](09_faq.md)
 
-
-# NodeRED Example
+# Home Assistant Example
 
 Coming soon
