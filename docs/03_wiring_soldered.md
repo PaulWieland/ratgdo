@@ -26,7 +26,7 @@ Proceedure:
 1. IMPORTANT: Unplug the door opener to physically disconnect power. **Failure to do so can kill you** as there is live main voltage present on the logic board.
 2. Open the white plastic rear light cover where the terminals are for the obstruction sensor & hard wired remote.
 3. Disconnect the wires from the obstruction sensor and hard wired button from the push terminals.
-4. Remove the three 1/4"/Phillips drive screws that hold the black rear cover to the metal chassis.
+4. Remove the three 1/4"/Phillips drive screws that hold the black rear cover to the metal chassis. <br/> ![image](https://user-images.githubusercontent.com/4663918/177998230-01c9d0c8-9c0a-4a35-9aa5-9788a5cd697d.png)
 5. The logic board is attached to this cover and will come out with the cover. There are two main cables connecting the logic board to the motor and rotary encoder. 
     * Optional - disconnect the two cable connectors if you want to completely remove the back cover and logic board for soldering.
 6. Locate the RPM1, RPM2 and 3.3v pins on the logic board. See diagram.
@@ -34,3 +34,7 @@ Proceedure:
 8. Route the wires as shown in the picture. Use the small zip tie to provide strain relief.
 9. Reconnect the logic board cables if you disconnected them in step 5, and reinstall the cover.
 10. Connect the 6 wires from the door opener to the ratgdo shield according to this diagram:
+
+![image](https://user-images.githubusercontent.com/4663918/177997952-4e0f8ece-3309-4fb6-ab70-b2aa25bb092f.png)
+
+![image](https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png)

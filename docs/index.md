@@ -42,7 +42,7 @@ These instructions explain how to flash the ratgdo firmware onto your ESP8266 di
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting Suggestion
-The ratgdo sheld has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
+The ratgdo shield has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
 
 ## Disclaimer
 Use this device at your own risk.
