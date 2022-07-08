@@ -26,4 +26,6 @@ Proceedure:
 2. Power the ESP8266 with the USB power brick & cable
 3. Connect the reed switch (two wires) plus the door opener (three wires) to the ratgdo shield according to this diagram:
 
+<a href="https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png">
 ![image](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png)
+</a>
