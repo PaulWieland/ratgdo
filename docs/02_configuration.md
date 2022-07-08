@@ -27,4 +27,4 @@ After the firmware is flashed, the ESP8266 will reboot and attempt to connect to
 * **MQTT Server Username & Password** - Optional. The Username & Password for authentication to the MQTT broker.
 * **MQTT Topic Prefix** - Required. This is the prefix used for creating the MQTT topic that ratgdo will publish & subscribe to. `TOPIC_PREFIX/DEVICE_NAME/[command|status]`
     * Example: With Device Name of `Main Door` and a topic prefix of `/home/garage/`, ratgdo will subscribe to mqtt topic `/home/garage/Main Door/command` and it will publish to `/home/garage/Main Door/status`.
-* **Disable OTA & Web Server Config Access** - will disable the ArduinoOTA & Web service for additional security. If you use this option, it you will have to reflash the firmware with a USB cable in order to change any config settings. 
+* **Disable OTA & Web Server Config Access** - will disable the ArduinoOTA & Web service for additional security. If you use this option, you will have to reflash the firmware with a USB cable in order to change any config settings. 
