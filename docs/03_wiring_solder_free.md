@@ -23,9 +23,8 @@ Things you will need:
 Proceedure:
 
 1. Mount a reed switch to the door track, and afix the magnet to the door in such a way that the reed switch will be activated when the door is fully open (or fully closed) and deactivated once the door moves.
-2. Power the ESP8266 with the USB power brick & cable
-3. Connect the reed switch (two wires) plus the door opener (three wires) to the ratgdo shield according to this diagram:
+2. Connect the reed switch (two wires) plus the door opener (three wires) to the ratgdo shield according to this diagram: <a href="https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png">![image](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png)</a>
 
-<a href="https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png">
-![image](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png)
-</a>
+2. Power the ESP8266 with the USB power brick & cable
+
+
