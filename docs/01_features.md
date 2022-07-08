@@ -10,7 +10,7 @@ TOC
 ## Features
 The door opener has a rotary encoder built into it which allows the opener to know the exact position of the door. By soldering two wires to the logic board, ratgdo can monitor this rotary encoder so that it knows the exact state of the door.
 
-For those that do not want to solder, there is an option to use an external reed switch which will give a less detailed binary status of either reed_open or reed_closed. See *Connecting* section below.
+For those that do not want to solder, there is an option to use an external reed switch which will give a less detailed binary status of either reed_open or reed_closed. See *[Wiring](03_wiring.md)* section.
 
 ### MQTT
 #### Triggers
