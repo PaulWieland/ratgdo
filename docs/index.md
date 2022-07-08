@@ -10,9 +10,11 @@ TOC
 
 # Quick Start
 
-* [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
 * Buy [ratgdo shield only](https://square.link/u/xNP2Orez) $15
 * Buy [ratgdo shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
+* [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
+* [Soldered Wiring Diagram](https://user-images.githubusercontent.com/4663918/177997952-4e0f8ece-3309-4fb6-ab70-b2aa25bb092f.png) & [Logic Board](https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png) <br/> <img src="https://user-images.githubusercontent.com/4663918/177997952-4e0f8ece-3309-4fb6-ab70-b2aa25bb092f.png" alt="soldered wiring diagram" width="75"/> <img src="https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png" alt="logic board" width="75"/>
+* [Solder Free Wiring Diagram](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png) <br/><img src="https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png" alt="logic board" width="75"/>
 
 # About ratgdo 
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
