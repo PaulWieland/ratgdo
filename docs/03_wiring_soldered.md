@@ -15,7 +15,7 @@ Things you will need:
 
 * A ratgdo shield **[Buy shield only](https://square.link/u/xNP2Orez)**
 * A wemos D1 Mini pin compatible ESP8266 development board **[Buy shield + D1 mini Clone](https://square.link/u/JaMwtjLL)**
-* A soldering iron & basic soldering skills. Good solder (lead/tin works best) & flux.00
+* A soldering iron & basic soldering skills. Good solder (lead/tin works best) & flux.
 * 3 pieces of thin gauge flexible wire, approximately 1' long (length depends on where you want to physically mount the ratgdo shield)
 * A phillips screw driver or 1/4" nut driver
 * A small flat blade screw driver for the ratgdo terminals
