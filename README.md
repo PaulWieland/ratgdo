@@ -21,7 +21,7 @@ ratgdo is *not* a cloud device and does *not* require a subscription service. Th
 ![image](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png)
 
 # [Visit the github.io page for instructions](https://paulwieland.github.io/ratgdo/).
-[https://paulwieland.github.io/ratgdo/]
+[ratgdo on GitHub.io](https://paulwieland.github.io/ratgdo/)
 
 # Special thanks
 
