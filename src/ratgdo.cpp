@@ -125,9 +125,9 @@ void doorStateLoop(){
         // If the RPM2 state is different to the RPM1 state, that means the door is opening
         // If the two are equal, the door is closing
         if (digitalRead(INPUT_RPM1) != RPM2_state){
-            counter++; // Door is closing (sprocket spins clockwise when viewed from below)
+            counter--; // Door is closing (sprocket spins clockwise when viewed from below)
         }else{
-            counter--; // Door is opening (sprocket spins counter clockwise when viewed from below)
+            counter++; // Door is opening (sprocket spins counter clockwise when viewed from below)
         }
         Serial.print("Door Position: ");
         Serial.println(counter);
@@ -302,6 +302,14 @@ void obstructionCleared(){
     }
 }
 
+void sendDoorStatus(){
+    if(isConfigFileOk){
+        Serial.print("Door state ");
+        Serial.println(doorState);
+        bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
+    }
+}
+
 /********************************** MANAGE WIFI AND MQTT DISCONNECTION *****************************************/
 void manageDisconnections(){
     setupComplete = false;
@@ -337,6 +345,9 @@ void callback(char *topic, byte *payload, unsigned int length){
     }else if (doorCommand == "light"){
         Serial.println("MQTT: toggle the light");
         toggleLight();
+    }else if(doorCommand == "query"){
+        Serial.println("MQTT: query");
+        sendDoorStatus();
     }else{
         Serial.println("Unknown mqtt command, ignoring");
     }
@@ -373,10 +384,13 @@ void transmit(const byte* payload, unsigned int length){
 }
 
 void openDoor(){
-    if(doorState == "open"){
+    if(doorState == "open" || doorState == "opening"){
         Serial.println("The door is already open");
         return;
     }
+
+    doorState = "opening"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
+
     for(int i=0; i<7; i++){
         Serial.print("door_code[");
         Serial.print(i);
@@ -388,10 +402,13 @@ void openDoor(){
 }
 
 void closeDoor(){
-    if(doorState == "closed"){
+    if(doorState == "closed" || doorState == "closing"){
         Serial.println("The door is already closed");
         return;
     }
+
+    doorState = "closing"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
+
     for(int i=0; i<7; i++){
         Serial.print("door_code[");
         Serial.print(i);

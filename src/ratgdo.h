@@ -59,6 +59,8 @@ void obstructionLoop();
 void obstructionDetected();
 void obstructionCleared();
 
+void sendDoorStatus();
+
 void doorStateLoop();
 void dryContactLoop();
 
