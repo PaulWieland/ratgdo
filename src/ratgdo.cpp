@@ -14,7 +14,8 @@
 #include "ratgdo.h"
 
 void setup(){
-    Serial1.begin(9600, SERIAL_8N2, SERIAL_FULL, OUTPUT_GDO, true); // 9600 baud/invert signal for door opener com
+    swSerial.begin(9600, SWSERIAL_8N2,-1,OUTPUT_GDO,true);
+    
     Serial.begin(115200);
     Serial.println("");
 
@@ -360,27 +361,14 @@ void callback(char *topic, byte *payload, unsigned int length){
  * A HIGH state on TX1 will pull the 12v line LOW
  * 
  * The opener requires a specific duration low/high pulse before it will accept a message
- * Swap the TX1 pin for GPIO, manually send pulse, then swap back to serial1
  */
 void transmit(const byte* payload, unsigned int length){
-  /********** CHANGE TX PIN FUNCTION  TO GPIO **********/
-  Serial1.end(); // End Serial1 session so we can manually bring the transmit line high for a specific duration
-  pinMode(OUTPUT_GDO, OUTPUT); // GDO/D4/Serial1 (TX) swap the pin to a GPIO.
-  /*****************************************************/
-
   digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
   delayMicroseconds(1305);
   digitalWrite(OUTPUT_GDO, LOW); // bring the line low
 
-
-  /********** CHANGE PIN FUNCTION  TO TX/RX **********/
-  pinMode(OUTPUT_GDO, FUNCTION_0); // GDO/D4 Serial1 (TX) swap the pin to uart TX.
-  Serial1.begin(9600, SERIAL_8N2, SERIAL_FULL, OUTPUT_GDO, true);
-  /***************************************************/
-
   delayMicroseconds(960); // "LOW" pulse duration before the message start
-
-  Serial1.write(payload, length); // send the code to the door opener  
+  swSerial.write(payload, length);
 }
 
 void openDoor(){

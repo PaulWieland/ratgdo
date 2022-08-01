@@ -12,6 +12,9 @@
  ************************************/
 
 #include "BootstrapManager.h" // Must use the https://github.com/PaulWieland/arduinoImprovBootstrapper fork
+#include "SoftwareSerial.h" // Using espsoftwareserial https://github.com/plerup/espsoftwareserial
+
+SoftwareSerial swSerial;
 
 /****************** BOOTSTRAP MANAGER ******************/
 BootstrapManager bootstrapManager;
