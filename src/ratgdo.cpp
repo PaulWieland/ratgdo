@@ -14,7 +14,7 @@
 #include "ratgdo.h"
 
 void setup(){
-    swSerial.begin(9600, SWSERIAL_8N2,-1,OUTPUT_GDO,true);
+    swSerial.begin(9600, SWSERIAL_8N2, -1, OUTPUT_GDO, true);
     
     Serial.begin(115200);
     Serial.println("");
