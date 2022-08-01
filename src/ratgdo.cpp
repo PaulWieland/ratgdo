@@ -385,7 +385,8 @@ void transmit(const byte* payload, unsigned int length){
 
 void openDoor(){
     if(doorState == "open" || doorState == "opening"){
-        Serial.println("The door is already open");
+        Serial.print("The door is already ");
+        Serial.println(doorState);
         return;
     }
 
@@ -403,7 +404,8 @@ void openDoor(){
 
 void closeDoor(){
     if(doorState == "closed" || doorState == "closing"){
-        Serial.println("The door is already closed");
+        Serial.print("The door is already ");
+        Serial.println(doorState);
         return;
     }
 
