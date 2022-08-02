@@ -367,7 +367,7 @@ void transmit(const byte* payload, unsigned int length){
   delayMicroseconds(1305);
   digitalWrite(OUTPUT_GDO, LOW); // bring the line low
 
-  delayMicroseconds(960); // "LOW" pulse duration before the message start
+  delayMicroseconds(1260); // "LOW" pulse duration before the message start
   swSerial.write(payload, length);
 }
 
