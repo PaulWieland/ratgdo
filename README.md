@@ -6,8 +6,8 @@ ratgdo is a hardware shield (circuit board) & firmware for the ESP8266 based Wem
 
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
 
-> **ratgdo shields are available for pre order**
-> The first batch of shields are expected to be available by mid August 2022
+> **ratgdo shields available to order**
+> Shields are available and shipping domestic USA via USPS.
 >
 > * [ratgdo shield only](https://square.link/u/xNP2Orez) $15
 > * [ratgdo shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
