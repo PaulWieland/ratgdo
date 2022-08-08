@@ -386,7 +386,7 @@ void openDoor(){
         Serial.println("]");
 
         transmit(DOOR_CODE[i],19);
-        delay(45);
+        delay(550);
     }
 }
 
@@ -405,7 +405,7 @@ void closeDoor(){
         Serial.println("]");
 
         transmit(DOOR_CODE[i],19);
-        delay(45);
+        delay(550);
     }
 }
 
