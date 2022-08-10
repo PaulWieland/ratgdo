@@ -7,6 +7,7 @@ TOC
 * [Home Assistant Example](05_homeassistant_example.md)
 * [FAQ & Troubleshooting](09_faq.md)
 
+**NOTICE** Since releasing ratgdo, it was discovered that Security+ 2.0 openers from 2015 are not responding to commands from ratgdo. I have ordered  a 2015 logic board to use in development in order to be able to publish a fix.
 
 # Quick Start
 
