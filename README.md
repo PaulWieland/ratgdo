@@ -1,6 +1,6 @@
 # ratgdo
 
-**NOTICE** Since releasing ratgdo, it was discovered that Security+ 2.0 openers from 2015 are not responding to commands from ratgdo. I have ordered  a 2015 logic board to use in development in order to be able to publish a fix.
+**NOTICE** Since releasing ratgdo, it was discovered that logic boards with part number 45A**** are not responding to commands. Logic boards with part number starting with 050, or 50 do not have this issue. I am awaiting a 45A board to trouble shoot the issue.
 
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
 
