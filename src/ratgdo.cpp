@@ -23,8 +23,12 @@ void setup(){
     bootstrapManager.bootstrapSetup(manageDisconnections, manageHardwareButton, callback);
     
     // Setup mqtt topics
-    doorCommandTopic = String(mqttTopicPrefix) + deviceName + "/command";
-    doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status";
+    baseTopic = String(mqttTopicPrefix) + deviceName;
+    baseTopic.replace(" ", "_");
+    baseTopic.toLowerCase();
+    
+    doorCommandTopic = baseTopic + "/command";
+    doorStatusTopic = baseTopic + "/status";
 
     bootstrapManager.setMQTTWill(doorStatusTopic.c_str(),"offline",1,false,true);
     
@@ -76,7 +80,55 @@ void loop(){
         if(!setupComplete){
             setupComplete = true;
             
+            uint8_t mac[6];
+            char macChar[5] = { 0 };
+            wifi_get_macaddr(STATION_IF, mac);
+            sprintf(macChar, "%02X%02X", mac[4], mac[5]);
+            String macStr = String(macChar);
+
+            // send discovery topic(s) for homeassistant
+            Serial.println("Send Cover Config");
+            JsonObject cover = bootstrapManager.getJsonObject();
+            cover["~"] = baseTopic;
+            cover["name"] = deviceName;
+            cover["uniq_id"] = "ratgdo_" + macStr + "_cover";
+            cover["dev_cla"] = "garage";
+            cover["avty_t"] = "~/status";
+            cover["cmd_t"] = "~/command";
+            cover["stat_t"] = "~/status";
+            cover["pl_open"] = "open";
+            cover["pl_cls"] = "close";
+            cover["pl_stop"] = "stop";
+            bootstrapManager.publish(("homeassistant/cover/ratgdo_" + macStr + "/config").c_str(), cover, true);
+
+            Serial.println("Send Obstruction Config");
+            JsonObject binary_sensor = bootstrapManager.getJsonObject();
+            binary_sensor["~"] = baseTopic;
+            binary_sensor["name"] = deviceName + " Obstruction";
+            binary_sensor["uniq_id"] = "ratgdo_" + macStr + "_obstruction";
+            binary_sensor["ic"] = "mdi:garage-alert";
+            binary_sensor["dev_cla"] = "motion";
+            binary_sensor["avty_t"] = "~/status";
+            binary_sensor["stat_t"] = "~/status";
+            binary_sensor["pl_on"] = "obstructed";
+            binary_sensor["pl_off"] = "clear";
+            bootstrapManager.publish(("homeassistant/binary_sensor/ratgdo_" + macStr + "/config").c_str(), binary_sensor, true);
+
+            Serial.println("Send Button Config");
+            JsonObject button = bootstrapManager.getJsonObject();
+            button["~"] = baseTopic;
+            button["name"] = deviceName + " Light";
+            button["uniq_id"] = "ratgdo_" + macStr + "_light";
+            button["avty_t"] = "~/status";
+            button["cmd_t"] = "~/command";
+            button["payload_press"] = "light";
+            bootstrapManager.publish(("homeassistant/button/ratgdo_" + macStr + "/config").c_str(), button, true);
+
+            // deplay 1s to wait for client to subscribe to config topic before sending "online"
+            delay(1000);
+
             // Broadcast that we are online
+            Serial.println("Send online status");
             bootstrapManager.publish(doorStatusTopic.c_str(), "online", false);
         }
     }

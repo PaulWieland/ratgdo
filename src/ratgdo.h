@@ -32,6 +32,8 @@ BootstrapManager bootstrapManager;
 
 
 /************* MQTT TOPICS **************************/
+String baseTopic = "";
+
 String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command
 String doorCommand = "";      // will be [open|close|light]
 
