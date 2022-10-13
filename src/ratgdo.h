@@ -11,7 +11,7 @@
  * GNU GENERAL PUBLIC LICENSE
  ************************************/
 
-#include "BootstrapManager.h" // Must use the https://github.com/PaulWieland/arduinoImprovBootstrapper fork
+#include "BootstrapManager.h" // Must use the https://github.com/PaulWieland/arduinoImprovBootstrapper fork, ratgdo branch
 #include "SoftwareSerial.h" // Using espsoftwareserial https://github.com/plerup/espsoftwareserial
 
 SoftwareSerial swSerial;
@@ -46,6 +46,7 @@ bool doorIsObstructed = false;
 bool dryContactDoorOpen = false;
 bool dryContactDoorClose = false;
 bool dryContactToggleLight = false;
+int doorPositionCounter = 0;
 
 /********************************** FUNCTION DECLARATION *****************************************/
 void callback(char *topic, byte *payload, unsigned int length);
@@ -73,6 +74,7 @@ void IRAM_ATTR isrDoorOpen();
 void IRAM_ATTR isrDoorClose();
 void IRAM_ATTR isrLight();
 void IRAM_ATTR isrObstruction();
+void IRAM_ATTR isrRPM2();
 
 /*** CODES ***/
 const byte DOOR1[] = {0x55,0x01,0x00,0xa1,0x13,0x4d,0x24,0xd3,0x69,0xa4,0x97,0x4a,0x2d,0xbe,0xdf,0x6f,0x1e,0xcf,0x7d};

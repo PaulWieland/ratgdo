@@ -43,13 +43,14 @@ void setup(){
     pinMode(STATUS_DOOR, OUTPUT);
     pinMode(STATUS_OBST, OUTPUT);
     pinMode(INPUT_RPM1, INPUT_PULLUP); // set to pullup to add support for reed switches
-    pinMode(INPUT_RPM2, INPUT);
+    pinMode(INPUT_RPM2, INPUT_PULLUP); // make sure pin doesn't float when using reed switch and fire interrupt by mistake
     pinMode(INPUT_OBST, INPUT);
 
     attachInterrupt(TRIGGER_OPEN,isrDoorOpen,CHANGE);
     attachInterrupt(TRIGGER_CLOSE,isrDoorClose,CHANGE);
     attachInterrupt(TRIGGER_LIGHT,isrLight,CHANGE);
     attachInterrupt(INPUT_OBST,isrObstruction,FALLING);
+    attachInterrupt(INPUT_RPM2,isrRPM2,RISING);
 
     delay(60); // 
     Serial.println("Setup Complete");
@@ -89,11 +90,9 @@ void loop(){
 /*************************** DETECTING THE DOOR STATE ***************************/
 void doorStateLoop(){
     static bool rotaryEncoderDetected = false;
-    static int counter = 0;
-    static int lastCounter = 0;
+    static int lastDoorPositionCounter = 0;
+    static int lastDirectionChangeCounter = 0;
     static int lastCounterMillis = 0;
-    static int RPM2_lastState = 1;
-    int RPM2_state = digitalRead(INPUT_RPM2);
 
     // Handle reed switch
     // This may need to be debounced, but so far in testing I haven't detected any bounces
@@ -119,41 +118,34 @@ void doorStateLoop(){
     // end reed switch handling
 
     // If the previous and the current state of the RPM2 Signal are different, that means there is a rotary encoder detected and the door is moving
-    if(RPM2_state != RPM2_lastState){
+    if(doorPositionCounter != lastDoorPositionCounter){
         rotaryEncoderDetected = true; // this disables the reed switch handler
         lastCounterMillis = millis();
 
-        // If the RPM2 state is different to the RPM1 state, that means the door is opening
-        // If the two are equal, the door is closing
-        if (digitalRead(INPUT_RPM1) != RPM2_state){
-            counter--; // Door is closing (sprocket spins clockwise when viewed from below)
-        }else{
-            counter++; // Door is opening (sprocket spins counter clockwise when viewed from below)
-        }
         Serial.print("Door Position: ");
-        Serial.println(counter);
+        Serial.println(doorPositionCounter);
     }
 
     // Wait 5 pulses before updating to door opening status
-    if(counter - lastCounter > 5){
+    if(doorPositionCounter - lastDirectionChangeCounter > 5){
         if(doorState != "opening"){
             Serial.println("Door Opening...");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), "opening", false);
             }
         }
-        lastCounter = counter;
+        lastDirectionChangeCounter = doorPositionCounter;
         doorState = "opening";
     }
 
-    if(lastCounter - counter > 5){
+    if(lastDirectionChangeCounter - doorPositionCounter > 5){
         if(doorState != "closing"){
             Serial.println("Door Closing...");
             if(isConfigFileOk){
                 bootstrapManager.publish(doorStatusTopic.c_str(), "closing", false);
             }
         }
-        lastCounter = counter;
+        lastDirectionChangeCounter = doorPositionCounter;
         doorState = "closing";
     }
 
@@ -180,7 +172,7 @@ void doorStateLoop(){
         }
     }
 
-    RPM2_lastState = RPM2_state;
+    lastDoorPositionCounter = doorPositionCounter;
 }
 
 /*************************** DRY CONTACT CONTROL OF LIGHT & DOOR ***************************/
@@ -236,6 +228,35 @@ void IRAM_ATTR isrLight(){
     isrDebounce("toggleLight");
 }
 
+// Fire on RISING edge of RPM2
+// When RPM1 HIGH on RPM2 rising edge, door closing:
+// RPM1: __|--|___
+// RPM2: ___|--|__
+
+// When RPM1 LOW on RPM2 rising edge, door opening: 
+// RPM1: ___|--|__
+// RPM2: __|--|___
+void IRAM_ATTR isrRPM2(){
+    // The encoder updates faster than the ESP wants to process, so by sampling every 5ms we get a more reliable curve
+    // The counter is behind the actual pulse counter, but it doesn't matter since we only need a reliable linear counter
+    // to determine the door direction
+    static unsigned long lastPulse = 0;
+    unsigned long currentMillis = millis();
+
+    if(currentMillis - lastPulse < 5){
+        return;
+    }
+
+    lastPulse = millis();
+
+    // If the RPM1 state is different from the RPM2 state, then the door is opening
+    if(digitalRead(INPUT_RPM1)){
+        doorPositionCounter--;
+    }else{
+        doorPositionCounter++;
+    }
+}
+
 // handle changes to the dry contact state
 void dryContactLoop(){
     if(dryContactDoorOpen){
@@ -274,10 +295,10 @@ void obstructionLoop(){
 }
 
 void obstructionDetected(){
-    static unsigned long last_interrupt_time = 0;
-    unsigned long interrupt_time = millis();
+    static unsigned long lastInterruptTime = 0;
+    unsigned long interruptTime = millis();
     // Anything less than 100ms is a bounce and is ignored
-    if(interrupt_time - last_interrupt_time > 250){
+    if(interruptTime - lastInterruptTime > 250){
         doorIsObstructed = true;
         digitalWrite(STATUS_OBST,HIGH);
 
@@ -287,7 +308,7 @@ void obstructionDetected(){
             bootstrapManager.publish(doorStatusTopic.c_str(), "obstructed", false);
         }
     }
-    last_interrupt_time = interrupt_time;
+    lastInterruptTime = interruptTime;
 }
 
 void obstructionCleared(){
