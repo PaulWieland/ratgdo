@@ -50,6 +50,7 @@ void setup(){
     attachInterrupt(TRIGGER_CLOSE,isrDoorClose,CHANGE);
     attachInterrupt(TRIGGER_LIGHT,isrLight,CHANGE);
     attachInterrupt(INPUT_OBST,isrObstruction,FALLING);
+    attachInterrupt(INPUT_RPM1,isrRPM1,RISING);
     attachInterrupt(INPUT_RPM2,isrRPM2,RISING);
 
     delay(60); // 
@@ -228,6 +229,11 @@ void IRAM_ATTR isrLight(){
     isrDebounce("toggleLight");
 }
 
+// Fire on RISING edge of RPM1
+void IRAM_ATTR isrRPM1(){
+    rpm1Pulsed = true;
+}
+
 // Fire on RISING edge of RPM2
 // When RPM1 HIGH on RPM2 rising edge, door closing:
 // RPM1: __|--|___
@@ -244,6 +250,15 @@ void IRAM_ATTR isrRPM2(){
     unsigned long currentMillis = millis();
 
     if(currentMillis - lastPulse < 5){
+        return;
+    }
+
+    // In rare situations, the rotary encoder can be parked so that RPM2 continuously fires this ISR.
+    // This causes the door counter to change value even though the door isn't moving
+    // To solve this, check to see if RPM1 pulsed. If not, do nothing. If yes, reset the pulsed flag
+    if(rpm1Pulsed){
+        rpm1Pulsed = false;
+    }else{
         return;
     }
 

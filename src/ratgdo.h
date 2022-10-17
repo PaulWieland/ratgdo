@@ -34,19 +34,18 @@ BootstrapManager bootstrapManager;
 /************* MQTT TOPICS **************************/
 String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command
 String doorCommand = "";      // will be [open|close|light]
-
 String doorStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status
-// String doorStatus = "";      // will be [online|offline|opening|open|closing|closed|obstructed|clear|reed_open|reed_closed]
 
 /****** GLOBAL VARS ********************************/
 bool setupComplete = false;
-String doorState = "unknown";
-long obstructionTimer = 0;
+String doorState = "unknown";        // will be [online|offline|opening|open|closing|closed|obstructed|clear|reed_open|reed_closed]
+long obstructionTimer = 0;           // count time between pulses from the obst ISR
 bool doorIsObstructed = false;
 bool dryContactDoorOpen = false;
 bool dryContactDoorClose = false;
 bool dryContactToggleLight = false;
-int doorPositionCounter = 0;
+int doorPositionCounter = 0;         // calculate the door's movement and position
+bool rpm1Pulsed = false;             // did rpm1 get a pulse or not - eliminates an issue when the sensor is parked on a high pulse which fires rpm2 isr
 
 /********************************** FUNCTION DECLARATION *****************************************/
 void callback(char *topic, byte *payload, unsigned int length);
@@ -74,6 +73,7 @@ void IRAM_ATTR isrDoorOpen();
 void IRAM_ATTR isrDoorClose();
 void IRAM_ATTR isrLight();
 void IRAM_ATTR isrObstruction();
+void IRAM_ATTR isrRPM1();
 void IRAM_ATTR isrRPM2();
 
 /*** CODES ***/

@@ -4,7 +4,7 @@
       {
         "chipFamily": "ESP8266",
         "parts": [
-          { "path": "ratgdo_esp8266_no_wifi_v1.3.bin", "offset": 0 }
+          { "path": "ratgdo_esp8266_no_wifi_v5.bin", "offset": 0 }
         ]
       }
     ]
