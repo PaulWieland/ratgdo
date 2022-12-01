@@ -11,12 +11,13 @@
  * GNU GENERAL PUBLIC LICENSE
  ************************************/
 
+#include "common.h"
 #include "ratgdo.h"
 
 void setup(){
     swSerial.begin(9600, SWSERIAL_8N2, -1, OUTPUT_GDO, true);
     
-    Serial.begin(115200);
+    Serial.begin(76800);
     Serial.println("");
 
     #ifndef DISABLE_WIFI
@@ -24,18 +25,21 @@ void setup(){
     
     // Setup mqtt topics
     doorCommandTopic = String(mqttTopicPrefix) + deviceName + "/command";
-    doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status";
+    overallStatusTopic = String(mqttTopicPrefix) + deviceName + "/status";
+    setCounterTopic = String(mqttTopicPrefix) + deviceName + "/set_code_counter";
 
-    bootstrapManager.setMQTTWill(doorStatusTopic.c_str(),"offline",1,false,true);
+    availabilityStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/availability";
+    obstructionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/obstruction";
+    doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/door";
+    rollingCodeTopic = String(mqttTopicPrefix) + deviceName + "/rolling_code_count";
+
+    bootstrapManager.setMQTTWill(availabilityStatusTopic.c_str(),"offline",1,false,true);
     
     Serial.print("doorCommandTopic: ");
     Serial.println(doorCommandTopic);
-    Serial.print("doorStatusTopic: ");
-    Serial.println(doorStatusTopic);
+    Serial.print("overallStatusTopic: ");
+    Serial.println(overallStatusTopic);
     #endif
-
-    // pinMode(LED_BUILTIN, OUTPUT);
-    // digitalWrite(LED_BUILTIN, HIGH); // led off
 
     pinMode(TRIGGER_OPEN, INPUT_PULLUP);
     pinMode(TRIGGER_CLOSE, INPUT_PULLUP);
@@ -66,6 +70,21 @@ void setup(){
     #endif
     Serial.println("");
 
+    LittleFS.begin();
+
+    readCounterFromFlash();
+
+    if(useRollingCodes){
+        Serial.print("Use rolling codes.");
+        Serial.println(BIN_COUNT_OFFSET);
+    }else{
+        Serial.println("Rolling codes are disabled.");
+    }
+
+    delay(500);
+
+    Serial.println("Syncing on reboot...");
+    sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
 }
 
 
@@ -79,13 +98,17 @@ void loop(){
             setupComplete = true;
             
             // Broadcast that we are online
-            bootstrapManager.publish(doorStatusTopic.c_str(), "online", false);
+            bootstrapManager.publish(availabilityStatusTopic.c_str(), "online", true);
         }
     }
 
     obstructionLoop();
     doorStateLoop();
     dryContactLoop();
+
+    // Serial.print("free heap: ");
+    // Serial.println(ESP.getFreeHeap());
+
 }
 
 /*************************** DETECTING THE DOOR STATE ***************************/
@@ -103,7 +126,8 @@ void doorStateLoop(){
                 Serial.println("Reed switch closed");
                 doorState = "reed_closed";
                 if(isConfigFileOk){
-                    bootstrapManager.publish(doorStatusTopic.c_str(), "reed_closed", false);
+                    bootstrapManager.publish(overallStatusTopic.c_str(), "reed_closed", true);
+                    bootstrapManager.publish(doorStatusTopic.c_str(), "reed_closed", true);
                 }
                 digitalWrite(STATUS_DOOR,HIGH);
             }
@@ -111,7 +135,8 @@ void doorStateLoop(){
             Serial.println("Reed switch open");
             doorState = "reed_open";
             if(isConfigFileOk){
-                bootstrapManager.publish(doorStatusTopic.c_str(), "reed_open", false);
+                bootstrapManager.publish(overallStatusTopic.c_str(), "reed_open", true);
+                bootstrapManager.publish(doorStatusTopic.c_str(), "reed_open", true);
             }
             digitalWrite(STATUS_DOOR,LOW);
         }
@@ -132,7 +157,8 @@ void doorStateLoop(){
         if(doorState != "opening"){
             Serial.println("Door Opening...");
             if(isConfigFileOk){
-                bootstrapManager.publish(doorStatusTopic.c_str(), "opening", false);
+                bootstrapManager.publish(overallStatusTopic.c_str(), "opening", true);
+                bootstrapManager.publish(doorStatusTopic.c_str(), "opening", true);
             }
         }
         lastDirectionChangeCounter = doorPositionCounter;
@@ -143,7 +169,8 @@ void doorStateLoop(){
         if(doorState != "closing"){
             Serial.println("Door Closing...");
             if(isConfigFileOk){
-                bootstrapManager.publish(doorStatusTopic.c_str(), "closing", false);
+                bootstrapManager.publish(overallStatusTopic.c_str(), "closing", true);
+                bootstrapManager.publish(doorStatusTopic.c_str(), "closing", true);
             }
         }
         lastDirectionChangeCounter = doorPositionCounter;
@@ -157,7 +184,8 @@ void doorStateLoop(){
             doorState = "closed";
             Serial.println("Closed");
             if(isConfigFileOk){
-                bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
+                bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
+                bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
             }
             digitalWrite(STATUS_DOOR,LOW);
         }
@@ -167,7 +195,8 @@ void doorStateLoop(){
             doorState = "open";
             Serial.println("Open");
             if(isConfigFileOk){
-                bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
+                bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
+                bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
             }
             digitalWrite(STATUS_DOOR,HIGH);
         }
@@ -320,7 +349,8 @@ void obstructionDetected(){
         Serial.println("Obstruction Detected");
 
         if(isConfigFileOk){
-            bootstrapManager.publish(doorStatusTopic.c_str(), "obstructed", false);
+            bootstrapManager.publish(overallStatusTopic.c_str(), "obstructed", true);
+            bootstrapManager.publish(obstructionStatusTopic.c_str(), "obsobstructed", true);
         }
     }
     lastInterruptTime = interruptTime;
@@ -334,16 +364,28 @@ void obstructionCleared(){
         Serial.println("Obstruction Cleared");
 
         if(isConfigFileOk){
-            bootstrapManager.publish(doorStatusTopic.c_str(), "clear", false);
+            bootstrapManager.publish(overallStatusTopic.c_str(), "clear", true);
+            bootstrapManager.publish(obstructionStatusTopic.c_str(), "clear", true);
         }
     }
 }
 
 void sendDoorStatus(){
+    Serial.print("Door state ");
+    Serial.println(doorState);
+
     if(isConfigFileOk){
-        Serial.print("Door state ");
-        Serial.println(doorState);
-        bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), false);
+        bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
+        bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
+    }
+}
+
+void sendCurrentCounter(){
+    String msg = String(rollingCodeCounter);
+    Serial.print("Current counter ");
+    Serial.println(rollingCodeCounter);
+    if(isConfigFileOk){
+        bootstrapManager.publish(rollingCodeTopic.c_str(), msg.c_str(), true);
     }
 }
 
@@ -354,8 +396,8 @@ void manageDisconnections(){
 
 /********************************** MQTT SUBSCRIPTIONS *****************************************/
 void manageQueueSubscription(){
-    // example to topic subscription
     bootstrapManager.subscribe(doorCommandTopic.c_str());
+    bootstrapManager.subscribe(setCounterTopic.c_str());
     Serial.print("Subscribed to ");
     Serial.println(doorCommandTopic);
 }
@@ -370,23 +412,45 @@ void callback(char *topic, byte *payload, unsigned int length){
     // Transform all messages in a JSON format
     StaticJsonDocument<BUFFER_SIZE> json = bootstrapManager.parseQueueMsg(topic, payload, length);
 
-    doorCommand = (String)json[VALUE];
-    Serial.println(doorCommand);
+    if(strcmp(topic,setCounterTopic.c_str()) == 0){
+        String s = String((char*)payload);
+        rollingCodeCounter = s.toInt();
 
-    if (doorCommand == "open"){
-        Serial.println("MQTT: open the door");
-        openDoor();
-    }else if (doorCommand == "close"){
-        Serial.println("MQTT: close the door");
-        closeDoor();
-    }else if (doorCommand == "light"){
-        Serial.println("MQTT: toggle the light");
-        toggleLight();
-    }else if(doorCommand == "query"){
-        Serial.println("MQTT: query");
-        sendDoorStatus();
-    }else{
-        Serial.println("Unknown mqtt command, ignoring");
+        Serial.print("MQTT Set rolling code counter ");
+        Serial.println(rollingCodeCounter);
+        writeCounterToFlash();
+
+        if(rollingCodeCounter == 0){
+            Serial.println("Disabling rolling codes");
+            useRollingCodes = false;
+        }else{
+            Serial.println("Enabling rolling codes");
+            useRollingCodes = true;
+        }
+    }
+
+    if(strcmp(topic,doorCommandTopic.c_str()) == 0){
+        doorCommand = (String)json[VALUE];
+        Serial.println(doorCommand);
+
+        if (doorCommand == "open"){
+            Serial.println("MQTT: open the door");
+            openDoor();
+        }else if (doorCommand == "close"){
+            Serial.println("MQTT: close the door");
+            closeDoor();
+        }else if (doorCommand == "light"){
+            Serial.println("MQTT: toggle the light");
+            toggleLight();
+        }else if (doorCommand == "sync"){
+            Serial.println("MQTT: sync");
+            sync();
+        }else if(doorCommand == "query"){
+            Serial.println("MQTT: query");
+            sendDoorStatus();
+        }else{
+            Serial.println("Unknown mqtt command, ignoring");
+        }
     }
 }
 
@@ -398,13 +462,39 @@ void callback(char *topic, byte *payload, unsigned int length){
  * 
  * The opener requires a specific duration low/high pulse before it will accept a message
  */
-void transmit(const byte* payload, unsigned int length){
+void transmit(byte* payload, unsigned int length){
   digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
   delayMicroseconds(1305);
   digitalWrite(OUTPUT_GDO, LOW); // bring the line low
 
   delayMicroseconds(1260); // "LOW" pulse duration before the message start
   swSerial.write(payload, length);
+}
+
+void sync(){
+    if(!useRollingCodes) return;
+
+    getRollingCode("reboot1");
+    transmit(rollingCode,CODE_LENGTH);
+    delay(45);
+
+    getRollingCode("reboot2");
+    transmit(rollingCode,CODE_LENGTH);
+    delay(45);
+
+    getRollingCode("reboot3");
+    transmit(rollingCode,CODE_LENGTH);
+    delay(45);
+
+    getRollingCode("reboot4");
+    transmit(rollingCode,CODE_LENGTH);
+    delay(45);
+
+    getRollingCode("reboot5");
+    transmit(rollingCode,CODE_LENGTH);
+    delay(45);
+
+    writeCounterToFlash();
 }
 
 void openDoor(){
@@ -416,13 +506,19 @@ void openDoor(){
 
     doorState = "opening"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
-    for(int i=0; i<7; i++){
-        Serial.print("door_code[");
-        Serial.print(i);
-        Serial.println("]");
+    if(useRollingCodes){
+        getRollingCode("door1");
+        transmit(rollingCode,CODE_LENGTH);
+        writeCounterToFlash();
+    }else{
+        for(int i=0; i<6; i++){
+            Serial.print("door_code[");
+            Serial.print(i);
+            Serial.println("]");
 
-        transmit(DOOR_CODE[i],19);
-        delay(45);
+            transmit(DOOR_CODE[i],CODE_LENGTH);
+            delay(45);
+        }
     }
 }
 
@@ -435,23 +531,35 @@ void closeDoor(){
 
     doorState = "closing"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
-    for(int i=0; i<7; i++){
-        Serial.print("door_code[");
-        Serial.print(i);
-        Serial.println("]");
+    if(useRollingCodes){
+        getRollingCode("door1");
+        transmit(rollingCode,CODE_LENGTH);
+        writeCounterToFlash();
+    }else{
+        for(int i=0; i<6; i++){
+            Serial.print("door_code[");
+            Serial.print(i);
+            Serial.println("]");
 
-        transmit(DOOR_CODE[i],19);
-        delay(45);
+            transmit(DOOR_CODE[i],CODE_LENGTH);
+            delay(45);
+        }
     }
 }
 
 void toggleLight(){
-    for(int i=0; i<6; i++){
-        Serial.print("light_code[");
-        Serial.print(i);
-        Serial.println("]");
+    if(useRollingCodes){
+        getRollingCode("light");
+        transmit(rollingCode,CODE_LENGTH);
+        writeCounterToFlash();
+    }else{
+        for(int i=0; i<6; i++){
+            Serial.print("light_code[");
+            Serial.print(i);
+            Serial.println("]");
 
-        transmit(LIGHT_CODE[i],19);
-        delay(45);
+            transmit(LIGHT_CODE[i],CODE_LENGTH);
+            delay(45);
+        }
     }
 }
