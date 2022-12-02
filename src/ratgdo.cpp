@@ -17,7 +17,7 @@
 void setup(){
     swSerial.begin(9600, SWSERIAL_8N2, -1, OUTPUT_GDO, true);
     
-    Serial.begin(76800);
+    Serial.begin(115200); // must remain at 115200 for improv
     Serial.println("");
 
     #ifndef DISABLE_WIFI
