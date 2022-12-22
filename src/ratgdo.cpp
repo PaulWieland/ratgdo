@@ -75,16 +75,16 @@ void setup(){
     readCounterFromFlash();
 
     if(useRollingCodes){
-        Serial.print("Use rolling codes.");
+        Serial.print("Use rolling codes. File offset: ");
         Serial.println(BIN_COUNT_OFFSET);
+
+        Serial.println("Syncing rolling code counter after reboot...");
+        sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
     }else{
         Serial.println("Rolling codes are disabled.");
     }
 
     delay(500);
-
-    Serial.println("Syncing on reboot...");
-    sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
 }
 
 
