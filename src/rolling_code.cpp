@@ -131,6 +131,7 @@ void getRollingCode(const char *command){
 
 void printRollingCode(){
   for(int i = 0; i < CODE_LENGTH; i++){
+    if(rollingCode[i] <= 0x0f) Serial.print("0");
     Serial.print(rollingCode[i],HEX);
   }
   Serial.println("");
