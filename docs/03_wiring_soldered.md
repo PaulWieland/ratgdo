@@ -45,7 +45,7 @@ Proceedure:
 </a>
 
 45ACCL1 Logic Board:<br/>
-<a href=https://user-images.githubusercontent.com/2976310/210608995-0f9814d4-0a85-490e-a789-d82b68cb7b88.jpg">
+<a href="https://user-images.githubusercontent.com/2976310/210608995-0f9814d4-0a85-490e-a789-d82b68cb7b88.jpg">
 ![image](https://user-images.githubusercontent.com/4663918/210647184-d28e5971-2dfa-4b5c-a147-2af85a5eda86.png)
 </a>
 
