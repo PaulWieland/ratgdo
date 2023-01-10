@@ -42,90 +42,38 @@ void getRollingCode(const char *command){
   Serial.print(" : ");
   Serial.println(command);
 
-  rollingCode[0] = 0x55;
-  rollingCode[1] = 0x01;
-  rollingCode[2] = 0x00;
+  uint64_t fixed = 0;
+  uint32_t data = 0;
 
-  byte codeSet[CODE_SET_LENGTH];
-  unsigned int commandOffset;
-
-  // File starts at counter 0. Each set of 6 codes for a given counter is 82 bytes long
-  // The first code in the file can be a different counter value (such as 128) so a counter offset is needed
-  unsigned int seekTo = (rollingCodeCounter - BIN_COUNT_OFFSET) * CODE_SET_LENGTH;
-
-  rollingCodeCounter++;
-
-  // read codeSetLength bytes starting from the seekTo position
-  LittleFS.begin();
-  File file = LittleFS.open("ratgdo_codes.hex", "r");
-
-  if(!file){
-    Serial.println("ERROR: Failed to open ratgdo_codes.hex for reading");
-    //LittleFS.end();
-    return;
-  }
-
-  if(rollingCodeCounter < BIN_COUNT_OFFSET){
-    Serial.println("ERROR: Counter too small. Code not found in ratgdo_codes.hex");
-    //LittleFS.end();
-    return;
-  }
-
-  if(file.size() < seekTo){
-    Serial.println("ERROR: Counter too large. Code not found in ratgdo_codes.hex");
-    //LittleFS.end();
-    return;
-  }
-  
-  Serial.print("Command Location: ");
-  Serial.println(seekTo);
-
-  file.seek(seekTo, SeekSet);
-  file.read(codeSet,CODE_SET_LENGTH);
-  //LittleFS.end();
-
-  // copy the first 16 bytes into the code
-  // this is the valid code for reboot1
-  for(int i = 0; i < 16; i++){
-    rollingCode[i+3] = codeSet[i];
-  }
 
   if(strcmp(command,"reboot1") == 0){
-    printRollingCode();
-    return;
-  }
-    
-    
-  if(strcmp(command,"reboot2") == 0){
-    commandOffset = 0;
+    fixed = 0;
+    data = 0x01009080;
+  }else if(strcmp(command,"reboot2") == 0){
+    fixed = 0x0400000000;
+    data = 0x0000618b;
   }else if(strcmp(command,"reboot3") == 0){
-    commandOffset = 1;
+    fixed = 0;
+    data = 0x0000b180;
   }else if(strcmp(command,"reboot4") == 0 || strcmp(command,"reboot5") == 0){
-    commandOffset = 2;
+    fixed = 0x0300000000;
+    data = 0x00008092;
   }else if(strcmp(command,"door1") == 0){
-    commandOffset = 3;
+    fixed = 0x0200000000;
+    data = 0x01018280;
   }else if(strcmp(command,"light") == 0){
-    commandOffset = 4;
+    fixed = 0x0200000000;
+    data = 0x00009281;
   }else{
     Serial.println("ERROR: Invalid command");
     return;
   }
-    
-  // each command after reboot1 has 6 unique bytes stored in a row
-  byte replacement[6];
-  unsigned int j = 0;
-  for(unsigned int i = 16 + (commandOffset * 6); i < (16 + (commandOffset * 6)) + 6; i++){
-    replacement[j] = codeSet[i];
-    j++;
-  }
 
-  rollingCode[6] = replacement[0];
-  rollingCode[7] = replacement[1];
-  rollingCode[10] = replacement[2];
-  rollingCode[16] = replacement[3];
-  rollingCode[17] = replacement[4];
-  rollingCode[18] = replacement[5];
+  encode_wireline(rollingCodeCounter, fixed, data, rollingCode);
+
   printRollingCode();
+
+  rollingCodeCounter++;
   return;
 }
 
@@ -136,5 +84,3 @@ void printRollingCode(){
   }
   Serial.println("");
 }
-
-

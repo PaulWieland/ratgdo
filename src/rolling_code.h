@@ -6,6 +6,10 @@
 #include <ArduinoJson.h>
 #include "BootstrapManager.h"
 
+extern "C" {
+#include "secplus.h"
+}
+
 #define CODE_SET_LENGTH 46 // the length of each group of commands per counter. 16 bytes for reboot1 & 6 bytes each for 5 remaining codes
 #define BIN_COUNT_OFFSET 268371455 // the starting counter used when generating codes.hex
 
