@@ -53,7 +53,7 @@ void setup(){
     attachInterrupt(TRIGGER_OPEN,isrDoorOpen,CHANGE);
     attachInterrupt(TRIGGER_CLOSE,isrDoorClose,CHANGE);
     attachInterrupt(TRIGGER_LIGHT,isrLight,CHANGE);
-    attachInterrupt(INPUT_OBST,isrObstruction,FALLING);
+    attachInterrupt(INPUT_OBST,isrObstruction,CHANGE);
     attachInterrupt(INPUT_RPM1,isrRPM1,RISING);
     attachInterrupt(INPUT_RPM2,isrRPM2,RISING);
 
@@ -75,8 +75,7 @@ void setup(){
     readCounterFromFlash();
 
     if(useRollingCodes){
-        Serial.print("Use rolling codes. File offset: ");
-        Serial.println(BIN_COUNT_OFFSET);
+        //if(rollingCodeCounter == 0) rollingCodeCounter = 1;
 
         Serial.println("Syncing rolling code counter after reboot...");
         sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
@@ -105,9 +104,6 @@ void loop(){
     obstructionLoop();
     doorStateLoop();
     dryContactLoop();
-
-    // Serial.print("free heap: ");
-    // Serial.println(ESP.getFreeHeap());
 
 }
 
@@ -324,17 +320,42 @@ void dryContactLoop(){
 
 /*************************** OBSTRUCTION DETECTION ***************************/
 void IRAM_ATTR isrObstruction(){
-    obstructionTimer = millis();
+    if(digitalRead(INPUT_OBST)){
+        lastObstructionHigh = millis();
+    }else{
+        obstructionLowCount++;
+    }
+    
 }
 
 void obstructionLoop(){
     long currentMillis = millis();
+    static unsigned long lastMillis = 0;
 
-    // as long as a low pulse was detected within 8 millis, there is no obstruction
-    if(currentMillis - obstructionTimer > 15){
-        obstructionDetected();
-    }else{
-        obstructionCleared();
+    // the obstruction sensor has 3 states: clear (HIGH with LOW pulse every 7ms), obstructed (HIGH), asleep (LOW)
+    // the transitions between awake and asleep are tricky because the voltage drops slowly when falling asleep
+    // and is high without pulses when waking up
+
+    // If 3 low pulses are counted within 25ms, the door is awake, not obstructed and we don't have to check anything else
+
+    // Every 25ms
+    if(currentMillis - lastMillis > 25){
+        // check to see if we got between 3 and 5 low pulses on the line
+        if(obstructionLowCount >= 3 && obstructionLowCount <= 5){
+            obstructionCleared();
+
+        // if there have been no pulses the line is steady high or low            
+        }else if(obstructionLowCount == 0){
+            // if the line is high and the last high pulse was more than 50ms ago, then there is an obstruction present
+            if(digitalRead(INPUT_OBST) && currentMillis - lastObstructionHigh > 50){
+                obstructionDetected();
+            }else{
+                // asleep
+            }
+        }
+
+        lastMillis = currentMillis;
+        obstructionLowCount = 0;
     }
 }
 
@@ -511,14 +532,16 @@ void openDoor(){
         transmit(rollingCode,CODE_LENGTH);
         writeCounterToFlash();
     }else{
-        for(int i=0; i<6; i++){
-            Serial.print("door_code[");
+        for(int i=0; i<4; i++){
+            Serial.print("sync_code[");
             Serial.print(i);
             Serial.println("]");
 
-            transmit(DOOR_CODE[i],CODE_LENGTH);
+            transmit(SYNC_CODE[i],CODE_LENGTH);
             delay(45);
         }
+        Serial.println("door_code");
+        transmit(DOOR_CODE,CODE_LENGTH);
     }
 }
 
@@ -536,14 +559,16 @@ void closeDoor(){
         transmit(rollingCode,CODE_LENGTH);
         writeCounterToFlash();
     }else{
-        for(int i=0; i<6; i++){
-            Serial.print("door_code[");
+        for(int i=0; i<4; i++){
+            Serial.print("sync_code[");
             Serial.print(i);
             Serial.println("]");
 
-            transmit(DOOR_CODE[i],CODE_LENGTH);
+            transmit(SYNC_CODE[i],CODE_LENGTH);
             delay(45);
         }
+        Serial.println("door_code");
+        transmit(DOOR_CODE,CODE_LENGTH);
     }
 }
 
@@ -553,13 +578,15 @@ void toggleLight(){
         transmit(rollingCode,CODE_LENGTH);
         writeCounterToFlash();
     }else{
-        for(int i=0; i<6; i++){
-            Serial.print("light_code[");
+        for(int i=0; i<4; i++){
+            Serial.print("sync_code[");
             Serial.print(i);
             Serial.println("]");
 
-            transmit(LIGHT_CODE[i],CODE_LENGTH);
+            transmit(SYNC_CODE[i],CODE_LENGTH);
             delay(45);
         }
+        Serial.println("light_code");
+        transmit(LIGHT_CODE,CODE_LENGTH);
     }
 }

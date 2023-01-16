@@ -21,9 +21,6 @@ void readCounterFromFlash(){
 }
 
 void writeCounterToFlash(){
-  if(rollingCodeCounter > 0 && rollingCodeCounter < BIN_COUNT_OFFSET){
-    return;
-  }
   //Open the file 
   File file = LittleFS.open("/rollingcode.txt", "w");
   
@@ -73,7 +70,7 @@ void getRollingCode(const char *command){
 
   printRollingCode();
 
-  rollingCodeCounter++;
+  rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
   return;
 }
 
