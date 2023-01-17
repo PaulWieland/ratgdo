@@ -25,12 +25,12 @@ BootstrapManager bootstrapManager;
 #define OUTPUT_GDO D4 // red control terminal / GarageDoorOpener (UART1 TX) pin is D4 on D1 Mini
 #define TRIGGER_OPEN D5 // dry contact for opening door
 #define TRIGGER_CLOSE D6 // dry contact for closing door
-#define TRIGGER_LIGHT D3 // D7 on Rev0 dry contact for triggering light (no discrete light commands, so toggle only)
+#define TRIGGER_LIGHT D3 // dry contact for triggering light (no discrete light commands, so toggle only)
 #define STATUS_DOOR D0 // output door status, HIGH for open, LOW for closed
 #define STATUS_OBST D8 // output for obstruction status, HIGH for obstructed, LOW for clear
 #define INPUT_RPM1 D1 // RPM1 rotary encoder input OR reed switch if not soldering to the door opener logic board
 #define INPUT_RPM2 D2 // RPM2 rotary encoder input OR not used if using reed switch
-#define INPUT_OBST D7 // D3 on Rev0 black obstruction sensor terminal
+#define INPUT_OBST D7 // black obstruction sensor terminal
 
 
 /********************************** MQTT TOPICS *****************************************/
