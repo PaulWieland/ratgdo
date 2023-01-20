@@ -371,7 +371,7 @@ void obstructionDetected(){
 
         if(isConfigFileOk){
             bootstrapManager.publish(overallStatusTopic.c_str(), "obstructed", true);
-            bootstrapManager.publish(obstructionStatusTopic.c_str(), "obsobstructed", true);
+            bootstrapManager.publish(obstructionStatusTopic.c_str(), "obstructed", true);
         }
     }
     lastInterruptTime = interruptTime;
