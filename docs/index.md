@@ -7,8 +7,6 @@ TOC
 * [Home Assistant Example](05_homeassistant_example.md)
 * [FAQ & Troubleshooting](09_faq.md)
 
-**NOTICE** Since releasing ratgdo, it was discovered that logic boards with part number 45A**** were not responding to commands. Version 1.6 fixes this issue by introducing full rolling code support. If you are experiencing issues, please update to version 1.6 and enable rolling codes in the configuration.
-
 # Quick Start
 
 * Buy [ratgdo shield only](https://square.link/u/xNP2Orez) $15
