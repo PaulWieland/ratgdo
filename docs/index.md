@@ -7,8 +7,6 @@ TOC
 * [Home Assistant Example](05_homeassistant_example.md)
 * [FAQ & Troubleshooting](09_faq.md)
 
-**NOTICE** Since releasing ratgdo, it was discovered that logic boards with part number 45A**** are not responding to commands. Logic boards with part number starting with 050, or 50 do not have this issue. I am awaiting a 45A board to trouble shoot the issue.
-
 # Quick Start
 
 * Buy [ratgdo shield only](https://square.link/u/xNP2Orez) $15
