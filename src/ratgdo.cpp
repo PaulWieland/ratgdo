@@ -518,6 +518,7 @@ void sync(){
 	getRollingCode("reboot6");
 	transmit(rollingCode,CODE_LENGTH);
 	delay(45);
+
 	writeCounterToFlash();
 }
 
