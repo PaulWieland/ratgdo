@@ -8,10 +8,10 @@ void readCounterFromFlash(){
 
   //Check if the file exists
   if(!file){
-    Serial.println("rollingcode.txt doesn't exist. creating...");
+	Serial.println("rollingcode.txt doesn't exist. creating...");
 
-    writeCounterToFlash();
-    return;
+	writeCounterToFlash();
+	return;
   }
 
   rollingCodeCounter = file.parseInt();
@@ -44,29 +44,29 @@ void getRollingCode(const char *command){
 
 
   if(strcmp(command,"reboot1") == 0){
-    fixed = 0;
-    data = 0x01009080;
+	fixed = 0;
+	data = 0x01009080;
   }else if(strcmp(command,"reboot2") == 0){
-    fixed = 0x0400000000;
-    data = 0x0000618b;
+	fixed = 0x0400000000;
+	data = 0x0000618b;
   }else if(strcmp(command,"reboot3") == 0){
-    fixed = 0;
-    data = 0x0000b180;
+	fixed = 0;
+	data = 0x0000b180;
   }else if(strcmp(command,"reboot4") == 0 || strcmp(command,"reboot5") == 0){
-    fixed = 0x0300000000;
-    data = 0x00008092;
+	fixed = 0x0300000000;
+	data = 0x00008092;
   }else if(strcmp(command,"door1") == 0){
-    fixed = 0x0200000000;
-    data = 0x01018280;
+	fixed = 0x0200000000;
+	data = 0x01018280;
   }else if(strcmp(command,"door2") == 0){
 	fixed = 0x0200000000;
 	data = 0x01009280;
   }else if(strcmp(command,"light") == 0){
-    fixed = 0x0200000000;
-    data = 0x00009281;
+	fixed = 0x0200000000;
+	data = 0x00009281;
   }else{
-    Serial.println("ERROR: Invalid command");
-    return;
+	Serial.println("ERROR: Invalid command");
+	return;
   }
 
   encode_wireline(rollingCodeCounter, fixed, data, rollingCode);
@@ -74,15 +74,15 @@ void getRollingCode(const char *command){
   printRollingCode();
 
   if(strcmp(command,"door1") != 0){ // door2 is created with same counter and should always be called after door1
-    rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
+	rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
   }
   return;
 }
 
 void printRollingCode(){
   for(int i = 0; i < CODE_LENGTH; i++){
-    if(rollingCode[i] <= 0x0f) Serial.print("0");
-    Serial.print(rollingCode[i],HEX);
+	if(rollingCode[i] <= 0x0f) Serial.print("0");
+	Serial.print(rollingCode[i],HEX);
   }
   Serial.println("");
 }
