@@ -1,7 +1,5 @@
 # ratgdo
 
-**NOTICE** Since releasing ratgdo, it was discovered that logic boards with part number 45A**** are not responding to commands. Logic boards with part number starting with 050, or 50 do not have this issue. Version 2.0a introduces rolling code support which works with 45 series logic boards.
-
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
 
 ratgdo is a hardware shield (circuit board) & firmware for the ESP8266 based Wemos D1 Mini development board that wires to your door opener's terminals and restores dry contact control. It also allows you to control the door with MQTT over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
