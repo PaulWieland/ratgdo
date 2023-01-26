@@ -484,12 +484,12 @@ void callback(char *topic, byte *payload, unsigned int length){
  * The opener requires a specific duration low/high pulse before it will accept a message
  */
 void transmit(byte* payload, unsigned int length){
-  digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
-  delayMicroseconds(1305);
-  digitalWrite(OUTPUT_GDO, LOW); // bring the line low
+	digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
+	delayMicroseconds(1305);
+	digitalWrite(OUTPUT_GDO, LOW); // bring the line low
 
-  delayMicroseconds(1260); // "LOW" pulse duration before the message start
-  swSerial.write(payload, length);
+	delayMicroseconds(1260); // "LOW" pulse duration before the message start
+	swSerial.write(payload, length);
 }
 
 void sync(){
@@ -515,6 +515,9 @@ void sync(){
 	transmit(rollingCode,CODE_LENGTH);
 	delay(45);
 
+	getRollingCode("reboot6");
+	transmit(rollingCode,CODE_LENGTH);
+	delay(45);
 	writeCounterToFlash();
 }
 
