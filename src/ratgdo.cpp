@@ -530,6 +530,12 @@ void openDoor(){
     if(useRollingCodes){
         getRollingCode("door1");
         transmit(rollingCode,CODE_LENGTH);
+
+        delay(40);
+
+		getRollingCode("door2");
+		transmit(rollingCode,CODE_LENGTH);
+
         writeCounterToFlash();
     }else{
         for(int i=0; i<4; i++){
@@ -557,6 +563,12 @@ void closeDoor(){
     if(useRollingCodes){
         getRollingCode("door1");
         transmit(rollingCode,CODE_LENGTH);
+
+		delay(40);
+
+		getRollingCode("door2");
+		transmit(rollingCode,CODE_LENGTH);
+		
         writeCounterToFlash();
     }else{
         for(int i=0; i<4; i++){

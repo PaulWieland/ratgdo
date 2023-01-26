@@ -58,6 +58,9 @@ void getRollingCode(const char *command){
   }else if(strcmp(command,"door1") == 0){
     fixed = 0x0200000000;
     data = 0x01018280;
+  }else if(strcmp(command,"door2") == 0){
+	fixed = 0x0200000000;
+	data = 0x01009280;
   }else if(strcmp(command,"light") == 0){
     fixed = 0x0200000000;
     data = 0x00009281;
@@ -70,7 +73,9 @@ void getRollingCode(const char *command){
 
   printRollingCode();
 
-  rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
+  if(strcmp(command,"door1") != 0){ // door2 is created with same counter and should always be called after door1
+    rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
+  }
   return;
 }
 
