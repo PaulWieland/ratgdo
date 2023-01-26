@@ -20,7 +20,7 @@ Things you will need:
 * A small flat blade screw driver for the ratgdo terminals
 * A small zip tie for mounting the board
 
-Proceedure:
+Procedure:
 
 1. Mount a reed switch to the door track, and afix the magnet to the door in such a way that the reed switch will be activated when the door is fully open (or fully closed) and deactivated once the door moves.
 2. Connect the reed switch (two wires) plus the door opener (three wires) to the ratgdo shield according to this diagram: <a href="https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png">![image](https://user-images.githubusercontent.com/4663918/177998073-06684254-9adf-4d88-8568-5f2495dfc368.png)</a>
