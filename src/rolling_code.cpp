@@ -34,10 +34,11 @@ void writeCounterToFlash(){
 }
 
 void getRollingCode(const char *command){
-	Serial.print("get rolling code for ");
+	Serial.print("rolling code for ");
 	Serial.print(rollingCodeCounter);
+	Serial.print("|");
+	Serial.print(command);
 	Serial.print(" : ");
-	Serial.println(command);
 
 	uint64_t id = 0x539;
 	uint64_t fixed = 0;
