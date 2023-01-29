@@ -46,8 +46,8 @@ void setup(){
 	pinMode(TRIGGER_LIGHT, INPUT_PULLUP);
 	pinMode(STATUS_DOOR, OUTPUT);
 	pinMode(STATUS_OBST, OUTPUT);
-	pinMode(INPUT_RPM1, INPUT_PULLUP); // set to pullup to add support for reed switches
-	pinMode(INPUT_RPM2, INPUT_PULLUP); // make sure pin doesn't float when using reed switch and fire interrupt by mistake
+	pinMode(INPUT_RPM1, INPUT); // set to pullup to add support for reed switches
+	pinMode(INPUT_RPM2, INPUT); // make sure pin doesn't float when using reed switch and fire interrupt by mistake
 	pinMode(INPUT_OBST, INPUT);
 
 	attachInterrupt(TRIGGER_OPEN,isrDoorOpen,CHANGE);
