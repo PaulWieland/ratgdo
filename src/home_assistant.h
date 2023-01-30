@@ -1,0 +1,4 @@
+#ifndef _RATGDO_HOME_ASSISTANT_H
+#define _RATGDO_HOME_ASSISTANT_H
+
+#endif
