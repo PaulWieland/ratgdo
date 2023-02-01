@@ -11,7 +11,7 @@ void ha_autodiscovery_setup(BootstrapManager * bootstrapManager){
 }
 
 void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
-	String topic = "homeassistant/cover/"+ deviceName +"/config";
+	String topic = haDiscoveryPrefix + "/cover/"+ deviceName +"/config";
 	JsonObject payload = bootstrapManager->getJsonObject();
 
 	payload["~"] = mqttTopicPrefix + deviceName;
@@ -38,7 +38,7 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
 }
 
 void ha_autodiscovery_light(BootstrapManager * bootstrapManager){
-	String topic = "homeassistant/button/"+ deviceName +"/config";
+	String topic = haDiscoveryPrefix + "/button/"+ deviceName +"/config";
 	JsonObject payload = bootstrapManager->getJsonObject();
 
 	payload["~"] = mqttTopicPrefix + deviceName;
@@ -60,7 +60,7 @@ void ha_autodiscovery_light(BootstrapManager * bootstrapManager){
 }
 
 void ha_autodiscovery_obs(BootstrapManager *bootstrapManager){
-	String topic = "homeassistant/binary_sensor/"+ deviceName + "/config";
+	String topic = haDiscoveryPrefix + "/binary_sensor/"+ deviceName + "/config";
 	JsonObject payload = bootstrapManager->getJsonObject();
 
 	payload["~"] = mqttTopicPrefix + deviceName;
