@@ -27,6 +27,7 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
 
 
 	JsonObject device = payload.createNestedObject("device");
+	device["name"] = deviceName;
     device["identifiers"] = uniqueID;
 	device["manufacturer"] = "Paul Wieland";
 	device["model"] = "ratgdo";
@@ -48,6 +49,7 @@ void ha_autodiscovery_light(BootstrapManager * bootstrapManager){
     payload["payload_press"] = "light";
 
 	JsonObject device = payload.createNestedObject("device");
+	device["name"] = deviceName;
     device["identifiers"] = uniqueID;
 	device["manufacturer"] = "Paul Wieland";
 	device["model"] = "ratgdo";
@@ -71,6 +73,7 @@ void ha_autodiscovery_obs(BootstrapManager *bootstrapManager){
     payload["payload_off"] = "clear";
 
    	JsonObject device = payload.createNestedObject("device");
+	device["name"] = deviceName;
     device["identifiers"] = uniqueID;
 	device["manufacturer"] = "Paul Wieland";
 	device["model"] = "ratgdo";
