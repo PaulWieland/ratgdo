@@ -21,6 +21,11 @@
 	</select>
 
 	<br/>
+	<p><strong>Note:</strong> <em>Erase Device</em> will erase your configuration and last used rolling code counter. 
+		If you use this option, open the <em>Logs & Console</em>, send a command to your opener and 
+		take note of the last used counter.</p>
+
+		<p>After flashing, send an mqtt <em>set_code_counter</em> command to restore the counter value and then <em>sync</em> with the opener. <a href="../01_features.html">See docs</a>.</p>
 
     <esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
 	<script>

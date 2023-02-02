@@ -16,9 +16,27 @@ For those that do not want to solder, there is an option to use an external reed
 #### Triggers
 The following MQTT commands are supported:
 
-* open<sup>1</sup> - opens the door.
-* close<sup>1</sup> - closes the door.
+* open<sup>2</sup> - opens the door.
+* close<sup>2</sup> - closes the door.
 * light<sup>3</sup> - toggles the light on or off.
+* set_code_counter - sets the rolling code counter. Send a payload with an integer.
+* sync - syncs the rolling code counter with your door opener - must be called after <em>set_code_counter</em> (this also happens whenever rebooting the esp).
+
+##### Examples
+
+If:
+
+* Device Name = "My Garage Door"
+* mqtt Prefix = "home/garage"
+
+Then:
+
+* mqtt.topic = "home/garage/My Garage Door/command/open" - opens the door
+* mqtt.topic = "home/garage/My Garage Door/command/close" - closes the door
+* mqtt.topic = "home/garage/My Garage Door/command/set_code_counter"; mqtt.payload = 537; - sets the rolling code counter to 537
+* mqtt.topic = "home/garage/My Garage Door/command/sync" - syncs the current rolling code counter with the garage door. 
+
+<strong>Notice</strong> Older Security + 2.0 garage door openers with a logic board model# starting with 45 will not accept repeated rolling codes. You must use a rolling code value greater than the last one used with ratgdo. For this reason it is important to take note of the latest rolling code counter (displayed in the serial monitor output) whenever doing a full erase of the esp8266 flash storage.
 
 #### Statuses
 The following statuses are broadcast over MQTT:
