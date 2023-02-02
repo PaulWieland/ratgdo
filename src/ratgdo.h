@@ -11,10 +11,14 @@
  * GNU GENERAL PUBLIC LICENSE
  ************************************/
 
+#ifndef _RATGDO_H
+#define _RATGDO_H
+
 
 #include "BootstrapManager.h" // Must use the https://github.com/PaulWieland/arduinoImprovBootstrapper fork, ratgdo branch
 #include "SoftwareSerial.h" // Using espsoftwareserial https://github.com/plerup/espsoftwareserial
 #include "rolling_code.h"
+#include "home_assistant.h"
 
 SoftwareSerial swSerial;
 
@@ -100,3 +104,5 @@ byte* SYNC_CODE[] = {SYNC1,SYNC2,SYNC3,SYNC4};
 byte DOOR_CODE[] = {0x55,0x01,0x00,0x94,0x3f,0xef,0xbc,0xfb,0x7f,0xbe,0xfc,0xa6,0x1a,0x4d,0xa6,0xda,0x8d,0x36,0xb3};
 
 byte LIGHT_CODE[] = {0x55,0x01,0x00,0x94,0x3f,0xef,0xbc,0xfb,0x7f,0xbe,0xff,0xa6,0x1a,0x4d,0xa6,0xda,0x8d,0x76,0xb1};
+
+#endif

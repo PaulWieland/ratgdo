@@ -95,7 +95,10 @@ void loop(){
 
 		if(!setupComplete){
 			setupComplete = true;
-			
+
+			// Send Home Assistant autodiscovery mqtt messages
+			ha_autodiscovery_setup(&bootstrapManager);
+
 			// Broadcast that we are online
 			bootstrapManager.publish(availabilityStatusTopic.c_str(), "online", true);
 		}
