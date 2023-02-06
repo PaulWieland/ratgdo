@@ -78,20 +78,20 @@ void getRollingCode(const char *command){
 
 	fixed = fixed | id;
 
-	encode_wireline(rollingCodeCounter, fixed, data, rollingCode);
+	encode_wireline(rollingCodeCounter, fixed, data, txRollingCode);
 
-	printRollingCode();
+	printRollingCode(txRollingCode);
 
 	if(strcmp(command,"door1") != 0){ // door2 is created with same counter and should always be called after door1
-	rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
+		rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
 	}
 	return;
 }
 
-void printRollingCode(){
+void printRollingCode(byte code[CODE_LENGTH]){
 	for(int i = 0; i < CODE_LENGTH; i++){
-	if(rollingCode[i] <= 0x0f) Serial.print("0");
-	Serial.print(rollingCode[i],HEX);
+		if(code[i] <= 0x0f) Serial.print("0");
+		Serial.print(code[i],HEX);
 	}
 	Serial.println("");
 }

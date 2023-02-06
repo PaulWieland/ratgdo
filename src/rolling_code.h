@@ -13,6 +13,6 @@ extern "C" {
 void readCounterFromFlash(); // get the rolling code counter from setup.json & return it
 void writeCounterToFlash(); // write the counter back to setup.json
 void getRollingCode(const char *command); // get the next rolling code for type [reboot1,reboot2,reboot3,reboot4,reboot5,door1,light]
-void printRollingCode();
+void printRollingCode(byte code[CODE_LENGTH]);
 
 #endif
