@@ -26,14 +26,14 @@ SoftwareSerial swSerial;
 BootstrapManager bootstrapManager;
 
 /********************************** PIN DEFINITIONS *****************************************/
+#define INPUT_GDO D1 // RPM2 rotary encoder input OR not used if using reed switch
+#define INPUT_GDO_ALT D2 //
 #define OUTPUT_GDO D4 // red control terminal / GarageDoorOpener (UART1 TX) pin is D4 on D1 Mini
 #define TRIGGER_OPEN D5 // dry contact for opening door
 #define TRIGGER_CLOSE D6 // dry contact for closing door
 #define TRIGGER_LIGHT D3 // dry contact for triggering light (no discrete light commands, so toggle only)
 #define STATUS_DOOR D0 // output door status, HIGH for open, LOW for closed
 #define STATUS_OBST D8 // output for obstruction status, HIGH for obstructed, LOW for clear
-#define INPUT_RPM1 D1 // RPM1 rotary encoder input OR reed switch if not soldering to the door opener logic board
-#define INPUT_RPM2 D2 // RPM2 rotary encoder input OR not used if using reed switch
 #define INPUT_OBST D7 // black obstruction sensor terminal
 
 
@@ -51,7 +51,8 @@ String rollingCodeTopic = ""; // broadcast the current rolling code count for de
 /********************************** GLOBAL VARS *****************************************/
 bool setupComplete = false;
 unsigned int rollingCodeCounter;
-byte rollingCode[CODE_LENGTH];
+byte txRollingCode[CODE_LENGTH];
+byte rxRollingCode[CODE_LENGTH];
 String doorState = "unknown";        // will be [online|offline|opening|open|closing|closed|obstructed|clear|reed_open|reed_closed]
 
 unsigned int obstructionLowCount = 0;  // count obstruction low pulses
@@ -104,5 +105,8 @@ byte* SYNC_CODE[] = {SYNC1,SYNC2,SYNC3,SYNC4};
 byte DOOR_CODE[] = {0x55,0x01,0x00,0x94,0x3f,0xef,0xbc,0xfb,0x7f,0xbe,0xfc,0xa6,0x1a,0x4d,0xa6,0xda,0x8d,0x36,0xb3};
 
 byte LIGHT_CODE[] = {0x55,0x01,0x00,0x94,0x3f,0xef,0xbc,0xfb,0x7f,0xbe,0xff,0xa6,0x1a,0x4d,0xa6,0xda,0x8d,0x76,0xb1};
+
+	char data[19];
+	bool messageInTransit = false;
 
 #endif
