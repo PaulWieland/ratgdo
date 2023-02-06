@@ -35,8 +35,8 @@ Procedure:
 9. Reconnect the logic board cables if you disconnected them in step 5, and reinstall the cover.
 10. Connect the 6 wires from the door opener to the ratgdo shield according to this diagram:
 
-<a href="https://user-images.githubusercontent.com/4663918/177997952-4e0f8ece-3309-4fb6-ab70-b2aa25bb092f.png">
-![image](https://user-images.githubusercontent.com/4663918/177997952-4e0f8ece-3309-4fb6-ab70-b2aa25bb092f.png)
+<a href="https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png">
+![image](https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png)
 </a>
 
 50ACCL1 Logic Board:<br/>
