@@ -16,7 +16,6 @@
 
 void setup(){
 	pinMode(INPUT_GDO, INPUT_PULLUP);
-	pinMode(INPUT_GDO_ALT, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
 	// swSerial.begin(9600, SWSERIAL_8N2, INPUT_GDO, OUTPUT_GDO, true);
 	swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
