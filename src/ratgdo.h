@@ -37,15 +37,37 @@ BootstrapManager bootstrapManager;
 #define INPUT_OBST D7 // black obstruction sensor terminal
 
 
-/********************************** MQTT TOPICS *****************************************/
-String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command
-String setCounterTopic = ""; // will be mqttTopicPrefix/deviceName/set_code_counter
+/********************************** MQTT TOPICS & Statuses *****************************************/
+String availabilityStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/availability
+// online|offline
 
-String doorCommand = "";      // will be [open|close|light]
-String overallStatusTopic = ""; // legacy from 1.0. Will be mqttTopicPrefix/deviceName/status
-String availabilityStatusTopic = ""; // online|offline
-String obstructionStatusTopic = ""; // obstructed|clear
-String doorStatusTopic = ""; // open|opening|closing|closed|reed_open|reed_closed
+String commandTopic = "";     // will be mqttTopicPrefix/deviceName/command/#
+
+String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command/door
+String doorCommand = "";      // accepts [open|close|stop]
+String doorStatusTopic = "";  // will be mqttTopicPrefix/deviceName/status/door
+String doorState = "unknown";
+String doorStates[6] = {"unknown","open","closed","stopped","opening","closing"};
+
+
+String lightCommandTopic = "";// will be mqttTopicPrefix/deviceName/command/light
+String lightCommand = "";     // accepts [on|off]
+String lightStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/light
+String lightState = "unknown";
+String lightStates[2] = {"off","on"};
+
+
+String lockCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command/lock
+String lockCommand = "";      // accepts [lock|unlock]
+String lockStatusTopic = "";  // will be mqttTopicPrefix/deviceName/status/lock
+String lockState = "unknown";
+String lockStates[2] = {"unlocked","locked"};
+
+String obstructionStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/obstruction
+String obstructionState = "unknown";
+String obstructionStates[2] = {"obstructed","clear"};
+
+String setCounterTopic = "";  // will be mqttTopicPrefix/deviceName/set_code_counter
 String rollingCodeTopic = ""; // broadcast the current rolling code count for debugging purposes
 
 /********************************** GLOBAL VARS *****************************************/
@@ -53,7 +75,6 @@ bool setupComplete = false;
 unsigned int rollingCodeCounter;
 byte txRollingCode[CODE_LENGTH];
 byte rxRollingCode[CODE_LENGTH];
-String doorState = "unknown";        // will be [online|offline|opening|open|closing|closed|obstructed|clear|reed_open|reed_closed]
 
 unsigned int obstructionLowCount = 0;  // count obstruction low pulses
 unsigned long lastObstructionHigh = 0;  // count time between high pulses from the obst ISR
@@ -62,8 +83,6 @@ bool doorIsObstructed = false;
 bool dryContactDoorOpen = false;
 bool dryContactDoorClose = false;
 bool dryContactToggleLight = false;
-int doorPositionCounter = 0;         // calculate the door's movement and position
-bool rpm1Pulsed = false;             // did rpm1 get a pulse or not - eliminates an issue when the sensor is parked on a high pulse which fires rpm2 isr
 
 /********************************** FUNCTION DECLARATION *****************************************/
 void callback(char *topic, byte *payload, unsigned int length);
@@ -75,6 +94,8 @@ void transmit(byte* payload, unsigned int length);
 void sync();
 void openDoor();
 void closeDoor();
+void stopDoor();
+void toggleDoor();
 void toggleLight();
 
 void obstructionLoop();

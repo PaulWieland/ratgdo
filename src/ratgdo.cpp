@@ -27,11 +27,16 @@ void setup(){
 	#ifndef DISABLE_WIFI
 	bootstrapManager.bootstrapSetup(manageDisconnections, manageHardwareButton, callback);
 	
-	// Setup mqtt topics
-	doorCommandTopic = String(mqttTopicPrefix) + deviceName + "/command";
-	overallStatusTopic = String(mqttTopicPrefix) + deviceName + "/status";
+	// Setup mqtt topics to subscribe to
+	commandTopic = String(mqttTopicPrefix) + deviceName + "/command/#";
 	setCounterTopic = String(mqttTopicPrefix) + deviceName + "/set_code_counter";
 
+	// match these topic names
+	doorCommandTopic = String(mqttTopicPrefix) + deviceName + "/command/door";
+	lightCommandTopic = String(mqttTopicPrefix) + deviceName + "/command/light";
+	lockCommandTopic = String(mqttTopicPrefix) + deviceName + "/command/lock";
+	
+	// mqtt topics to publish status updates to
 	availabilityStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/availability";
 	obstructionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/obstruction";
 	doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/door";
@@ -41,8 +46,10 @@ void setup(){
 	
 	Serial.print("doorCommandTopic: ");
 	Serial.println(doorCommandTopic);
-	Serial.print("overallStatusTopic: ");
-	Serial.println(overallStatusTopic);
+	Serial.print("lightCommandTopic: ");
+	Serial.println(lightCommandTopic);
+	Serial.print("lockCommandTopic: ");
+	Serial.println(lockCommandTopic);
 	#endif
 
 	pinMode(TRIGGER_OPEN, INPUT_PULLUP);
@@ -74,14 +81,8 @@ void setup(){
 
 	readCounterFromFlash();
 
-	if(useRollingCodes){
-		//if(rollingCodeCounter == 0) rollingCodeCounter = 1;
-
-		Serial.println("Syncing rolling code counter after reboot...");
-		sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
-	}else{
-		Serial.println("Rolling codes are disabled.");
-	}
+	Serial.println("Syncing rolling code counter after reboot...");
+	sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
 
 	delay(500);
 }
@@ -119,12 +120,16 @@ void doorStateLoop(){
 	uint64_t fixed = 0;
 	uint32_t data = 0;
 
-	if(!swSerial.available()) return;
+	uint16_t cmd = 0;
+	uint8_t nibble = 0;
+	uint8_t byte1 = 0;
+	uint8_t byte2 = 0;
 
+	if(!swSerial.available()) return;
 	byte serData = swSerial.read();
 
-if(serData < 0xF) Serial.print("0");
-Serial.print(serData,HEX);
+// if(serData < 0xF) Serial.print("0");
+// Serial.print(serData,HEX);
 
 	if(!reading){
 		msgStart <<= 8;
@@ -152,108 +157,53 @@ Serial.print(serData,HEX);
 			msgStart = 0;
 			byteCount = 0;
 			decode_wireline(rxRollingCode, &rolling, &fixed, &data);
-			Serial.print("rolling: ");
+
+			cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);
+			
+			nibble = (data >> 8) & 0xf;
+			byte1 = (data >> 16) & 0xff;
+			byte2 = (data >> 24) & 0xff;
+
+			if(cmd == 0x81){
+				doorState = doorStates[nibble];
+				lightState = lightStates[(byte2 >> 1) & 1];
+				lockState = lockStates[byte2 & 1];
+				obstructionState = obstructionStates[(byte1 >> 6) & 1];
+
+				Serial.print("STATUS: ");
+				Serial.print(" ");
+				Serial.print(doorState);
+				Serial.print(" light");
+				Serial.print(lightState);
+				Serial.print(" ");
+				Serial.print(lockState);
+				Serial.print(" ");
+				Serial.print(obstructionState);
+				Serial.println();
+			}else if(cmd == 0x281){
+				if(lightState == lightStates[0]){
+					lightState = lightStates[1];
+				}else{
+					lightState = lightStates[0];
+				}
+				Serial.print(" light");
+				Serial.print(lightState);
+			}
+
+			Serial.print("cmd: ");
+			Serial.print(cmd,HEX);
+			Serial.print(" rolling: ");
 			Serial.print(rolling,HEX);
 			Serial.print(" fixed: ");
 			Serial.print(fixed,HEX);
 			Serial.print(" data: ");
 			Serial.print(data,HEX);
+
 			Serial.print(" code: ");
-Serial.println("");
 			printRollingCode(rxRollingCode);
+
 		}
 	}
-
-	// static bool rotaryEncoderDetected = false;
-	// static int lastDoorPositionCounter = 0;
-	// static int lastDirectionChangeCounter = 0;
-	// static int lastCounterMillis = 0;
-
-	// // Handle reed switch
-	// // This may need to be debounced, but so far in testing I haven't detected any bounces
-	// if(!rotaryEncoderDetected){
-	// 	if(digitalRead(INPUT_RPM1) == LOW){
-	// 		if(doorState != "reed_closed"){
-	// 			Serial.println("Reed switch closed");
-	// 			doorState = "reed_closed";
-	// 			if(isConfigFileOk){
-	// 				bootstrapManager.publish(overallStatusTopic.c_str(), "reed_closed", true);
-	// 				bootstrapManager.publish(doorStatusTopic.c_str(), "reed_closed", true);
-	// 			}
-	// 			digitalWrite(STATUS_DOOR,HIGH);
-	// 		}
-	// 	}else if(doorState != "reed_open"){
-	// 		Serial.println("Reed switch open");
-	// 		doorState = "reed_open";
-	// 		if(isConfigFileOk){
-	// 			bootstrapManager.publish(overallStatusTopic.c_str(), "reed_open", true);
-	// 			bootstrapManager.publish(doorStatusTopic.c_str(), "reed_open", true);
-	// 		}
-	// 		digitalWrite(STATUS_DOOR,LOW);
-	// 	}
-	// }
-	// // end reed switch handling
-
-	// // If the previous and the current state of the RPM2 Signal are different, that means there is a rotary encoder detected and the door is moving
-	// if(doorPositionCounter != lastDoorPositionCounter){
-	// 	rotaryEncoderDetected = true; // this disables the reed switch handler
-	// 	lastCounterMillis = millis();
-
-	// 	Serial.print("Door Position: ");
-	// 	Serial.println(doorPositionCounter);
-	// }
-
-	// // Wait 5 pulses before updating to door opening status
-	// if(doorPositionCounter - lastDirectionChangeCounter > 5){
-	// 	if(doorState != "opening"){
-	// 		Serial.println("Door Opening...");
-	// 		if(isConfigFileOk){
-	// 			bootstrapManager.publish(overallStatusTopic.c_str(), "opening", true);
-	// 			bootstrapManager.publish(doorStatusTopic.c_str(), "opening", true);
-	// 		}
-	// 	}
-	// 	lastDirectionChangeCounter = doorPositionCounter;
-	// 	doorState = "opening";
-	// }
-
-	// if(lastDirectionChangeCounter - doorPositionCounter > 5){
-	// 	if(doorState != "closing"){
-	// 		Serial.println("Door Closing...");
-	// 		if(isConfigFileOk){
-	// 			bootstrapManager.publish(overallStatusTopic.c_str(), "closing", true);
-	// 			bootstrapManager.publish(doorStatusTopic.c_str(), "closing", true);
-	// 		}
-	// 	}
-	// 	lastDirectionChangeCounter = doorPositionCounter;
-	// 	doorState = "closing";
-	// }
-
-	// // 250 millis after the last rotary encoder pulse, the door is stopped
-	// if(millis() - lastCounterMillis > 250){
-	// 	// if the door was closing, and is now stopped, then the door is closed
-	// 	if(doorState == "closing"){
-	// 		doorState = "closed";
-	// 		Serial.println("Closed");
-	// 		if(isConfigFileOk){
-	// 			bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
-	// 			bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
-	// 		}
-	// 		digitalWrite(STATUS_DOOR,LOW);
-	// 	}
-
-	// 	// if the door was opening, and is now stopped, then the door is open
-	// 	if(doorState == "opening"){
-	// 		doorState = "open";
-	// 		Serial.println("Open");
-	// 		if(isConfigFileOk){
-	// 			bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
-	// 			bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
-	// 		}
-	// 		digitalWrite(STATUS_DOOR,HIGH);
-	// 	}
-	// }
-
-	// lastDoorPositionCounter = doorPositionCounter;
 }
 
 /*************************** DRY CONTACT CONTROL OF LIGHT & DOOR ***************************/
@@ -382,7 +332,6 @@ void obstructionDetected(){
 		Serial.println("Obstruction Detected");
 
 		if(isConfigFileOk){
-			bootstrapManager.publish(overallStatusTopic.c_str(), "obstructed", true);
 			bootstrapManager.publish(obstructionStatusTopic.c_str(), "obstructed", true);
 		}
 	}
@@ -397,7 +346,6 @@ void obstructionCleared(){
 		Serial.println("Obstruction Cleared");
 
 		if(isConfigFileOk){
-			bootstrapManager.publish(overallStatusTopic.c_str(), "clear", true);
 			bootstrapManager.publish(obstructionStatusTopic.c_str(), "clear", true);
 		}
 	}
@@ -408,7 +356,6 @@ void sendDoorStatus(){
 	Serial.println(doorState);
 
 	if(isConfigFileOk){
-		bootstrapManager.publish(overallStatusTopic.c_str(), doorState.c_str(), true);
 		bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
 	}
 }
@@ -429,7 +376,7 @@ void manageDisconnections(){
 
 /********************************** MQTT SUBSCRIPTIONS *****************************************/
 void manageQueueSubscription(){
-	bootstrapManager.subscribe(doorCommandTopic.c_str());
+	bootstrapManager.subscribe(commandTopic.c_str());
 	bootstrapManager.subscribe(setCounterTopic.c_str());
 	Serial.print("Subscribed to ");
 	Serial.println(doorCommandTopic);
@@ -452,14 +399,6 @@ void callback(char *topic, byte *payload, unsigned int length){
 		Serial.print("MQTT Set rolling code counter ");
 		Serial.println(rollingCodeCounter);
 		writeCounterToFlash();
-
-		if(rollingCodeCounter == 0){
-			Serial.println("Disabling rolling codes");
-			useRollingCodes = false;
-		}else{
-			Serial.println("Enabling rolling codes");
-			useRollingCodes = true;
-		}
 	}
 
 	if(strcmp(topic,doorCommandTopic.c_str()) == 0){
@@ -471,7 +410,16 @@ void callback(char *topic, byte *payload, unsigned int length){
 		}else if (doorCommand == "close"){
 			Serial.println("MQTT: close the door");
 			closeDoor();
-		}else if (doorCommand == "light"){
+		}else if (doorCommand == "stop"){
+			Serial.println("MQTT: stop the door");
+			stopDoor();
+		}
+	}
+
+	if(strcmp(topic,lightCommandTopic.c_str()) == 0){
+		lightCommand = (String)json[VALUE];
+
+		if (doorCommand == "light"){
 			Serial.println("MQTT: toggle the light");
 			toggleLight();
 		}else if (doorCommand == "sync"){
@@ -504,8 +452,6 @@ void transmit(byte* payload, unsigned int length){
 }
 
 void sync(){
-	if(!useRollingCodes) return;
-
 	getRollingCode("reboot1");
 	transmit(txRollingCode,CODE_LENGTH);
 	delay(45);
@@ -542,28 +488,7 @@ void openDoor(){
 
 	doorState = "opening"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
-	if(useRollingCodes){
-		getRollingCode("door1");
-		transmit(txRollingCode,CODE_LENGTH);
-
-		delay(40);
-
-		getRollingCode("door2");
-		transmit(txRollingCode,CODE_LENGTH);
-
-		writeCounterToFlash();
-	}else{
-		for(int i=0; i<4; i++){
-			Serial.print("sync_code[");
-			Serial.print(i);
-			Serial.println("]");
-
-			transmit(SYNC_CODE[i],CODE_LENGTH);
-			delay(45);
-		}
-		Serial.println("door_code");
-		transmit(DOOR_CODE,CODE_LENGTH);
-	}
+	toggleDoor();
 }
 
 void closeDoor(){
@@ -575,45 +500,32 @@ void closeDoor(){
 
 	doorState = "closing"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
-	if(useRollingCodes){
-		getRollingCode("door1");
-		transmit(txRollingCode,CODE_LENGTH);
+	toggleDoor();
+}
 
-		delay(40);
-
-		getRollingCode("door2");
-		transmit(txRollingCode,CODE_LENGTH);
-		
-		writeCounterToFlash();
+void stopDoor(){
+	if(doorState == "opening" || doorState == "closing"){
+		toggleDoor();
 	}else{
-		for(int i=0; i<4; i++){
-			Serial.print("sync_code[");
-			Serial.print(i);
-			Serial.println("]");
-
-			transmit(SYNC_CODE[i],CODE_LENGTH);
-			delay(45);
-		}
-		Serial.println("door_code");
-		transmit(DOOR_CODE,CODE_LENGTH);
+		Serial.print("The door is not moving.");
 	}
 }
 
-void toggleLight(){
-	if(useRollingCodes){
-		getRollingCode("light");
-		transmit(txRollingCode,CODE_LENGTH);
-		writeCounterToFlash();
-	}else{
-		for(int i=0; i<4; i++){
-			Serial.print("sync_code[");
-			Serial.print(i);
-			Serial.println("]");
+void toggleDoor(){
+	getRollingCode("door1");
+	transmit(txRollingCode, CODE_LENGTH);
 
-			transmit(SYNC_CODE[i],CODE_LENGTH);
-			delay(45);
-		}
-		Serial.println("light_code");
-		transmit(LIGHT_CODE,CODE_LENGTH);
-	}
+	delay(40);
+
+	getRollingCode("door2");
+	transmit(txRollingCode, CODE_LENGTH);
+
+	writeCounterToFlash();
+}
+
+
+void toggleLight(){
+	getRollingCode("light");
+	transmit(txRollingCode,CODE_LENGTH);
+	writeCounterToFlash();
 }
