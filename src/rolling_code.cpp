@@ -71,6 +71,9 @@ void getRollingCode(const char *command){
 	}else if(strcmp(command,"light") == 0){
 		fixed = 0x200000000;
 		data = 0x00009281;
+	}else if(strcmp(command,"lock") == 0){
+		fixed = 0x0100000000;
+		data = 0x0000728c;
 	}else{
 		Serial.println("ERROR: Invalid command");
 		return;
