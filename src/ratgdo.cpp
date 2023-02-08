@@ -39,6 +39,9 @@ void setup(){
 	availabilityStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/availability";
 	obstructionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/obstruction";
 	doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/door";
+	lightStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/light";
+	lockStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/lock";
+	
 	rollingCodeTopic = String(mqttTopicPrefix) + deviceName + "/rolling_code_count";
 
 	bootstrapManager.setMQTTWill(availabilityStatusTopic.c_str(),"offline",1,false,true);
@@ -105,12 +108,13 @@ void loop(){
 	}
 
 	obstructionLoop();
-	doorStateLoop();
+	gdoStateLoop();
 	dryContactLoop();
+	statusUpdateLoop();
 }
 
 /*************************** DETECTING THE DOOR STATE ***************************/
-void doorStateLoop(){
+void gdoStateLoop(){
 	static uint32_t msgStart;
 	static bool reading = false;
 	static uint16_t byteCount = 0;
@@ -127,15 +131,15 @@ void doorStateLoop(){
 	if(!swSerial.available()) return;
 	byte serData = swSerial.read();
 
-// if(serData < 0xF) Serial.print("0");
-// Serial.print(serData,HEX);
-
 	if(!reading){
+		// shift serial byte onto msg start
 		msgStart <<= 8;
-		msgStart |= serData;//swSerial.read();
+		msgStart |= serData;
 
+		// truncate to 3 bytes
 		msgStart &= 0x00FFFFFF;
 
+		// if we are at the start of a message, capture the next 16 bytes
 		if(msgStart == 0x550100){
 			byteCount = 3;
 			rxRollingCode[0] = 0x55;
@@ -148,7 +152,7 @@ void doorStateLoop(){
 	}
 
 	if(reading){
-		rxRollingCode[byteCount] = serData;//swSerial.read();
+		rxRollingCode[byteCount] = serData;
 		byteCount++;
 
 		if(byteCount == 19){
@@ -325,7 +329,7 @@ void obstructionDetected(){
 	unsigned long interruptTime = millis();
 	// Anything less than 100ms is a bounce and is ignored
 	if(interruptTime - lastInterruptTime > 250){
-		doorIsObstructed = true;
+		obstructionState = "obstructed";
 		digitalWrite(STATUS_OBST,HIGH);
 
 		Serial.println("Obstruction Detected");
@@ -338,8 +342,8 @@ void obstructionDetected(){
 }
 
 void obstructionCleared(){
-	if(doorIsObstructed){
-		doorIsObstructed = false;
+	if(strcmp(obstructionState.c_str(),"obstructed") == 0){
+		obstructionState = "clear";
 		digitalWrite(STATUS_OBST,LOW);
 
 		Serial.println("Obstruction Cleared");
@@ -350,12 +354,47 @@ void obstructionCleared(){
 	}
 }
 
+/*************************** STATUS UPDATES ***************************/
+void statusUpdateLoop(){
+	static String previousDoorState = "unknown";
+	static String previousLightState = "unknown";
+	static String previousLockState = "unknown";
+	static String previousObstructionState = "unknown";
+
+	if(doorState != previousDoorState) sendDoorStatus();
+	if(lightState != previousLightState) sendLightStatus();
+	if(lockState != previousLockState) sendLockStatus();
+
+	previousDoorState = doorState;
+	previousLightState = lightState;
+	previousLockState = lockState;
+	previousObstructionState = obstructionState;
+}
+
 void sendDoorStatus(){
 	Serial.print("Door state ");
 	Serial.println(doorState);
 
 	if(isConfigFileOk){
 		bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
+	}
+}
+
+void sendLightStatus(){
+	Serial.print("Light state ");
+	Serial.println(lightState);
+
+	if(isConfigFileOk){
+		bootstrapManager.publish(lightStatusTopic.c_str(), lightState.c_str(), true);
+	}
+}
+
+void sendLockStatus(){
+	Serial.print("Lock state ");
+	Serial.println(lockState);
+
+	if(isConfigFileOk){
+		bootstrapManager.publish(lockStatusTopic.c_str(), lockState.c_str(), true);
 	}
 }
 
@@ -378,7 +417,8 @@ void manageQueueSubscription(){
 	bootstrapManager.subscribe(commandTopic.c_str());
 	bootstrapManager.subscribe(setCounterTopic.c_str());
 	Serial.print("Subscribed to ");
-	Serial.println(doorCommandTopic);
+	Serial.println(commandTopic);
+	Serial.println(setCounterTopic);
 }
 
 /********************************** MANAGE HARDWARE BUTTON *****************************************/
@@ -400,35 +440,64 @@ void callback(char *topic, byte *payload, unsigned int length){
 		writeCounterToFlash();
 	}
 
-	if(strcmp(topic,doorCommandTopic.c_str()) == 0){
-		doorCommand = (String)json[VALUE];
+	String command = (String)json[VALUE];
+	if(command == "query"){
+		Serial.println("MQTT: query");
 
-		if (doorCommand == "open"){
+		getRollingCode("reboot2");
+		transmit(txRollingCode,CODE_LENGTH);
+		delay(100);
+
+		doorState = "unknown";
+		lightState = "unknown";
+		lockState = "unknown";
+		obstructionState = "unknown";
+	}
+
+	if(command == "sync"){
+		Serial.println("MQTT: sync");
+		sync();
+	}
+
+	if(strcmp(topic,doorCommandTopic.c_str()) == 0){
+		if (command == "open"){
 			Serial.println("MQTT: open the door");
 			openDoor();
-		}else if (doorCommand == "close"){
+		}else if (command == "close"){
 			Serial.println("MQTT: close the door");
 			closeDoor();
-		}else if (doorCommand == "stop"){
+		}else if (command == "stop"){
 			Serial.println("MQTT: stop the door");
 			stopDoor();
+		}else{
+			Serial.print("Unknown command: ");
+			Serial.println(command);
 		}
 	}
 
 	if(strcmp(topic,lightCommandTopic.c_str()) == 0){
-		lightCommand = (String)json[VALUE];
-
-		if (doorCommand == "light"){
-			Serial.println("MQTT: toggle the light");
-			toggleLight();
-		}else if (doorCommand == "sync"){
-			Serial.println("MQTT: sync");
-			sync();
-		}else if(doorCommand == "query"){
-			Serial.println("MQTT: query");
-			sendDoorStatus();
+		if (command == "on"){
+			Serial.println("MQTT: turn the light on");
+			lightOn();
+		}else if(command = "off"){
+			Serial.println("MQTT: turn the light off");
+			lightOff();
 		}else{
-			Serial.println("Unknown mqtt command, ignoring");
+			Serial.print("Unknown command: ");
+			Serial.println(command);
+		}
+	}
+
+	if(strcmp(topic,lockCommandTopic.c_str()) == 0){
+		if (command == "lock"){
+			Serial.println("MQTT: lock");
+			lock();
+		}else if(command == "unlock"){
+			Serial.println("MQTT: unlock");
+			unlock();
+		}else{
+			Serial.print("Unknown command: ");
+			Serial.println(command);
 		}
 	}
 }
@@ -453,27 +522,27 @@ void transmit(byte* payload, unsigned int length){
 void sync(){
 	getRollingCode("reboot1");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	getRollingCode("reboot2");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	getRollingCode("reboot3");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	getRollingCode("reboot4");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	getRollingCode("reboot5");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	getRollingCode("reboot6");
 	transmit(txRollingCode,CODE_LENGTH);
-	delay(45);
+	delay(65);
 
 	writeCounterToFlash();
 }
@@ -522,9 +591,44 @@ void toggleDoor(){
 	writeCounterToFlash();
 }
 
+void lightOn(){
+	if(lightState == "on"){
+		Serial.println("already on");
+	}else{
+		toggleLight();
+	}
+}
+
+void lightOff(){
+	if(lightState == "off"){
+		Serial.println("already off");
+	}else{
+		toggleLight();
+	}
+}
 
 void toggleLight(){
 	getRollingCode("light");
+	transmit(txRollingCode,CODE_LENGTH);
+	writeCounterToFlash();
+}
+
+void lock(){
+	if(lockState == "locked"){
+		Serial.println("already locked");
+	}else{
+		toggleLock();
+	}
+}
+void unlock(){
+	if(lockState == "unlocked"){
+		Serial.println("already unlocked");
+	}else{
+		toggleLock();
+	}
+}
+void toggleLock(){
+	getRollingCode("lock");
 	transmit(txRollingCode,CODE_LENGTH);
 	writeCounterToFlash();
 }

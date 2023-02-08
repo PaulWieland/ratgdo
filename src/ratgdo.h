@@ -43,21 +43,21 @@ String availabilityStatusTopic = ""; // will be mqttTopicPrefix/deviceName/statu
 String commandTopic = "";     // will be mqttTopicPrefix/deviceName/command/#
 
 String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command/door
-String doorCommand = "";      // accepts [open|close|stop]
+                              // accepts [open|close|stop]
 String doorStatusTopic = "";  // will be mqttTopicPrefix/deviceName/status/door
 String doorState = "unknown";
 String doorStates[6] = {"unknown","open","closed","stopped","opening","closing"};
 
 
 String lightCommandTopic = "";// will be mqttTopicPrefix/deviceName/command/light
-String lightCommand = "";     // accepts [on|off]
+                              // accepts [on|off]
 String lightStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/light
 String lightState = "unknown";
 String lightStates[2] = {"off","on"};
 
 
 String lockCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command/lock
-String lockCommand = "";      // accepts [lock|unlock]
+                              // accepts [lock|unlock]
 String lockStatusTopic = "";  // will be mqttTopicPrefix/deviceName/status/lock
 String lockState = "unknown";
 String lockStates[2] = {"unlocked","locked"};
@@ -78,7 +78,7 @@ byte rxRollingCode[CODE_LENGTH];
 unsigned int obstructionLowCount = 0;  // count obstruction low pulses
 unsigned long lastObstructionHigh = 0;  // count time between high pulses from the obst ISR
 
-bool doorIsObstructed = false;
+
 bool dryContactDoorOpen = false;
 bool dryContactDoorClose = false;
 bool dryContactToggleLight = false;
@@ -91,19 +91,30 @@ void manageHardwareButton();
 
 void transmit(byte* payload, unsigned int length);
 void sync();
+
+void toggleDoor();
 void openDoor();
 void closeDoor();
 void stopDoor();
-void toggleDoor();
+
 void toggleLight();
+void lightOn();
+void lightOff();
+
+void toggleLock();
+void lock();
+void unlock();
 
 void obstructionLoop();
 void obstructionDetected();
 void obstructionCleared();
 
+void statusUpdateLoop();
 void sendDoorStatus();
+void sendLightStatus();
+void sendLockStatus();
 
-void doorStateLoop();
+void gdoStateLoop();
 void dryContactLoop();
 
 /********************************** INTERRUPT SERVICE ROUTINES ***********************************/
