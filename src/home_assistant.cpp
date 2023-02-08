@@ -2,7 +2,7 @@
 
 String uniqueID;
 
-void ha_autodiscovery_setup(BootstrapManager * bootstrapManager){
+void ha_autodiscovery_setup(BootstrapManager *bootstrapManager){
 	uniqueID = deviceName + "_" + WiFi.macAddress();
 
 	ha_autodiscovery_door(bootstrapManager);
@@ -37,7 +37,7 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
 	bootstrapManager->publish(topic.c_str(), payload, true);
 }
 
-void ha_autodiscovery_light(BootstrapManager * bootstrapManager){
+void ha_autodiscovery_light(BootstrapManager *bootstrapManager){
 	String topic = haDiscoveryPrefix + "/button/"+ deviceName +"/config";
 	JsonObject payload = bootstrapManager->getJsonObject();
 
