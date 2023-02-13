@@ -33,6 +33,62 @@ void writeCounterToFlash(){
 	Serial.println("Write successful");
 }
 
+// returns true if status changes
+void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &obstruction){
+
+	uint32_t rolling = 0;
+	uint64_t fixed = 0;
+	uint32_t data = 0;
+
+	uint16_t cmd = 0;
+	uint8_t nibble = 0;
+	uint8_t byte1 = 0;
+	uint8_t byte2 = 0;
+
+	decode_wireline(rxRollingCode, &rolling, &fixed, &data);
+
+	cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);
+			
+	nibble = (data >> 8) & 0xf;
+	byte1 = (data >> 16) & 0xff;
+	byte2 = (data >> 24) & 0xff;
+
+	printRollingCode(rxRollingCode);
+	Serial.print(" cmd: ");
+	Serial.print(cmd,HEX);
+	Serial.print(" rolling: ");
+	Serial.print(rolling,HEX);
+	Serial.print(" fixed: ");
+	Serial.print(fixed,HEX);
+	Serial.print(" data: ");
+	Serial.print(data,HEX);
+
+	if(cmd == 0x81){
+		door = nibble;
+		light = (byte2 >> 1) & 1;
+		lock = byte2 & 1;
+		obstruction = (byte1 >> 6) & 1;
+
+		Serial.print(" | STATUS:");
+		Serial.print(" door:");
+		Serial.print(nibble);
+		Serial.print(" light:");
+		Serial.print((byte2 >> 1) & 1);
+		Serial.print(" lock:");
+		Serial.print((byte2 & 1));
+		Serial.print(" obs:");
+		Serial.print((byte1 >> 6) & 1);
+
+	}else if(cmd == 0x281){
+		light ^= 1; // toggle bit
+
+		Serial.print(" | LIGHT:");
+		Serial.print(light);
+	}
+
+	Serial.println("");
+}
+
 void getRollingCode(const char *command){
 	Serial.print("rolling code for ");
 	Serial.print(rollingCodeCounter);
@@ -84,6 +140,7 @@ void getRollingCode(const char *command){
 	encode_wireline(rollingCodeCounter, fixed, data, txRollingCode);
 
 	printRollingCode(txRollingCode);
+	Serial.println("");
 
 	if(strcmp(command,"door1") != 0){ // door2 is created with same counter and should always be called after door1
 		rollingCodeCounter = (rollingCodeCounter + 1) & 0xfffffff;
@@ -96,5 +153,4 @@ void printRollingCode(byte code[CODE_LENGTH]){
 		if(code[i] <= 0x0f) Serial.print("0");
 		Serial.print(code[i],HEX);
 	}
-	Serial.println("");
 }
