@@ -115,21 +115,12 @@ void loop(){
 
 /*************************** DETECTING THE DOOR STATE ***************************/
 void gdoStateLoop(){
+	if(!swSerial.available()) return;
+	uint8_t serData = swSerial.read();
+
 	static uint32_t msgStart;
 	static bool reading = false;
 	static uint16_t byteCount = 0;
-
-	uint32_t rolling = 0;
-	uint64_t fixed = 0;
-	uint32_t data = 0;
-
-	uint16_t cmd = 0;
-	uint8_t nibble = 0;
-	uint8_t byte1 = 0;
-	uint8_t byte2 = 0;
-
-	if(!swSerial.available()) return;
-	byte serData = swSerial.read();
 
 	if(!reading){
 		// shift serial byte onto msg start
@@ -159,52 +150,8 @@ void gdoStateLoop(){
 			reading = false;
 			msgStart = 0;
 			byteCount = 0;
-			decode_wireline(rxRollingCode, &rolling, &fixed, &data);
 
-			cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);
-			
-			nibble = (data >> 8) & 0xf;
-			byte1 = (data >> 16) & 0xff;
-			byte2 = (data >> 24) & 0xff;
-
-			if(cmd == 0x81){
-				doorState = doorStates[nibble];
-				lightState = lightStates[(byte2 >> 1) & 1];
-				lockState = lockStates[byte2 & 1];
-				obstructionState = obstructionStates[(byte1 >> 6) & 1];
-
-				Serial.print("STATUS: ");
-				Serial.print(" ");
-				Serial.print(doorState);
-				Serial.print(" light");
-				Serial.print(lightState);
-				Serial.print(" ");
-				Serial.print(lockState);
-				Serial.print(" ");
-				Serial.print(obstructionState);
-				Serial.println();
-			}else if(cmd == 0x281){
-				if(lightState == lightStates[0]){
-					lightState = lightStates[1];
-				}else{
-					lightState = lightStates[0];
-				}
-				Serial.print(" light");
-				Serial.print(lightState);
-			}
-
-			Serial.print("cmd: ");
-			Serial.print(cmd,HEX);
-			Serial.print(" rolling: ");
-			Serial.print(rolling,HEX);
-			Serial.print(" fixed: ");
-			Serial.print(fixed,HEX);
-			Serial.print(" data: ");
-			Serial.print(data,HEX);
-
-			Serial.print(" code: ");
-			printRollingCode(rxRollingCode);
-
+			readRollingCode(rxRollingCode, doorState, lightState, lockState, obstructionState);
 		}
 	}
 }
@@ -307,13 +254,15 @@ void obstructionLoop(){
 	if(currentMillis - lastMillis > 25){
 		// check to see if we got between 3 and 5 low pulses on the line
 		if(obstructionLowCount >= 3 && obstructionLowCount <= 5){
-			obstructionCleared();
+			// obstructionCleared();
+			obstructionState = 1;
 
 		// if there have been no pulses the line is steady high or low			
 		}else if(obstructionLowCount == 0){
 			// if the line is high and the last high pulse was more than 50ms ago, then there is an obstruction present
 			if(digitalRead(INPUT_OBST) && currentMillis - lastObstructionHigh > 50){
-				obstructionDetected();
+				obstructionState = 0;
+				// obstructionDetected();
 			}else{
 				// asleep
 			}
@@ -324,46 +273,18 @@ void obstructionLoop(){
 	}
 }
 
-void obstructionDetected(){
-	static unsigned long lastInterruptTime = 0;
-	unsigned long interruptTime = millis();
-	// Anything less than 100ms is a bounce and is ignored
-	if(interruptTime - lastInterruptTime > 250){
-		obstructionState = "obstructed";
-		digitalWrite(STATUS_OBST,HIGH);
-
-		Serial.println("Obstruction Detected");
-
-		if(isConfigFileOk){
-			bootstrapManager.publish(obstructionStatusTopic.c_str(), "obstructed", true);
-		}
-	}
-	lastInterruptTime = interruptTime;
-}
-
-void obstructionCleared(){
-	if(strcmp(obstructionState.c_str(),"obstructed") == 0){
-		obstructionState = "clear";
-		digitalWrite(STATUS_OBST,LOW);
-
-		Serial.println("Obstruction Cleared");
-
-		if(isConfigFileOk){
-			bootstrapManager.publish(obstructionStatusTopic.c_str(), "clear", true);
-		}
-	}
-}
-
 /*************************** STATUS UPDATES ***************************/
 void statusUpdateLoop(){
-	static String previousDoorState = "unknown";
-	static String previousLightState = "unknown";
-	static String previousLockState = "unknown";
-	static String previousObstructionState = "unknown";
+	// initialize to unknown
+	static uint8_t previousDoorState = 0;
+	static uint8_t previousLightState = 2;
+	static uint8_t previousLockState = 2;
+	static uint8_t previousObstructionState = 2;
 
 	if(doorState != previousDoorState) sendDoorStatus();
 	if(lightState != previousLightState) sendLightStatus();
 	if(lockState != previousLockState) sendLockStatus();
+	if(obstructionState != previousObstructionState) sendObstructionStatus();
 
 	previousDoorState = doorState;
 	previousLightState = lightState;
@@ -373,28 +294,43 @@ void statusUpdateLoop(){
 
 void sendDoorStatus(){
 	Serial.print("Door state ");
-	Serial.println(doorState);
+	Serial.println(doorStates[doorState]);
 
+	if(doorState == 1) digitalWrite(STATUS_DOOR, HIGH); // Open
+	if(doorState == 2) digitalWrite(STATUS_DOOR, LOW); // Closed
+	
 	if(isConfigFileOk){
-		bootstrapManager.publish(doorStatusTopic.c_str(), doorState.c_str(), true);
+		bootstrapManager.publish(doorStatusTopic.c_str(), doorStates[doorState].c_str(), true);
 	}
 }
 
 void sendLightStatus(){
 	Serial.print("Light state ");
-	Serial.println(lightState);
+	Serial.println(lightStates[lightState]);
 
 	if(isConfigFileOk){
-		bootstrapManager.publish(lightStatusTopic.c_str(), lightState.c_str(), true);
+		bootstrapManager.publish(lightStatusTopic.c_str(), lightStates[lightState].c_str(), true);
 	}
 }
 
 void sendLockStatus(){
 	Serial.print("Lock state ");
-	Serial.println(lockState);
+	Serial.println(lockStates[lockState]);
 
 	if(isConfigFileOk){
-		bootstrapManager.publish(lockStatusTopic.c_str(), lockState.c_str(), true);
+		bootstrapManager.publish(lockStatusTopic.c_str(), lockStates[lockState].c_str(), true);
+	}
+}
+
+void sendObstructionStatus(){
+	Serial.print("Obstruction status ");
+	Serial.println(obstructionStates[obstructionState]);
+
+	if(obstructionState == 0) digitalWrite(STATUS_OBST,HIGH); // obstructed
+	if(obstructionState == 1) digitalWrite(STATUS_OBST,LOW); // clear
+
+	if(isConfigFileOk){
+		bootstrapManager.publish(obstructionStatusTopic.c_str(), obstructionStates[obstructionState].c_str(), true);
 	}
 }
 
@@ -448,10 +384,11 @@ void callback(char *topic, byte *payload, unsigned int length){
 		transmit(txRollingCode,CODE_LENGTH);
 		delay(100);
 
-		doorState = "unknown";
-		lightState = "unknown";
-		lockState = "unknown";
-		obstructionState = "unknown";
+		// Set all to unknown
+		doorState = 0;
+		lightState = 2;
+		lockState = 2;
+		obstructionState = 2;
 	}
 
 	if(command == "sync"){
@@ -547,32 +484,29 @@ void sync(){
 	writeCounterToFlash();
 }
 
+// Door functions
 void openDoor(){
-	if(doorState == "open" || doorState == "opening"){
+	if(doorStates[doorState] == "open" || doorStates[doorState] == "opening"){
 		Serial.print("The door is already ");
-		Serial.println(doorState);
+		Serial.println(doorStates[doorState]);
 		return;
 	}
-
-	doorState = "opening"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
 	toggleDoor();
 }
 
 void closeDoor(){
-	if(doorState == "closed" || doorState == "closing"){
+	if(doorStates[doorState] == "closed" || doorStates[doorState] == "closing"){
 		Serial.print("The door is already ");
-		Serial.println(doorState);
+		Serial.println(doorStates[doorState]);
 		return;
 	}
-
-	doorState = "closing"; // It takes a couple of pulses to detect opening/closing. by setting here, we can avoid bouncing from rapidly repeated commands
 
 	toggleDoor();
 }
 
 void stopDoor(){
-	if(doorState == "opening" || doorState == "closing"){
+	if(doorStates[doorState] == "opening" || doorStates[doorState] == "closing"){
 		toggleDoor();
 	}else{
 		Serial.print("The door is not moving.");
@@ -591,8 +525,9 @@ void toggleDoor(){
 	writeCounterToFlash();
 }
 
+// Light functions
 void lightOn(){
-	if(lightState == "on"){
+	if(lightStates[lightState] == "on"){
 		Serial.println("already on");
 	}else{
 		toggleLight();
@@ -600,7 +535,7 @@ void lightOn(){
 }
 
 void lightOff(){
-	if(lightState == "off"){
+	if(lightStates[lightState] == "off"){
 		Serial.println("already off");
 	}else{
 		toggleLight();
@@ -613,20 +548,23 @@ void toggleLight(){
 	writeCounterToFlash();
 }
 
+// Lock functions
 void lock(){
-	if(lockState == "locked"){
+	if(lockStates[lockState] == "locked"){
 		Serial.println("already locked");
 	}else{
 		toggleLock();
 	}
 }
+
 void unlock(){
-	if(lockState == "unlocked"){
+	if(lockStates[lockState] == "unlocked"){
 		Serial.println("already unlocked");
 	}else{
 		toggleLock();
 	}
 }
+
 void toggleLock(){
 	getRollingCode("lock");
 	transmit(txRollingCode,CODE_LENGTH);
