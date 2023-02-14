@@ -35,6 +35,7 @@ void writeCounterToFlash(){
 
 // returns true if status changes
 void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &obstruction){
+	// static bool skip = false;
 
 	uint32_t rolling = 0;
 	uint64_t fixed = 0;
@@ -67,7 +68,12 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 		door = nibble;
 		light = (byte2 >> 1) & 1;
 		lock = byte2 & 1;
-		obstruction = (byte1 >> 6) & 1;
+
+		// if(skip){
+		// 	skip = false;
+		// }else{
+			obstruction = (byte1 >> 6) & 1;
+		// }
 
 		Serial.print(" | STATUS:");
 		Serial.print(" door:");
@@ -84,6 +90,9 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 
 		Serial.print(" | LIGHT:");
 		Serial.print(light);
+	}else if(cmd == 0x84){
+		obstruction = 0;
+		// skip = true;
 	}
 
 	Serial.println("");
