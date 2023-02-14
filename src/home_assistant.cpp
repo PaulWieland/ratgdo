@@ -19,7 +19,7 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
     payload["unique_id"] = uniqueID;
     payload["availability_topic"] = "~/status/availability";
     payload["device_class"] = "garage";
-    payload["command_topic"] = "~/command";
+    payload["command_topic"] = "~/command/door";
     payload["payload_open"] = "open";
     payload["payload_close"] = "close";
     payload["payload_stop"] = "stop";
@@ -38,15 +38,17 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
 }
 
 void ha_autodiscovery_light(BootstrapManager *bootstrapManager){
-	String topic = haDiscoveryPrefix + "/button/"+ deviceName +"/config";
+	String topic = haDiscoveryPrefix + "/light/"+ deviceName +"/config";
 	JsonObject payload = bootstrapManager->getJsonObject();
 
 	payload["~"] = mqttTopicPrefix + deviceName;
 	payload["name"] = deviceName + " Light";
 	payload["unique_id"] = uniqueID + "_light";
 	payload["availability_topic"] = "~/status/availability";
-    payload["command_topic"] = "~/command";
-    payload["payload_press"] = "light";
+    payload["command_topic"] = "~/command/light";
+    payload["payload_on"] = "on";
+	payload["payload_off"] = "off";
+	payload["state_topic"] = "~/status/light";
 
 	JsonObject device = payload.createNestedObject("device");
 	device["name"] = deviceName;
