@@ -26,7 +26,7 @@ SoftwareSerial swSerial;
 BootstrapManager bootstrapManager;
 
 /********************************** PIN DEFINITIONS *****************************************/
-#define INPUT_GDO D1 // RPM2 rotary encoder input OR not used if using reed switch
+#define INPUT_GDO D1 // 
 #define OUTPUT_GDO D4 // red control terminal / GarageDoorOpener (UART1 TX) pin is D4 on D1 Mini
 #define TRIGGER_OPEN D5 // dry contact for opening door
 #define TRIGGER_CLOSE D6 // dry contact for closing door

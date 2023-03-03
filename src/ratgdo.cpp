@@ -352,9 +352,6 @@ void manageDisconnections(){
 void manageQueueSubscription(){
 	bootstrapManager.subscribe(commandTopic.c_str());
 	bootstrapManager.subscribe(setCounterTopic.c_str());
-	Serial.print("Subscribed to ");
-	Serial.println(commandTopic);
-	Serial.println(setCounterTopic);
 }
 
 /********************************** MANAGE HARDWARE BUTTON *****************************************/
