@@ -1,3 +1,7 @@
+# ORDER
+* Buy [ratgdo v2.0 shield only](https://square.link/u/xNP2Orez) $15
+* Buy [ratgdo v2.0 shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
+
 TOC
 * [Main](index.md)
 * [Features](01_features.md)
@@ -8,12 +12,8 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 # Quick Start
-
-* Buy [ratgdo shield only](https://square.link/u/xNP2Orez) $15
-* Buy [ratgdo shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
 * [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
-* [Soldered Wiring Diagram](https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png) & [Logic Board](https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png) <br/> <a href="https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png"><img src="https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png" alt="soldered wiring diagram" width="75"/></a> <a href="https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png"><img src="https://user-images.githubusercontent.com/4663918/177995941-b4989feb-de96-4f7a-a4cd-569aabcb7b94.png" alt="logic board" width="75"/></a><a href="https://user-images.githubusercontent.com/4663918/210647184-d28e5971-2dfa-4b5c-a147-2af85a5eda86.png"><img src="https://user-images.githubusercontent.com/4663918/210647184-d28e5971-2dfa-4b5c-a147-2af85a5eda86.png" alt="logic board" width="75"/></a>
-* [Solder Free Wiring Diagram](https://user-images.githubusercontent.com/4663918/217019299-372ad9b1-4a2d-43e1-bc8b-3a1607741f33.png) <br/><a href="https://user-images.githubusercontent.com/4663918/217019299-372ad9b1-4a2d-43e1-bc8b-3a1607741f33.png"><img src="https://user-images.githubusercontent.com/4663918/217019299-372ad9b1-4a2d-43e1-bc8b-3a1607741f33.png" alt="logic board" width="75"/></a>
+* [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png) <br/><a href="https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png"><img src="https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png" alt="logic board" width="75"/></a>
 
 # About ratgdo 
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
@@ -22,11 +22,19 @@ ratgdo is a hardware shield (circuit board) & firmware for the ESP8266 based Wem
 
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
 
+## Version 2.0
+Version 2.0 eliminates the need to solder to your garage door's logic board. It works with all Security + 2.0 openers, including 45 series logic boards. 
+
+Version 2.0 also provides discrete light on/off commands.
+
+
+
 > **ratgdo shields available to order**
 > Shields are available and shipping domestic USA via USPS.
+> Shipping to Canada is also available, but costs $14.
 >
-> * [ratgdo shield only](https://square.link/u/xNP2Orez) $15
-> * [ratgdo shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
+> * [ratgdo v2.0 shield only](https://square.link/u/xNP2Orez) $15
+> * [ratgdo v2.0 shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
 
 ![image](https://user-images.githubusercontent.com/4663918/177624921-042e4da7-b284-43e8-84e4-b950a0d34840.png)
 

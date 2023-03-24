@@ -8,18 +8,29 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 ## Features
-The door opener has a rotary encoder built into it which allows the opener to know the exact position of the door. By soldering two wires to the logic board, ratgdo can monitor this rotary encoder so that it knows the exact state of the door.
+Version 2 of the shield supports detecting the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Signal and Obstruction) are connected to the terminal 
 
-For those that do not want to solder, there is an option to use an external reed switch which will give a less detailed binary status of either reed_open or reed_closed. See *[Wiring](03_wiring.md)* section.
+See [v1 Features](01_features_v1.md) if you have a an original ratgdo shield with a blue printed circuit board.
 
 ### MQTT
+
+#### Home Assistant Auto Discovery
+If you are using Home Assistant and have an MQTT broker setup, then HA will automatically discover ratgdo's door, light and obstruction sensors after it boots up.
+
+When ratgdo boots up after being configured, it broadcasts the necessary discovery messages that tell Home Assistant what it is and how to communicate with it.
+
+See [Home Assistant](05_homeassistant_example.md) for more information.
+
 #### Triggers
 The following MQTT commands are supported:
 
-* open<sup>2</sup> - opens the door.
-* close<sup>2</sup> - closes the door.
-* light<sup>3</sup> - toggles the light on or off.
-* set_code_counter - sets the rolling code counter. Send a payload with an integer.
+* door/open - opens the door.
+* door/close - closes the door.
+* light/on - turns the light on.
+* light/off - turns the light off.
+* lock/lock - locks out the wiresss remotes.
+* lock/unlock - unlocks the use of wireless remotes.
+* set_code_counter - sets the rolling code counter. Send a payload with an integer. Only needed to restore the rolling code counter if you completely erase the esp8266 flash memory.
 * sync - syncs the rolling code counter with your door opener - must be called after <em>set_code_counter</em> (this also happens whenever rebooting the esp).
 
 ##### Examples
@@ -31,8 +42,8 @@ If:
 
 Then:
 
-* mqtt.topic = "home/garage/My Garage Door/command/open" - opens the door
-* mqtt.topic = "home/garage/My Garage Door/command/close" - closes the door
+* mqtt.topic = "home/garage/My Garage Door/command/door/open" - opens the door
+* mqtt.topic = "home/garage/My Garage Door/command/door/close" - closes the door
 * mqtt.topic = "home/garage/My Garage Door/command/set_code_counter"; mqtt.payload = 537; - sets the rolling code counter to 537
 * mqtt.topic = "home/garage/My Garage Door/command/sync" - syncs the current rolling code counter with the garage door. 
 
@@ -41,41 +52,40 @@ Then:
 #### Statuses
 The following statuses are broadcast over MQTT:
 
-* online - once ratgdo connects to the MQTT broker.
-* offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.
-* obstructed - when an object breaks the obstruction sensor beam.
-* clear - when an obstruction is cleared.
-* opening<sup>1</sup> - when the door is opening.
-* open<sup>1</sup> - when the door is fully open.
-* closing<sup>1</sup> - when the door is closing.
-* closed<sup>1</sup> - when the door is fully closed.
-* reed_closed<sup>5</sup> - the reed switch is open (magnet is near the switch).
-* reed_open<sup>5</sup> - the reed switch is closed (magnet is not near the switch).
-
+* prefix/status/availability
+ * online - once ratgdo connects to the MQTT broker.
+ * offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.
+* prefix/status/obstruction
+ * obstructed - when an object breaks the obstruction sensor beam.
+ * clear - when an obstruction is cleared.
+* prefix/status/door
+ * opening - when the door is opening.
+ * open - when the door is fully open.
+ * closing - when the door is closing.
+ * closed - when the door is fully closed.
+* prefix/status/light
+ * on - when the light is on
+ * off - when the light is off
+* prefix/status/lock
+ * locked - when the door opener is locked
+ * unlocked - when unlocked
 
 ### Dry contacts
 
 #### Triggers
-The following dry contact triggers on the ratgdo shield are at 3.3v<sup>4</sup> and can be pulled to ground to trigger the door opener as follows:
+The following dry contact triggers on the ratgdo shield are at 3.3v<sup>2</sup> and can be pulled to ground to trigger the door opener as follows:
 
-* open<sup>2</sup> - opens the door.
-* close<sup>2</sup> - closes the door.
-* light<sup>3</sup> - toggles the light on or off.
-
-If you do not want to use the discrete open/close dry contacts and wish to have a toggle instead, then simply connect your switch/relay to both the open & close terminals on the ratgdo shield.
+* open<sup>1</sup> - opens the door.
+* close<sup>1</sup> - closes the door.
+* light - toggles the light on or off.
 
 #### Statuses
 The following dry contact statuses are available:
 
-* door - 
-  * When using a reed switch: 3.3v if the reed switch is closed, 0v if the reed switch is open.
-  * When using the door's rotary encoder: 3.3v if the door is open, 0v if the door is closed.
-* obs - 3.3v if an obstruction is detected. 0v if no obstruction.
+* door - pulled to ground if the door is open, open circuit if closed.
+* obs - pulled to ground if the door is obstructed, open circuit if clear.
 
 
 ### Notes
-1. <sup>1</sup> Only when using the door opener's rotary encoder, which requires soldering to the logic board. See _Soldered Method_ below.
-1. <sup>2</sup> Repeated open commands (or repeated close commands) will be ignored when using the rotary encoder. This gives discrete open/close control over the door which is better than a toggle. This is only reliable when ratgdo knows the doors position, which is only possible when connecting it to the door opener's rotary encoder.
-1. <sup>3</sup> Unfortunately the door opener does not support discrete on/off commands for controlling the light, so the best we can do is toggle it.
-1. <sup>4</sup> Using the ESP8266's internal INPUT_PULLUP resistor.
-1. <sup>5</sup> Not used when using the door opener's rotary encoder.
+1. <sup>1</sup> Repeated open commands (or repeated close commands) will be ignored. This gives discrete open/close control over the door which is better than a toggle.
+1. <sup>2</sup> Using the ESP8266's internal INPUT_PULLUP resistor.
