@@ -48,11 +48,11 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 
 	cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);
 
-	static uint32_t cmdSequence;
+	// static uint32_t cmdSequence;
 
 	// shift cmd onto cmdSequence
-	cmdSequence <<= 8;
-	cmdSequence |= cmd;
+	// cmdSequence <<= 8;
+	// cmdSequence |= cmd;
 
 	// truncate to 3 bytes
 	// cmdSequence &= 0x00FFFFFF;
@@ -62,29 +62,29 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 	byte2 = (data >> 24) & 0xff;
 
 	printRollingCode(rxRollingCode);
-	Serial.print(" cmd: ");
-	Serial.print(cmd,HEX);
-	Serial.print(" rolling: ");
-	Serial.print(rolling,HEX);
-	Serial.print(" fixed: ");
-	Serial.print(fixed,HEX);
-	Serial.print(" data: ");
-	Serial.print(data,HEX);
+	// Serial.print(" cmd: ");
+	// Serial.print(cmd,HEX);
+	// Serial.print(" rolling: ");
+	// Serial.print(rolling,HEX);
+	// Serial.print(" fixed: ");
+	// Serial.print(fixed,HEX);
+	// Serial.print(" data: ");
+	// Serial.print(data,HEX);
 
 	// The sequence of messages are different depending on the length of the obstruction
 	// short obstruction sequence: 84, 85, 81(clr) -> 84, 85, 81(clr)
 	// long obstruction sequence:  84, 85, 81(clr), A1, 84, 85, 81(obs) -> 84, 85, 81(obs), A1, 84, 85, 81(clr)
-	if(cmd == 0x84 && (cmdSequence & 0xFFFF) != 0xA184){
-		Serial.println("toggle");
-		obstruction ^= 1;
-	}else if(cmd == 0x81 && (cmdSequence & 0xFFFFFF) == 0x848581){
-		// do nothing
-	}else
+	// if(cmd == 0x84 && (cmdSequence & 0xFFFF) != 0xA184){
+	// 	Serial.println("toggle");
+	// 	obstruction ^= 1;
+	// }else if(cmd == 0x81 && (cmdSequence & 0xFFFFFF) == 0x848581){
+	// 	// do nothing
+	// }else
 	if(cmd == 0x81){
 		door = nibble;
 		light = (byte2 >> 1) & 1;
 		lock = byte2 & 1;
-		obstruction = (byte1 >> 6) & 1;
+		// obstruction = (byte1 >> 6) & 1;
 
 		Serial.print(" | STATUS:");
 		Serial.print(" door:");
