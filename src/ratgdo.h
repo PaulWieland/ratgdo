@@ -33,7 +33,7 @@ BootstrapManager bootstrapManager;
 #define TRIGGER_LIGHT D3 // dry contact for triggering light (no discrete light commands, so toggle only)
 #define STATUS_DOOR D0 // output door status, HIGH for open, LOW for closed
 #define STATUS_OBST D8 // output for obstruction status, HIGH for obstructed, LOW for clear
-#define INPUT_OBST D7 // black obstruction sensor terminal -> optional for faster obstruction detection
+#define INPUT_OBST D7 // black obstruction sensor terminal
 
 
 /********************************** MQTT TOPICS & Statuses *****************************************/
