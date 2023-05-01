@@ -22,7 +22,7 @@ Things you will need:
 Procedure:
 
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo 2.0 firmware.
-1. Follow this diagram to connect your ratgdo 2.0 shield to your Security + 2.0 door opener <a href="https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png">![image](https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png)</a>
+1. Follow this diagram to connect your ratgdo 2.0 shield to your Security + 2.0 door opener <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
 2. Power the ESP8266 with the USB power brick & cable.
 
 ## Version 1.0 Owners Only:

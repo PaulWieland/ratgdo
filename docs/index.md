@@ -13,7 +13,7 @@ TOC
 
 # Quick Start
 * [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
-* [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png) <br/><a href="https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png"><img src="https://user-images.githubusercontent.com/4663918/227609428-2b0dd693-fa9d-471f-800a-fe557e6957f2.png" alt="logic board" width="75"/></a>
+* [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png) <br/><a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png"><img src="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png" alt="logic board" width="75"/></a>
 
 # About ratgdo 
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
