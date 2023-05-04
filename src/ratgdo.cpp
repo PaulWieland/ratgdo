@@ -96,7 +96,7 @@ void loop(){
 		// Bootsrap loop() with Wifi, MQTT and OTA functions
 		bootstrapManager.bootstrapLoop(manageDisconnections, manageQueueSubscription, manageHardwareButton);
 
-		if(!setupComplete){
+		if(!setupComplete && bootstrapManager.mqttConnected()){
 			setupComplete = true;
 
 			// Send Home Assistant autodiscovery mqtt messages
