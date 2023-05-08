@@ -248,21 +248,18 @@ void obstructionLoop(){
 	// the transitions between awake and asleep are tricky because the voltage drops slowly when falling asleep
 	// and is high without pulses when waking up
 
-	// If 3 low pulses are counted within 25ms, the door is awake, not obstructed and we don't have to check anything else
+	// If at least 3 low pulses are counted within 50ms, the door is awake, not obstructed and we don't have to check anything else
 
-	// Every 25ms
-	// if(currentMillis - lastMillis > 25){
+	// Every 50ms
 	if(currentMillis - lastMillis > 50){
-		// check to see if we got between 3 and 5 low pulses on the line
-		// if(obstructionLowCount >= 3 && obstructionLowCount <= 5){
+		// check to see if we got between 3 and 8 low pulses on the line
 		if(obstructionLowCount >= 3 && obstructionLowCount <= 8){
 			// obstructionCleared();
 			obstructionState = 1;
 
 		// if there have been no pulses the line is steady high or low			
 		}else if(obstructionLowCount == 0){
-			// if the line is high and the last high pulse was more than 50ms ago, then there is an obstruction present
-			// if(digitalRead(INPUT_OBST) && currentMillis - lastObstructionHigh > 50){
+			// if the line is high and the last high pulse was more than 70ms ago, then there is an obstruction present
 			if(digitalRead(INPUT_OBST) && currentMillis - lastObstructionHigh > 70){
 				obstructionState = 0;
 				// obstructionDetected();
