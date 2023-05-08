@@ -348,6 +348,7 @@ void sendCurrentCounter(){
 
 /********************************** MANAGE WIFI AND MQTT DISCONNECTION *****************************************/
 void manageDisconnections(){
+	Serial.println("### MQTT DISCONNECTED ###");
 	setupComplete = false;
 }
 
