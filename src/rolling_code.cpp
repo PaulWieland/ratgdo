@@ -34,7 +34,7 @@ void writeCounterToFlash(){
 }
 
 // returns true if status changes
-void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &obstruction){
+void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &motion, uint8_t &obstruction){
 	uint32_t rolling = 0;
 	uint64_t fixed = 0;
 	uint32_t data = 0;
@@ -84,6 +84,7 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 		door = nibble;
 		light = (byte2 >> 1) & 1;
 		lock = byte2 & 1;
+		motion = 0; // when the status message is read, reset motion state to 0|clear
 		// obstruction = (byte1 >> 6) & 1;
 
 		Serial.print(" | STATUS:");
@@ -102,6 +103,10 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 		Serial.print(" | LIGHT:");
 		Serial.print(light);
 	}else if(cmd == 0x84){
+	}else if(cmd == 0x285){
+		motion ^= 1; // toggle bit
+		Serial.print(" | MOTION:");
+		Serial.print(motion);
 	}
 
 	Serial.println("");

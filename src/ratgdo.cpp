@@ -41,6 +41,7 @@ void setup(){
 	doorStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/door";
 	lightStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/light";
 	lockStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/lock";
+	motionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/motion";
 	
 	rollingCodeTopic = String(mqttTopicPrefix) + deviceName + "/rolling_code_count";
 
@@ -151,7 +152,7 @@ void gdoStateLoop(){
 			msgStart = 0;
 			byteCount = 0;
 
-			readRollingCode(rxRollingCode, doorState, lightState, lockState, obstructionState);
+			readRollingCode(rxRollingCode, doorState, lightState, lockState, motionState, obstructionState);
 		}
 	}
 }
@@ -279,16 +280,19 @@ void statusUpdateLoop(){
 	static uint8_t previousDoorState = 0;
 	static uint8_t previousLightState = 2;
 	static uint8_t previousLockState = 2;
+	static uint8_t previousMotionState = 0;
 	static uint8_t previousObstructionState = 2;
 
 	if(doorState != previousDoorState) sendDoorStatus();
 	if(lightState != previousLightState) sendLightStatus();
 	if(lockState != previousLockState) sendLockStatus();
+	if(motionState != previousMotionState) sendMotionStatus();
 	if(obstructionState != previousObstructionState) sendObstructionStatus();
 
 	previousDoorState = doorState;
 	previousLightState = lightState;
 	previousLockState = lockState;
+	previousMotionState = motionState;
 	previousObstructionState = obstructionState;
 }
 
@@ -319,6 +323,15 @@ void sendLockStatus(){
 
 	if(isConfigFileOk){
 		bootstrapManager.publish(lockStatusTopic.c_str(), lockStates[lockState].c_str(), true);
+	}
+}
+
+void sendMotionStatus(){
+	Serial.print("Motion state ");
+	Serial.println(motionStates[motionState]);
+
+	if(isConfigFileOk){
+		bootstrapManager.publish(motionStatusTopic.c_str(), motionStates[motionState].c_str(), true);
 	}
 }
 
@@ -386,6 +399,7 @@ void callback(char *topic, byte *payload, unsigned int length){
 		doorState = 0;
 		lightState = 2;
 		lockState = 2;
+		motionState = 0;
 		obstructionState = 2;
 	}
 
