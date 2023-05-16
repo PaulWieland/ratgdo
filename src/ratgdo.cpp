@@ -17,7 +17,6 @@
 void setup(){
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
-	// swSerial.begin(9600, SWSERIAL_8N2, INPUT_GDO, OUTPUT_GDO, true);
 	swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
 	
 	Serial.begin(115200); // must remain at 115200 for improv
@@ -85,7 +84,7 @@ void setup(){
 	readCounterFromFlash();
 
 	Serial.println("Syncing rolling code counter after reboot...");
-	sync(); // if rolling codes are being used (rolling code counter > 0), send reboot/sync to the opener on startup
+	sync(); // send reboot/sync to the opener on startup
 
 	delay(500);
 }
@@ -280,19 +279,21 @@ void statusUpdateLoop(){
 	static uint8_t previousDoorState = 0;
 	static uint8_t previousLightState = 2;
 	static uint8_t previousLockState = 2;
-	static uint8_t previousMotionState = 0;
 	static uint8_t previousObstructionState = 2;
 
 	if(doorState != previousDoorState) sendDoorStatus();
 	if(lightState != previousLightState) sendLightStatus();
 	if(lockState != previousLockState) sendLockStatus();
-	if(motionState != previousMotionState) sendMotionStatus();
 	if(obstructionState != previousObstructionState) sendObstructionStatus();
+
+	if(motionState == 1){
+		sendMotionStatus();
+		motionState = 0;
+	}
 
 	previousDoorState = doorState;
 	previousLightState = lightState;
 	previousLockState = lockState;
-	previousMotionState = motionState;
 	previousObstructionState = obstructionState;
 }
 
@@ -333,6 +334,8 @@ void sendMotionStatus(){
 	if(isConfigFileOk){
 		bootstrapManager.publish(motionStatusTopic.c_str(), motionStates[motionState].c_str(), true);
 	}
+
+	motionState = 0; // reset motion state
 }
 
 void sendObstructionStatus(){

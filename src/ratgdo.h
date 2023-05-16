@@ -64,7 +64,7 @@ String lockStates[3] = {"unlocked","locked","unknown"};
 
 String motionStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/motion
 uint8_t motionState = 0;
-String motionStates[3] = {"clear","detected"};
+String motionStates[2] = {"clear","detected"};
 
 String obstructionStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status/obstruction
 uint8_t obstructionState = 2;
