@@ -26,6 +26,6 @@ After the firmware is flashed, the ESP8266 will reboot and attempt to connect to
 * **MQTT Server Port** - Required. The port used for MQTT communication. 1883 is the default port.
 * **MQTT Server Username & Password** - Optional. The Username & Password for authentication to the MQTT broker.
 * **MQTT Topic Prefix** - Required. This is the prefix used for creating the MQTT topic that ratgdo will publish & subscribe to. `TOPIC_PREFIX/DEVICE_NAME/[command|status]`
-    * Example: With Device Name of `Main Door` and a topic prefix of `/home/garage/`, ratgdo will subscribe to mqtt topic `/home/garage/Main Door/command` and it will publish to `/home/garage/Main Door/status`.
+    * Example: With Device Name of `MainDoor` and a topic prefix of `/home/garage/`, ratgdo will subscribe to mqtt topic `/home/garage/MainDoor/command` and it will publish to `/home/garage/MainDoor/status`. <em>Note</em> If you are using Home Assistant, do not put a space or any "illegal" characters in your device name or prefix, otherwise HA will not be able to add the device.
 * **Home Assistant Discovery Prefix - `homeassistant` is the default prefix that Home Assistant uses. If you changed your HA auto discovery configuration, then update this setting.
 * **Disable OTA & Web Server Config Access** - will disable the ArduinoOTA & Web service for additional security. If you use this option, you will have to reflash the firmware with a USB cable in order to change any config settings. 
