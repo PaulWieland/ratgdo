@@ -33,6 +33,12 @@ void ha_autodiscovery_door(BootstrapManager *bootstrapManager){
 	device["model"] = "ratgdo";
 	device["sw_version"] = VERSION;
 	device["configuration_url"] = "http://"+microcontrollerIP+"/";
+	
+	// Add MAC as connection ("connections": [["mac", "02:5b:26:a8:dc:12"]])
+	JsonArray connections = device.createNestedArray("connections");
+	JsonArray nested = connections.createNestedArray();
+	nested.add("mac");
+	nested.add(WiFi.macAddress());
 
 	bootstrapManager->publish(topic.c_str(), payload, true);
 }
@@ -57,6 +63,12 @@ void ha_autodiscovery_light(BootstrapManager *bootstrapManager){
 	device["model"] = "ratgdo";
 	device["sw_version"] = VERSION;
 	device["configuration_url"] = "http://"+microcontrollerIP+"/";
+	
+	// Add MAC as connection ("connections": [["mac", "02:5b:26:a8:dc:12"]])
+	JsonArray connections = device.createNestedArray("connections");
+	JsonArray nested = connections.createNestedArray();
+	nested.add("mac");
+	nested.add(WiFi.macAddress());
 
 	bootstrapManager->publish(topic.c_str(), payload, true);
 }
@@ -81,6 +93,12 @@ void ha_autodiscovery_obs(BootstrapManager *bootstrapManager){
 	device["model"] = "ratgdo";
 	device["sw_version"] = VERSION;
 	device["configuration_url"] = "http://"+microcontrollerIP+"/";
+	
+	// Add MAC as connection ("connections": [["mac", "02:5b:26:a8:dc:12"]])
+	JsonArray connections = device.createNestedArray("connections");
+	JsonArray nested = connections.createNestedArray();
+	nested.add("mac");
+	nested.add(WiFi.macAddress());
 
 	bootstrapManager->publish(topic.c_str(), payload, true);
 }
