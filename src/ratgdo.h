@@ -18,6 +18,7 @@
 #include "BootstrapManager.h" // Must use the https://github.com/PaulWieland/arduinoImprovBootstrapper fork, ratgdo branch
 #include "SoftwareSerial.h" // Using espsoftwareserial https://github.com/plerup/espsoftwareserial
 #include "rolling_code.h"
+#include "static_code.h"
 #include "home_assistant.h"
 
 SoftwareSerial swSerial;
@@ -76,8 +77,10 @@ String rollingCodeTopic = ""; // broadcast the current rolling code count for de
 /********************************** GLOBAL VARS *****************************************/
 bool setupComplete = false;
 unsigned int rollingCodeCounter;
-byte txRollingCode[CODE_LENGTH];
-byte rxRollingCode[CODE_LENGTH];
+byte txSP1StaticCode[1];
+byte rxSP1StaticCode[SECPLUS1_CODE_LEN];
+byte txSP2RollingCode[SECPLUS2_CODE_LEN];
+byte rxSP2RollingCode[SECPLUS2_CODE_LEN];
 
 unsigned int obstructionLowCount = 0;  // count obstruction low pulses
 unsigned long lastObstructionHigh = 0;  // count time between high pulses from the obst ISR

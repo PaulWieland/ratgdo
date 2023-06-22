@@ -17,7 +17,11 @@
 void setup(){
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
-	swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
+	if(controlProtocol == "secplus1"){
+		swSerial.begin(1200, SWSERIAL_8E1, INPUT_GDO, OUTPUT_GDO, true);
+	}else if(controlProtocol == "secplus2"){
+		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
+	}
 	
 	Serial.begin(115200); // must remain at 115200 for improv
 	Serial.println("");
@@ -79,12 +83,14 @@ void setup(){
 	#endif
 	Serial.println("");
 
-	LittleFS.begin();
+	if(controlProtocol == "secplus2"){
+		LittleFS.begin();
 
-	readCounterFromFlash();
+		readCounterFromFlash();
 
-	Serial.println("Syncing rolling code counter after reboot...");
-	sync(); // send reboot/sync to the opener on startup
+		Serial.println("Syncing rolling code counter after reboot...");
+		sync(); // send reboot/sync to the opener on startup
+	}
 
 	delay(500);
 }
@@ -127,31 +133,55 @@ void gdoStateLoop(){
 		msgStart <<= 8;
 		msgStart |= serData;
 
-		// truncate to 3 bytes
-		msgStart &= 0x00FFFFFF;
+		if(controlProtocol == "secplus2"){
+			// truncate to 3 bytes
+			msgStart &= 0x00FFFFFF;
 
-		// if we are at the start of a message, capture the next 16 bytes
-		if(msgStart == 0x550100){
-			byteCount = 3;
-			rxRollingCode[0] = 0x55;
-			rxRollingCode[1] = 0x01;
-			rxRollingCode[2] = 0x00;
+			// if we are at the start of a message, capture the next 16 bytes
+			if(msgStart == 0x550100){
+				byteCount = 3;
+				rxSP2RollingCode[0] = 0x55;
+				rxSP2RollingCode[1] = 0x01;
+				rxSP2RollingCode[2] = 0x00;
 
-			reading = true;
-			return;
+				reading = true;
+				return;
+			}
+		}
+
+		if(controlProtocol == "secplus1"){
+			if(msgStart >= 0x30 && msgStart <= 0x3A){
+				reading = true;
+				return;
+			}
 		}
 	}
 
 	if(reading){
-		rxRollingCode[byteCount] = serData;
+		rxSP2RollingCode[byteCount] = serData;
 		byteCount++;
 
-		if(byteCount == 19){
-			reading = false;
-			msgStart = 0;
-			byteCount = 0;
+		if(controlProtocol == "secplus2"){
+			if(byteCount == SECPLUS2_CODE_LEN){
+				reading = false;
+				msgStart = 0;
+				byteCount = 0;
 
-			readRollingCode(rxRollingCode, doorState, lightState, lockState, motionState, obstructionState);
+				readRollingCode(rxSP2RollingCode, doorState, lightState, lockState, motionState, obstructionState);
+			}
+		}
+
+		if(controlProtocol == "secplus1"){
+			rxSP1StaticCode[byteCount] = serData;
+			byteCount++;
+
+			if(byteCount == 2){
+				reading = false;
+				msgStart = 0;
+				byteCount = 0;
+
+				readStaticCode(rxSP1StaticCode, doorState, lightState);
+			}
 		}
 	}
 }
@@ -254,7 +284,6 @@ void obstructionLoop(){
 	if(currentMillis - lastMillis > 50){
 		// check to see if we got between 3 and 8 low pulses on the line
 		if(obstructionLowCount >= 3 && obstructionLowCount <= 8){
-			// obstructionCleared();
 			obstructionState = 1;
 
 		// if there have been no pulses the line is steady high or low			
@@ -262,7 +291,6 @@ void obstructionLoop(){
 			// if the line is high and the last high pulse was more than 70ms ago, then there is an obstruction present
 			if(digitalRead(INPUT_OBST) && currentMillis - lastObstructionHigh > 70){
 				obstructionState = 0;
-				// obstructionDetected();
 			}else{
 				// asleep
 			}
@@ -394,8 +422,13 @@ void callback(char *topic, byte *payload, unsigned int length){
 	if(command == "query"){
 		Serial.println("MQTT: query");
 
+		if(controlProtocol == "secplus1"){
+			Serial.print("Query not supported with security+ 1.0");
+			return;
+		}
+
 		getRollingCode("reboot2");
-		transmit(txRollingCode,CODE_LENGTH);
+		transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 		delay(100);
 
 		// Set all to unknown
@@ -463,37 +496,45 @@ void callback(char *topic, byte *payload, unsigned int length){
  * The opener requires a specific duration low/high pulse before it will accept a message
  */
 void transmit(byte* payload, unsigned int length){
-	digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
-	delayMicroseconds(1305);
-	digitalWrite(OUTPUT_GDO, LOW); // bring the line low
+	if(controlProtocol == "secplus2"){
+		digitalWrite(OUTPUT_GDO, HIGH); // pull the line high for 1305 micros so the door opener responds to the message
+		delayMicroseconds(1305);
+		digitalWrite(OUTPUT_GDO, LOW); // bring the line low
 
-	delayMicroseconds(1260); // "LOW" pulse duration before the message start
-	swSerial.write(payload, length);
+		delayMicroseconds(1260); // "LOW" pulse duration before the message start
+	}
+	
+	swSerial.write(payload,length);
 }
 
 void sync(){
+	if(controlProtocol == "secplus1"){
+		Serial.println("sync not supported with Security+ 1.0");
+		return;
+	}
+
 	getRollingCode("reboot1");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	getRollingCode("reboot2");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	getRollingCode("reboot3");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	getRollingCode("reboot4");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	getRollingCode("reboot5");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	getRollingCode("reboot6");
-	transmit(txRollingCode,CODE_LENGTH);
+	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
 	writeCounterToFlash();
@@ -529,15 +570,20 @@ void stopDoor(){
 }
 
 void toggleDoor(){
-	getRollingCode("door1");
-	transmit(txRollingCode, CODE_LENGTH);
+	if(controlProtocol == "secplus1"){
+		getStaticCode("door");
+		transmit(txSP1StaticCode,1);
+	}else{
+		getRollingCode("door1");
+		transmit(txSP2RollingCode, SECPLUS2_CODE_LEN);
 
-	delay(40);
+		delay(40);
 
-	getRollingCode("door2");
-	transmit(txRollingCode, CODE_LENGTH);
+		getRollingCode("door2");
+		transmit(txSP2RollingCode, SECPLUS2_CODE_LEN);
 
-	writeCounterToFlash();
+		writeCounterToFlash();
+	}
 }
 
 // Light functions
@@ -558,9 +604,14 @@ void lightOff(){
 }
 
 void toggleLight(){
-	getRollingCode("light");
-	transmit(txRollingCode,CODE_LENGTH);
-	writeCounterToFlash();
+	if(controlProtocol == "secplus1"){
+		getStaticCode("light");
+		transmit(txSP1StaticCode,1);
+	}else{
+		getRollingCode("light");
+		transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
+		writeCounterToFlash();
+	}
 }
 
 // Lock functions
@@ -581,7 +632,11 @@ void unlock(){
 }
 
 void toggleLock(){
-	getRollingCode("lock");
-	transmit(txRollingCode,CODE_LENGTH);
-	writeCounterToFlash();
+	if(controlProtocol == "secplus1"){
+		Serial.println("Lockout not supported with security+ 1.0");
+	}else{
+		getRollingCode("lock");
+		transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
+		writeCounterToFlash();
+	}
 }

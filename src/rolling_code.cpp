@@ -33,8 +33,7 @@ void writeCounterToFlash(){
 	Serial.println("Write successful");
 }
 
-// returns true if status changes
-void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &motion, uint8_t &obstruction){
+void readRollingCode(byte rxSP2RollingCode[SECPLUS2_CODE_LEN], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &motion, uint8_t &obstruction){
 	uint32_t rolling = 0;
 	uint64_t fixed = 0;
 	uint32_t data = 0;
@@ -44,7 +43,7 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 	uint8_t byte1 = 0;
 	uint8_t byte2 = 0;
 
-	decode_wireline(rxRollingCode, &rolling, &fixed, &data);
+	decode_wireline(rxSP2RollingCode, &rolling, &fixed, &data);
 
 	cmd = ((fixed >> 24) & 0xf00) | (data & 0xff);
 
@@ -52,7 +51,7 @@ void readRollingCode(byte rxRollingCode[CODE_LENGTH], uint8_t &door, uint8_t &li
 	byte1 = (data >> 16) & 0xff;
 	byte2 = (data >> 24) & 0xff;
 
-	printRollingCode(rxRollingCode);
+	printRollingCode(rxSP2RollingCode);
 
 	if(cmd == 0x81){
 		door = nibble;
@@ -134,9 +133,9 @@ void getRollingCode(const char *command){
 
 	fixed = fixed | id;
 
-	encode_wireline(rollingCodeCounter, fixed, data, txRollingCode);
+	encode_wireline(rollingCodeCounter, fixed, data, txSP2RollingCode);
 
-	printRollingCode(txRollingCode);
+	printRollingCode(txSP2RollingCode);
 	Serial.println("");
 
 	if(strcmp(command,"door1") != 0){ // door2 is created with same counter and should always be called after door1
@@ -145,8 +144,8 @@ void getRollingCode(const char *command){
 	return;
 }
 
-void printRollingCode(byte code[CODE_LENGTH]){
-	for(int i = 0; i < CODE_LENGTH; i++){
+void printRollingCode(byte code[SECPLUS2_CODE_LEN]){
+	for(int i = 0; i < SECPLUS2_CODE_LEN; i++){
 		if(code[i] <= 0x0f) Serial.print("0");
 		Serial.print(code[i],HEX);
 	}
