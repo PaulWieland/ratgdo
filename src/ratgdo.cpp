@@ -124,6 +124,8 @@ void gdoStateLoop(){
 	if(!swSerial.available()) return;
 	uint8_t serData = swSerial.read();
 
+	Serial.print(serData,HEX);
+
 	static uint32_t msgStart;
 	static bool reading = false;
 	static uint16_t byteCount = 0;
