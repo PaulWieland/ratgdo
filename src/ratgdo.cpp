@@ -17,8 +17,9 @@
 void setup(){
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
+
 	if(controlProtocol == "secplus1"){
-		swSerial.begin(1200, SWSERIAL_8E1, INPUT_GDO, OUTPUT_GDO, true);
+		swSerial.begin(1200, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
 	}else if(controlProtocol == "secplus2"){
 		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
 	}
@@ -71,6 +72,12 @@ void setup(){
 	attachInterrupt(INPUT_OBST,isrObstruction,CHANGE);
 
 	delay(60); // 
+	if(controlProtocol == "secplus1"){
+		Serial.println("Using security+ 1.0, 1200 8N1");
+	}else if(controlProtocol == "secplus2"){
+		Serial.println("Using security+ 2.0, 9600 8N1");
+	}
+
 	Serial.println("Setup Complete");
 	Serial.println(" _____ _____ _____ _____ ____  _____ ");
 	Serial.println("| __  |  _  |_   _|   __|    \\|     |");
