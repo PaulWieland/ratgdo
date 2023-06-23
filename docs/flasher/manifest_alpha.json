@@ -5,7 +5,7 @@
 	  {
 		"chipFamily": "ESP8266",
 		"parts": [
-		  { "path": "ratgdo_esp8266_v2.21a.bin", "offset": 0 }
+		  { "path": "ratgdo_esp8266_v2.22a.bin", "offset": 0 }
 		]
 	  }
 	]
