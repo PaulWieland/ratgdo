@@ -15,6 +15,7 @@
 #include "ratgdo.h"
 
 void setup(){
+	firmwareVersion = VERSION;
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
 
