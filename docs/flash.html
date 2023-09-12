@@ -34,6 +34,10 @@
 		<strong>Before</strong> you use this option, open the <em>Logs & Console</em>, send a command to your opener and 
 		take note of the last used counter. Then after flashing, send an mqtt <em>set_code_counter</em> command to restore the counter value and then <em>sync</em> with the opener. <a href="01_features.html">See docs</a>.</p>
 
+	<br/>
+	
+	If you want to use ESPHome with Home Assistant instead of MQTT, check out the <a href="https://esphome-ratgdo.github.io/esphome-ratgdo/" target="_blank">3rd party ESPHome installer</a> & <a href="https://github.com/ESPHome-RATGDO/esphome-ratgdo">GitHub Repo</a>.
+
     <esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
 	<script>
 		var manifest = $("#manifest").attr("manifest",`flasher/manifest.json`);

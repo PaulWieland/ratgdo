@@ -70,6 +70,14 @@ The following statuses are broadcast over MQTT:
  * locked - when the door opener is locked
  * unlocked - when unlocked
 
+### ESPHome
+There is a third party ESPHome port of ratgdo available:
+
+* [Web Tools installer](https://esphome-ratgdo.github.io/esphome-ratgdo/)
+* (GitHub Repo)[https://github.com/ESPHome-RATGDO/esphome-ratgdo]
+
+Please note that I do not maintain the ESPHome version and cannot offer support for it if you run into problems.
+
 ### Dry contacts
 
 #### Triggers
