@@ -1,4 +1,9 @@
 # ORDER
+### BACKORDER NOTICE:
+
+Boards ordered before September 12th will ship by the end of September.
+Orders received after the 12th will ship by the middle of October. After mid October I expect to be caught up on inventory and will have enough stock to avoid future backorders. Thank you for your patience!
+
 * Buy [ratgdo v2.0 shield only](https://square.link/u/xNP2Orez) $15
 * Buy [ratgdo v2.0 shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
 
