@@ -8,12 +8,17 @@ void readStaticCode(byte rxSP1StaticCode[SECPLUS1_CODE_LEN], uint8_t &door, uint
 
 	key = rxSP1StaticCode[0];
 	val = rxSP1StaticCode[1];
-
+	
 	printStaticCode(rxSP1StaticCode);
+	Serial.print(" ");
 
 	// door state
 	if(key == 0x38){
-		Serial.print("door state: ");
+		Serial.print(" | door state: ");
+		Serial.print(val,HEX);
+		Serial.print(" ");
+		Serial.println(val,BIN);
+
 		if(val == 0x52){
 			// door open
 			door = 1;
@@ -34,16 +39,7 @@ void readStaticCode(byte rxSP1StaticCode[SECPLUS1_CODE_LEN], uint8_t &door, uint
 
 	// light
 	if(key == 0x3A){
-		if(val == 0x5C){
-			// light off
-			light = 0;
-		}else if(val == 0x58){
-			// light on
-			light = 1;
-		}else{
-			// light unknown
-			light = 2;
-		}
+		light = bitRead(val,2);
 	}
 
 	// obstruction?
@@ -51,15 +47,15 @@ void readStaticCode(byte rxSP1StaticCode[SECPLUS1_CODE_LEN], uint8_t &door, uint
 		obs = val;
 	}
 
-	Serial.print(" | STATUS:");
-	Serial.print(" door:");
-	Serial.print(door);
-	Serial.print(" light:");
-	Serial.print(light);
-	Serial.print(" obs?:");
-	Serial.print(obs);
+	// Serial.print(" | STATUS:");
+	// Serial.print(" door:");
+	// Serial.print(door);
+	// Serial.print(" light:");
+	// Serial.print(light);
+	// Serial.print(" obs?:");
+	// Serial.print(obs);
 
-	Serial.println("");
+	// Serial.println("");
 }
 
 void getStaticCode(const char *command){

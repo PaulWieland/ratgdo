@@ -18,12 +18,6 @@ void setup(){
 	firmwareVersion = VERSION;
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
-
-	if(controlProtocol == "secplus1"){
-		swSerial.begin(1200, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
-	}else if(controlProtocol == "secplus2"){
-		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
-	}
 	
 	Serial.begin(115200); // must remain at 115200 for improv
 	Serial.println("");
@@ -74,8 +68,12 @@ void setup(){
 
 	delay(60); // 
 	if(controlProtocol == "secplus1"){
+		Serial.println("1200 baud");
+		swSerial.begin(1200, SWSERIAL_8E1, INPUT_GDO, OUTPUT_GDO, true);
 		Serial.println("Using security+ 1.0, 1200 8N1");
 	}else if(controlProtocol == "secplus2"){
+		Serial.println("9600 baud");
+		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
 		Serial.println("Using security+ 2.0, 9600 8N1");
 	}
 
@@ -132,8 +130,6 @@ void gdoStateLoop(){
 	if(!swSerial.available()) return;
 	uint8_t serData = swSerial.read();
 
-	Serial.print(serData,HEX);
-
 	static uint32_t msgStart;
 	static bool reading = false;
 	static uint16_t byteCount = 0;
@@ -160,7 +156,12 @@ void gdoStateLoop(){
 		}
 
 		if(controlProtocol == "secplus1"){
+			// truncate to 1 byte;
+			msgStart &= 0x000000FF;
+
 			if(msgStart >= 0x30 && msgStart <= 0x3A){
+				rxSP1StaticCode[0] = msgStart;
+				byteCount = 1;
 				reading = true;
 				return;
 			}
@@ -168,10 +169,10 @@ void gdoStateLoop(){
 	}
 
 	if(reading){
-		rxSP2RollingCode[byteCount] = serData;
-		byteCount++;
-
 		if(controlProtocol == "secplus2"){
+			rxSP2RollingCode[byteCount] = serData;
+			byteCount++;
+
 			if(byteCount == SECPLUS2_CODE_LEN){
 				reading = false;
 				msgStart = 0;
@@ -518,8 +519,8 @@ void transmit(byte* payload, unsigned int length){
 }
 
 void sync(){
-	if(controlProtocol == "secplus1"){
-		Serial.println("sync not supported with Security+ 1.0");
+	if(controlProtocol != "secplus2"){
+		Serial.println("sync only needed with security+ 2.0");
 		return;
 	}
 
