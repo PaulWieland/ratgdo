@@ -26,15 +26,15 @@ The following MQTT commands are supported:
 
 If:
 
-* Device Name = "My Garage Door"
+* Device Name = "MyGarageDoor"
 * mqtt Prefix = "home/garage"
 
 Then:
 
-* mqtt.topic = "home/garage/My Garage Door/command/open" - opens the door
-* mqtt.topic = "home/garage/My Garage Door/command/close" - closes the door
-* mqtt.topic = "home/garage/My Garage Door/command/set_code_counter"; mqtt.payload = 537; - sets the rolling code counter to 537
-* mqtt.topic = "home/garage/My Garage Door/command/sync" - syncs the current rolling code counter with the garage door. 
+* mqtt.topic = "home/garage/MyGarageDoor/command/open" - opens the door
+* mqtt.topic = "home/garage/MyGarageDoor/command/close" - closes the door
+* mqtt.topic = "home/garage/MyGarageDoor/command/set_code_counter"; mqtt.payload = 537; - sets the rolling code counter to 537
+* mqtt.topic = "home/garage/MyGarageDoor/command/sync" - syncs the current rolling code counter with the garage door. 
 
 <strong>Notice</strong> Older Security + 2.0 garage door openers with a logic board model# starting with 45 will not accept repeated rolling codes. You must use a rolling code value greater than the last one used with ratgdo. For this reason it is important to take note of the latest rolling code counter (displayed in the serial monitor output) whenever doing a full erase of the esp8266 flash storage.
 
