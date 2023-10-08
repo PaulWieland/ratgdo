@@ -47,7 +47,7 @@ String doorCommandTopic = ""; // will be mqttTopicPrefix/deviceName/command/door
                               // accepts [open|close|stop]
 String doorStatusTopic = "";  // will be mqttTopicPrefix/deviceName/status/door
 uint8_t doorState = 0;
-String doorStates[6] = {"unknown","open","closed","stopped","opening","closing"};
+String doorStates[7] = {"unknown","open","closed","stopped","opening","closing","syncing"};
 
 
 String lightCommandTopic = "";// will be mqttTopicPrefix/deviceName/command/light
@@ -79,6 +79,8 @@ bool setupComplete = false;
 unsigned int rollingCodeCounter;
 byte txSP1StaticCode[1];
 byte rxSP1StaticCode[SECPLUS1_CODE_LEN];
+byte secplus1States[19] = {0x31,0x31,0x35,0x35,0x33,0x33,0x53,0x53,0x38,0x3A,0x3A,0x3A,0x39,0x38,0x3A, 0x38,0x3A,0x39,0x3A};
+
 byte txSP2RollingCode[SECPLUS2_CODE_LEN];
 byte rxSP2RollingCode[SECPLUS2_CODE_LEN];
 
@@ -124,6 +126,7 @@ void statusUpdateLoop();
 
 void gdoStateLoop();
 void dryContactLoop();
+void wallPanelEmulatorLoop();
 
 /********************************** INTERRUPT SERVICE ROUTINES ***********************************/
 void IRAM_ATTR isrDebounce(const char *type);

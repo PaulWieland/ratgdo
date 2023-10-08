@@ -70,11 +70,11 @@ void setup(){
 	if(controlProtocol == "secplus1"){
 		Serial.println("1200 baud");
 		swSerial.begin(1200, SWSERIAL_8E1, INPUT_GDO, OUTPUT_GDO, true);
-		Serial.println("Using security+ 1.0, 1200 8N1");
+		Serial.println("Using security+ 1.0");
 	}else if(controlProtocol == "secplus2"){
 		Serial.println("9600 baud");
 		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
-		Serial.println("Using security+ 2.0, 9600 8N1");
+		Serial.println("Using security+ 2.0");
 	}
 
 	Serial.println("Setup Complete");
@@ -123,9 +123,42 @@ void loop(){
 	gdoStateLoop();
 	dryContactLoop();
 	statusUpdateLoop();
+	wallPanelEmulatorLoop();
 }
 
 /*************************** DETECTING THE DOOR STATE ***************************/
+void wallPanelEmulatorLoop(){
+	unsigned long currentMillis = millis();
+	static unsigned long lastRequestMillis = 0;
+	static unsigned long unknownStateTimer = 0;
+	static bool emulateWallPanel = false;
+	static bool wallPanelDetected = false;
+	static uint8_t stateIndex = 0;
+
+	if(controlProtocol != "secplus1" || wallPanelDetected) return;
+
+	if(currentMillis < 35000 || doorState == 6){
+		if(!wallPanelDetected && (doorState != 0 || lightState != 2)){
+			wallPanelDetected = true;
+			Serial.println("Wall panel detected.");
+			return;
+		}
+	}else{
+		if(!emulateWallPanel && !wallPanelDetected){
+			emulateWallPanel = true;
+			Serial.println("No wall panel detected. Switching to emulation mode.");
+		}
+
+		if(emulateWallPanel && currentMillis - lastRequestMillis > 250){
+			lastRequestMillis = currentMillis;
+			txSP1StaticCode[0] = byte(secplus1States[stateIndex]);
+			transmit(txSP1StaticCode,1);
+			stateIndex++;
+			if(stateIndex == 18) stateIndex = 15;
+		}
+	}
+}
+
 void gdoStateLoop(){
 	if(!swSerial.available()) return;
 	uint8_t serData = swSerial.read();
@@ -583,6 +616,7 @@ void stopDoor(){
 void toggleDoor(){
 	if(controlProtocol == "secplus1"){
 		getStaticCode("door");
+		transmit(txSP1StaticCode,1);
 		transmit(txSP1StaticCode,1);
 	}else{
 		getRollingCode("door1");
