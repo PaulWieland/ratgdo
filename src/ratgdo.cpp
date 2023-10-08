@@ -128,16 +128,30 @@ void loop(){
 
 /*************************** DETECTING THE DOOR STATE ***************************/
 void wallPanelEmulatorLoop(){
-	unsigned long currentMillis = millis();
-	static unsigned long lastRequestMillis = 0;
-	static unsigned long unknownStateTimer = 0;
-	static bool emulateWallPanel = false;
 	static bool wallPanelDetected = false;
-	static uint8_t stateIndex = 0;
-
 	if(controlProtocol != "secplus1" || wallPanelDetected) return;
 
-	if(currentMillis < 35000 || doorState == 6){
+	unsigned long currentMillis = millis();
+	static unsigned long lastRequestMillis = 0;
+	static bool emulateWallPanel = false;
+	static unsigned long serialDetected = 0;
+	static uint8_t stateIndex = 0;
+
+	if(!serialDetected){
+		if(swSerial.available()){
+			serialDetected = currentMillis;
+		}
+
+		return;
+	}
+
+	// 
+	if(currentMillis - serialDetected < 35000 || doorState == 6){
+		if(currentMillis - lastRequestMillis > 2000){
+			Serial.println("Looking for security+ 1.0 fwall panel...");
+			lastRequestMillis = currentMillis;
+		}
+
 		if(!wallPanelDetected && (doorState != 0 || lightState != 2)){
 			wallPanelDetected = true;
 			Serial.println("Wall panel detected.");
