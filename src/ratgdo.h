@@ -28,7 +28,7 @@ BootstrapManager bootstrapManager;
 
 /********************************** PIN DEFINITIONS *****************************************/
 #define INPUT_GDO D2 // 
-#define OUTPUT_GDO D4 // red control terminal / GarageDoorOpener (UART1 TX) pin is D4 on D1 Mini
+#define OUTPUT_GDO ASSIGN_OUTPUT_GDO // D1 // D4 // red control terminal / GarageDoorOpener (UART1 TX) pin is D4 on D1 Mini
 #define TRIGGER_OPEN D5 // dry contact for opening door
 #define TRIGGER_CLOSE D6 // dry contact for closing door
 #define TRIGGER_LIGHT D3 // dry contact for triggering light (no discrete light commands, so toggle only)
@@ -100,6 +100,7 @@ void manageHardwareButton();
 
 void transmit(byte* payload, unsigned int length);
 void sync();
+void saveCounter();
 
 void toggleDoor();
 void openDoor();
@@ -127,6 +128,8 @@ void statusUpdateLoop();
 void gdoStateLoop();
 void dryContactLoop();
 void wallPanelEmulatorLoop();
+
+void pullLow();
 
 /********************************** INTERRUPT SERVICE ROUTINES ***********************************/
 void IRAM_ATTR isrDebounce(const char *type);
