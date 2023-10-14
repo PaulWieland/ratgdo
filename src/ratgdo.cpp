@@ -15,6 +15,10 @@
 #include "ratgdo.h"
 
 void setup(){
+	if(OUTPUT_GDO != LED_BUILTIN){
+		pinMode(LED_BUILTIN,OUTPUT);
+		digitalWrite(LED_BUILTIN,LOW);
+	}
 	firmwareVersion = VERSION;
 	pinMode(INPUT_GDO, INPUT_PULLUP);
 	pinMode(OUTPUT_GDO, OUTPUT);
@@ -27,7 +31,6 @@ void setup(){
 	
 	// Setup mqtt topics to subscribe to
 	commandTopic = String(mqttTopicPrefix) + deviceName + "/command/#";
-	setCounterTopic = String(mqttTopicPrefix) + deviceName + "/set_code_counter";
 
 	// match these topic names
 	doorCommandTopic = String(mqttTopicPrefix) + deviceName + "/command/door";
@@ -42,7 +45,6 @@ void setup(){
 	lockStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/lock";
 	motionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/motion";
 	
-	rollingCodeTopic = String(mqttTopicPrefix) + deviceName + "/rolling_code_count";
 	bootstrapManager.setMQTTWill(availabilityStatusTopic.c_str(),"offline",1,false,true);
 	
 	Serial.print("doorCommandTopic: ");
@@ -108,6 +110,24 @@ void loop(){
 
 			// Broadcast that we are online
 			bootstrapManager.publish(availabilityStatusTopic.c_str(), "online", true);
+
+			if(controlProtocol == "secplus2"){
+				LittleFS.begin();
+
+				readCounterFromFlash("idCode", idCode);
+				if(idCode == 0){
+					idCode = random(0x1,0xFFFF);
+					writeCounterToFlash("idCode", idCode);
+				}
+				readCounterFromFlash("rolling", rollingCodeCounter);
+
+				Serial.println("Syncing rolling code counter after reboot...");
+				sync(); // send reboot/sync to the opener on startup
+
+				if(OUTPUT_GDO != LED_BUILTIN){
+					digitalWrite(LED_BUILTIN,HIGH);
+				}
+			}
 		}
 	}
 
