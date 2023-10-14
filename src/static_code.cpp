@@ -69,8 +69,10 @@ void readStaticCode(byte rxSP1StaticCode[SECPLUS1_CODE_LEN], uint8_t &door, uint
 }
 
 void getStaticCode(const char *command){
-	if(strcmp(command,"door") == 0){
+	if(strcmp(command,"door1") == 0){
 		txSP1StaticCode[0] = 0x30;
+	}else if(strcmp(command,"door2") == 0){
+		txSP1StaticCode[0] = 0x31;
 	}else if(strcmp(command,"light") == 0){
 		txSP1StaticCode[0] = 0x32;
 	}
