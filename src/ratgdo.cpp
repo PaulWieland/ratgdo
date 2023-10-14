@@ -43,7 +43,6 @@ void setup(){
 	motionStatusTopic = String(mqttTopicPrefix) + deviceName + "/status/motion";
 	
 	rollingCodeTopic = String(mqttTopicPrefix) + deviceName + "/rolling_code_count";
-
 	bootstrapManager.setMQTTWill(availabilityStatusTopic.c_str(),"offline",1,false,true);
 	
 	Serial.print("doorCommandTopic: ");
@@ -53,7 +52,7 @@ void setup(){
 	Serial.print("lockCommandTopic: ");
 	Serial.println(lockCommandTopic);
 	#endif
-
+	
 	pinMode(TRIGGER_OPEN, INPUT_PULLUP);
 	pinMode(TRIGGER_CLOSE, INPUT_PULLUP);
 	pinMode(TRIGGER_LIGHT, INPUT_PULLUP);
@@ -67,12 +66,14 @@ void setup(){
 	attachInterrupt(INPUT_OBST,isrObstruction,CHANGE);
 
 	delay(60); // 
-	if(controlProtocol == "secplus1"){
-		Serial.println("1200 baud");
+	if(controlProtocol == "drycontact"){
+		Serial.println("Using dry contact control");
+	}else if(controlProtocol == "secplus1"){
 		swSerial.begin(1200, SWSERIAL_8E1, INPUT_GDO, OUTPUT_GDO, true);
 		Serial.println("Using security+ 1.0");
-	}else if(controlProtocol == "secplus2"){
-		Serial.println("9600 baud");
+	}else{
+		// default to secplus2
+ 		controlProtocol = "secplus2";
 		swSerial.begin(9600, SWSERIAL_8N1, INPUT_GDO, OUTPUT_GDO, true);
 		Serial.println("Using security+ 2.0");
 	}
@@ -88,15 +89,6 @@ void setup(){
 	Serial.print(" (WiFi disabled)");
 	#endif
 	Serial.println("");
-
-	if(controlProtocol == "secplus2"){
-		LittleFS.begin();
-
-		readCounterFromFlash();
-
-		Serial.println("Syncing rolling code counter after reboot...");
-		sync(); // send reboot/sync to the opener on startup
-	}
 
 	delay(500);
 }
@@ -148,7 +140,7 @@ void wallPanelEmulatorLoop(){
 	// 
 	if(currentMillis - serialDetected < 35000 || doorState == 6){
 		if(currentMillis - lastRequestMillis > 2000){
-			Serial.println("Looking for security+ 1.0 fwall panel...");
+			Serial.println("Looking for security+ 1.0 wall panel...");
 			lastRequestMillis = currentMillis;
 		}
 
@@ -210,6 +202,7 @@ void gdoStateLoop(){
 				rxSP1StaticCode[0] = msgStart;
 				byteCount = 1;
 				reading = true;
+				lastRX = millis();
 				return;
 			}
 		}
@@ -249,28 +242,54 @@ void IRAM_ATTR isrDebounce(const char *type){
 	static unsigned long lastOpenDoorTime = 0;
 	static unsigned long lastCloseDoorTime = 0;
 	static unsigned long lastToggleLightTime = 0;
+	static bool lastDryContactDoorOpen = false;
+	static bool lastDryContactDoorClose = false;
 	unsigned long currentMillis = millis();
 
 	// Prevent ISR during the first 2 seconds after reboot
 	if(currentMillis < 2000) return;
 
 	if(strcmp(type, "openDoor") == 0){
-		if(digitalRead(TRIGGER_OPEN) == LOW){
-			// save the time of the falling edge
-			lastOpenDoorTime = currentMillis;
-		}else if(currentMillis - lastOpenDoorTime > 500 && currentMillis - lastOpenDoorTime < 10000){
-			// now see if the rising edge was between 500ms and 10 seconds after the falling edge
-			dryContactDoorOpen = true;
+		if(controlProtocol == "drycontact"){
+			if(currentMillis - lastOpenDoorTime > 50){
+				dryContactDoorOpen = !digitalRead(TRIGGER_OPEN);
+
+				if(dryContactDoorOpen != lastDryContactDoorOpen){
+					lastOpenDoorTime = currentMillis;
+					lastDryContactDoorOpen = dryContactDoorOpen;
+				}
+			}
+			
+		}else{
+			if(digitalRead(TRIGGER_OPEN) == LOW){
+				// save the time of the falling edge
+				lastOpenDoorTime = currentMillis;
+			}else if(currentMillis - lastOpenDoorTime > 500 && currentMillis - lastOpenDoorTime < 10000){
+				// now see if the rising edge was between 500ms and 10 seconds after the falling edge
+				dryContactDoorOpen = true;
+			}
 		}
 	}
 
 	if(strcmp(type, "closeDoor") == 0){
-		if(digitalRead(TRIGGER_CLOSE) == LOW){
-			// save the time of the falling edge
-			lastCloseDoorTime = currentMillis;
-		}else if(currentMillis - lastCloseDoorTime > 500 && currentMillis - lastCloseDoorTime < 10000){
-			// now see if the rising edge was between 500ms and 10 seconds after the falling edge
-			dryContactDoorClose = true;
+		if(controlProtocol == "drycontact"){
+			if(currentMillis - lastCloseDoorTime > 50){
+				dryContactDoorClose = !digitalRead(TRIGGER_CLOSE);
+
+				if(dryContactDoorClose != lastDryContactDoorClose){
+					lastCloseDoorTime = currentMillis;
+					lastDryContactDoorClose = dryContactDoorClose;
+				}
+			}
+
+		}else{	
+			if(digitalRead(TRIGGER_CLOSE) == LOW){
+				// save the time of the falling edge
+				lastCloseDoorTime = currentMillis;
+			}else if(currentMillis - lastCloseDoorTime > 500 && currentMillis - lastCloseDoorTime < 10000){
+				// now see if the rising edge was between 500ms and 10 seconds after the falling edge
+				dryContactDoorClose = true;
+			}
 		}
 	}
 
@@ -299,22 +318,52 @@ void IRAM_ATTR isrLight(){
 
 // handle changes to the dry contact state
 void dryContactLoop(){
+	static bool previousDryContactDoorOpen = false;
+	static bool previousDryContactDoorClose = false;
+
 	if(dryContactDoorOpen){
-		Serial.println("Dry Contact: open the door");
-		dryContactDoorOpen = false;
-		openDoor();
+		if(controlProtocol == "drycontact"){
+			doorState = 1;
+		}else{
+			Serial.println("Dry Contact: open the door");
+			openDoor();
+			dryContactDoorOpen = false;
+		}
 	}
 
 	if(dryContactDoorClose){
-		Serial.println("Dry Contact: close the door");
-		dryContactDoorClose = false;
-		closeDoor();
+		if(controlProtocol == "drycontact"){
+			doorState = 2;
+		}else{
+			Serial.println("Dry Contact: close the door");
+			closeDoor();
+			dryContactDoorClose = false;
+		}
 	}
 
 	if(dryContactToggleLight){
 		Serial.println("Dry Contact: toggle the light");
 		dryContactToggleLight = false;
 		toggleLight();
+	}
+
+	if(controlProtocol == "drycontact"){
+		if(!dryContactDoorClose && !dryContactDoorOpen){
+			if(previousDryContactDoorClose){
+				doorState = 4;
+			}
+
+			if(previousDryContactDoorOpen){
+				doorState = 5;
+			}
+		}
+
+		if(previousDryContactDoorOpen != dryContactDoorOpen){
+			previousDryContactDoorOpen = dryContactDoorOpen;
+		}
+		if(previousDryContactDoorClose != dryContactDoorClose){
+			previousDryContactDoorClose = dryContactDoorClose;
+		}
 	}
 }
 
@@ -436,15 +485,6 @@ void sendObstructionStatus(){
 	}
 }
 
-void sendCurrentCounter(){
-	String msg = String(rollingCodeCounter);
-	Serial.print("Current counter ");
-	Serial.println(rollingCodeCounter);
-	if(isConfigFileOk){
-		bootstrapManager.publish(rollingCodeTopic.c_str(), msg.c_str(), true);
-	}
-}
-
 /********************************** MANAGE WIFI AND MQTT DISCONNECTION *****************************************/
 void manageDisconnections(){
 	Serial.println("### MQTT DISCONNECTED ###");
@@ -454,7 +494,6 @@ void manageDisconnections(){
 /********************************** MQTT SUBSCRIPTIONS *****************************************/
 void manageQueueSubscription(){
 	bootstrapManager.subscribe(commandTopic.c_str());
-	bootstrapManager.subscribe(setCounterTopic.c_str());
 }
 
 /********************************** MANAGE HARDWARE BUTTON *****************************************/
@@ -467,21 +506,13 @@ void callback(char *topic, byte *payload, unsigned int length){
 	// Transform all messages in a JSON format
 	StaticJsonDocument<BUFFER_SIZE> json = bootstrapManager.parseQueueMsg(topic, payload, length);
 
-	if(strcmp(topic,setCounterTopic.c_str()) == 0){
-		String s = String((char*)payload);
-		rollingCodeCounter = s.toInt();
-
-		Serial.print("MQTT Set rolling code counter ");
-		Serial.println(rollingCodeCounter);
-		writeCounterToFlash();
-	}
-
 	String command = (String)json[VALUE];
 	if(command == "query"){
 		Serial.println("MQTT: query");
 
-		if(controlProtocol == "secplus1"){
-			Serial.print("Query not supported with security+ 1.0");
+		if(controlProtocol != "secplus2"){
+			Serial.print("Query not supported with ");
+			Serial.println(controlProtocol);
 			return;
 		}
 
@@ -565,6 +596,12 @@ void transmit(byte* payload, unsigned int length){
 	swSerial.write(payload,length);
 }
 
+void pullLow(){
+	digitalWrite(OUTPUT_GDO, HIGH);
+	delay(100);
+	digitalWrite(OUTPUT_GDO, LOW);
+}
+
 void sync(){
 	if(controlProtocol != "secplus2"){
 		Serial.println("sync only needed with security+ 2.0");
@@ -595,7 +632,7 @@ void sync(){
 	transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
 	delay(65);
 
-	writeCounterToFlash();
+	writeCounterToFlash("rolling",rollingCodeCounter);
 }
 
 // Door functions
@@ -628,9 +665,18 @@ void stopDoor(){
 }
 
 void toggleDoor(){
-	if(controlProtocol == "secplus1"){
-		getStaticCode("door");
+	if(controlProtocol == "drycontact"){
+		pullLow();
+	}else if(controlProtocol == "secplus1"){
+		uint8_t delayLen = (lastRX + 275) - millis();
+		delay(delayLen);
+
+		getStaticCode("door1");
 		transmit(txSP1StaticCode,1);
+		delay(80);
+		getStaticCode("door2");
+		transmit(txSP1StaticCode,1);
+		delay(25);
 		transmit(txSP1StaticCode,1);
 	}else{
 		getRollingCode("door1");
@@ -641,7 +687,7 @@ void toggleDoor(){
 		getRollingCode("door2");
 		transmit(txSP2RollingCode, SECPLUS2_CODE_LEN);
 
-		writeCounterToFlash();
+		writeCounterToFlash("rolling",rollingCodeCounter);
 	}
 }
 
@@ -663,13 +709,15 @@ void lightOff(){
 }
 
 void toggleLight(){
-	if(controlProtocol == "secplus1"){
+	if(controlProtocol == "drycontact"){
+		Serial.prinln("Light control not supported with dry contact control.");
+	}else if(controlProtocol == "secplus1"){
 		getStaticCode("light");
 		transmit(txSP1StaticCode,1);
 	}else{
 		getRollingCode("light");
 		transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
-		writeCounterToFlash();
+		writeCounterToFlash("rolling",rollingCodeCounter);
 	}
 }
 
@@ -696,6 +744,6 @@ void toggleLock(){
 	}else{
 		getRollingCode("lock");
 		transmit(txSP2RollingCode,SECPLUS2_CODE_LEN);
-		writeCounterToFlash();
+		writeCounterToFlash("rolling",rollingCodeCounter);
 	}
 }
