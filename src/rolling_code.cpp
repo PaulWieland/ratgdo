@@ -2,35 +2,37 @@
 #include "rolling_code.h"
 #include "Helpers.h"
 
-void readCounterFromFlash(){
-	//Open the file
-	File file = LittleFS.open("/rollingcode.txt", "r");
+void readCounterFromFlash(const char *type, unsigned int &counter){
+
+	File file = LittleFS.open(type, "r");
 
 	//Check if the file exists
 	if(!file){
-	Serial.println("rollingcode.txt doesn't exist. creating...");
+		Serial.print(type);
+		Serial.println(" doesn't exist. creating...");
 
-	writeCounterToFlash();
-	return;
+		writeCounterToFlash(type,counter);
+		return;
 	}
 
-	rollingCodeCounter = file.parseInt();
+	counter = file.parseInt();
 
 	//Close the file
 	file.close();
 }
 
-void writeCounterToFlash(){
+void writeCounterToFlash(const char *type, unsigned int &counter){
 	//Open the file 
-	File file = LittleFS.open("/rollingcode.txt", "w");
+	File file = LittleFS.open(type, "w");
 	
 	//Write to the file
-	file.print(rollingCodeCounter);
+	file.print(counter);
 	delay(1);
 	//Close the file
 	file.close();
 	
-	Serial.println("Write successful");
+	Serial.print(type);
+	Serial.println(" write successful");
 }
 
 void readRollingCode(byte rxSP2RollingCode[SECPLUS2_CODE_LEN], uint8_t &door, uint8_t &light, uint8_t &lock, uint8_t &motion, uint8_t &obstruction){
@@ -87,12 +89,14 @@ void readRollingCode(byte rxSP2RollingCode[SECPLUS2_CODE_LEN], uint8_t &door, ui
 
 void getRollingCode(const char *command){
 	Serial.print("rolling code for ");
+	Serial.print(idCode);
+	Serial.print(" ");
 	Serial.print(rollingCodeCounter);
 	Serial.print("|");
 	Serial.print(command);
 	Serial.print(" : ");
 
-	uint64_t id = 0x539;
+	uint64_t id = idCode;
 	uint64_t fixed = 0;
 	uint32_t data = 0;
 
