@@ -71,12 +71,10 @@ String obstructionStatusTopic = ""; // will be mqttTopicPrefix/deviceName/status
 uint8_t obstructionState = 2;
 String obstructionStates[3] = {"obstructed","clear","unknown"};
 
-String setCounterTopic = "";  // will be mqttTopicPrefix/deviceName/set_code_counter
-String rollingCodeTopic = ""; // broadcast the current rolling code count for debugging purposes
-
 /********************************** GLOBAL VARS *****************************************/
 bool setupComplete = false;
 unsigned int rollingCodeCounter;
+unsigned int idCode;
 byte txSP1StaticCode[1];
 byte rxSP1StaticCode[SECPLUS1_CODE_LEN];
 byte secplus1States[19] = {0x35,0x35,0x35,0x35,0x33,0x33,0x53,0x53,0x38,0x3A,0x3A,0x3A,0x39,0x38,0x3A, 0x38,0x3A,0x39,0x3A};
@@ -86,7 +84,7 @@ byte rxSP2RollingCode[SECPLUS2_CODE_LEN];
 
 unsigned int obstructionLowCount = 0;  // count obstruction low pulses
 unsigned long lastObstructionHigh = 0;  // count time between high pulses from the obst ISR
-
+unsigned long lastRX = 0;
 
 bool dryContactDoorOpen = false;
 bool dryContactDoorClose = false;
@@ -100,7 +98,6 @@ void manageHardwareButton();
 
 void transmit(byte* payload, unsigned int length);
 void sync();
-void saveCounter();
 
 void toggleDoor();
 void openDoor();
