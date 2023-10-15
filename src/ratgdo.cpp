@@ -730,7 +730,7 @@ void lightOff(){
 
 void toggleLight(){
 	if(controlProtocol == "drycontact"){
-		Serial.prinln("Light control not supported with dry contact control.");
+		Serial.println("Light control not supported with dry contact control.");
 	}else if(controlProtocol == "secplus1"){
 		getStaticCode("light");
 		transmit(txSP1StaticCode,1);
