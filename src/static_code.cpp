@@ -35,7 +35,10 @@ void readStaticCode(byte rxSP1StaticCode[SECPLUS1_CODE_LEN], uint8_t &door, uint
 		}else if(val == 0x55){
 			// door closed
 			door = 2;
-		}else if(val == 0x01){
+		}else if(val == 0x01 || val == 0x51 || val == 0x80 || val == 0x81){
+			// 80/81 when obstruction beam is broken while closing
+			// 51 when physical obstruction is detected
+			// door stops then reverses, so map all to "opening" state
 			// door opening
 			door = 4;
 		}else if(val == 0x04){
