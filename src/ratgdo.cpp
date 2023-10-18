@@ -111,6 +111,10 @@ void loop(){
 			// Broadcast that we are online
 			bootstrapManager.publish(availabilityStatusTopic.c_str(), "online", true);
 
+			if(OUTPUT_GDO != LED_BUILTIN){
+				digitalWrite(LED_BUILTIN,HIGH);
+			}
+
 			if(controlProtocol == "secplus2"){
 				LittleFS.begin();
 
@@ -123,11 +127,8 @@ void loop(){
 
 				Serial.println("Syncing rolling code counter after reboot...");
 				sync(); // send reboot/sync to the opener on startup
-
-				if(OUTPUT_GDO != LED_BUILTIN){
-					digitalWrite(LED_BUILTIN,HIGH);
-				}
 			}
+
 		}
 	}
 
@@ -618,7 +619,7 @@ void transmit(byte* payload, unsigned int length){
 
 void pullLow(){
 	digitalWrite(OUTPUT_GDO, HIGH);
-	delay(100);
+	delay(500);
 	digitalWrite(OUTPUT_GDO, LOW);
 }
 
