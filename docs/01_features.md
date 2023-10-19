@@ -92,11 +92,23 @@ There is an ESPHome port of ratgdo available. For the time being this port might
 ### Dry contacts
 
 #### Triggers
-ratgdo's dry contact triggers are at 3.3v and can be pulled to ground to trigger the door opener as follows:
+##### Chamberlain / Liftmaster openers
+When using either Security + 1.0 or Security + 2.0 door opener, ratgdo's dry contact triggers can be pulled to ground to trigger the door opener as follows:
 
 * open<sup>1</sup> - opens the door.
 * close<sup>1</sup> - closes the door.
 * light - toggles the light on or off.
+
+##### Other openers
+When using a door opener that supports standard dry contact control (door bell style), the trigger inputs are used to detect the door state.
+For these openers connect as follows:
+
+* trigger open terminal - wire to door open limit switch
+* trigger close terminal - wire to door closed limit switch
+
+Wire it in such a way that the trigger input is connected with ground when the limit switch is closed. Some door openers (e.g. Genie) have screw terminals on them for each limit switch in addition to the control terminal for opening the door. If your opener doesn't expose its internal limit switches to user accessible terminals you can add simple reed switches to the door track to detect it's state.
+
+With these two limit switches connected, ratgdo can detect all four door states (closed, opening, open, closing).
 
 #### Statuses
 The following dry contact statuses are available:

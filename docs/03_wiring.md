@@ -8,7 +8,7 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 
-## Connecting ratgdo v2.5 to your garage door opener
+## Connecting ratgdo v2.0 or v2.5 to your garage door opener
 
 Things you will need:
 
@@ -21,12 +21,17 @@ OR
 * A USB power brick
 * 3 pieces of thin wire (22-26 gauge recommended)
 * A small zip tie for mounting the board
+* (v2.0 only) Small flat blade screw driver
 
 Procedure:
 
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo firmware.
-1. Follow this diagram to connect your ratgdo 2.0 board to your Security + 2.0 door opener <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
+1. Unplug the door opener.
+1. Wiring between the v2.0 and v2.5 boards are very similar. v2.5 adds extra terminals to make wiring in parallel with your control panel and sensors easier.
+	1. v2.5 diagram <a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png">![image](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)</a>
+	1. v2.0  diagram <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
 2. Power the ratgdo with the USB power brick & cable.
+3. Plug the door opener back in.
 
 ## Version 1.0 Owners Only:
 There are two ways you can connect an original ratgdo board to your garage door opener.
