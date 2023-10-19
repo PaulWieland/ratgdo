@@ -23,7 +23,7 @@ TOC
 * [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png) <br/><a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png"><img src="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png" alt="v2.0 wiring diagram" width="75"/></a>
 
 # About ratgdo 
-ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
+ratgdo gives you **local** MQTT / ESPHome & dry contact control plus full status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
 
 ratgdo is a hardware control board that wires to your door opener's terminals. The firmware allows you to control the door with MQTT or ESPHome over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
 
@@ -66,3 +66,8 @@ The ratgdo board has a pair of holes in it which can be used to physically mount
 
 ## Disclaimer
 Use this device at your own risk.
+
+
+ratgdo is a product of ratCloud llc
+
+© 2022 Paul Wieland

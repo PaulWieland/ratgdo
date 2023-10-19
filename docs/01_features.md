@@ -47,23 +47,40 @@ Then:
 #### Statuses
 The following statuses are broadcast over MQTT:
 
-* prefix/status/availability
- * online - once ratgdo connects to the MQTT broker.
- * offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.
-* prefix/status/obstruction
- * obstructed - when an object breaks the obstruction sensor beam.
- * clear - when an obstruction is cleared.
-* prefix/status/door
- * opening - when the door is opening.
- * open - when the door is fully open.
- * closing - when the door is closing.
- * closed - when the door is fully closed.
-* prefix/status/light
- * on - when the light is on
- * off - when the light is off
-* prefix/status/lock
- * locked - when the door opener is locked
- * unlocked - when unlocked
+<ul>
+	<li>refix/status/availability
+		<ul>
+			<li>online - once ratgdo connects to the MQTT broker.</li>
+			<li>offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.</li>
+		</ul>
+	</li>
+	<li>prefix/status/obstruction
+		<ul>
+			<li>obstructed - when an object breaks the obstruction sensor beam.</li>
+			<li>clear - when an obstruction is cleared.</li>
+		</ul>
+	</li>
+	<li>prefix/status/door
+		<ul>
+			<li>opening - when the door is opening.</li>
+			<li>open - when the door is fully open.</li>
+			<li>closing - when the door is closing.</li>
+			<li>closed - when the door is fully closed.</li>
+		</ul>
+	</li>
+	<li>prefix/status/light
+		<ul>
+			<li>on - when the light is on</li>
+			<li>off - when the light is off</li>
+		</ul>
+	</li>
+	<li>prefix/status/lock
+		<ul>
+			<li>locked - when the door opener is locked</li>
+			<li>unlocked - when unlocked</li>
+		</ul>
+	</li>
+</ul>
 
 ### ESPHome
 There is an ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
