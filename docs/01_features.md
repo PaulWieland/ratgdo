@@ -8,9 +8,9 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 ## Features
-Version 2 of the shield supports detecting the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Signal and Obstruction) are connected to the terminal 
+ratgdo detects the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Control and Obstruction) are connected to the terminals of the garage door opener.
 
-See [v1 Features](01_features_v1.md) if you have a an original ratgdo shield with a blue printed circuit board.
+See [v1 Features](01_features_v1.md) if you have a an original ratgdo with a blue printed circuit board.
 
 ### MQTT
 
@@ -71,17 +71,16 @@ The following statuses are broadcast over MQTT:
  * unlocked - when unlocked
 
 ### ESPHome
-There is a third party ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
+There is an ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
 
 * [Web Tools installer](https://ratgdo.github.io/esphome-ratgdo/)
 * (GitHub Repo)[https://github.com/ratgdo/esphome-ratgdo]
 
-Please note that I do not maintain the ESPHome version and cannot offer support for it if you run into problems.
 
 ### Dry contacts
 
 #### Triggers
-The following dry contact triggers on the ratgdo shield are at 3.3v<sup>2</sup> and can be pulled to ground to trigger the door opener as follows:
+ratgdo's dry contact triggers are at 3.3v<sup>2</sup> and can be pulled to ground to trigger the door opener as follows:
 
 * open<sup>1</sup> - opens the door.
 * close<sup>1</sup> - closes the door.

@@ -13,10 +13,9 @@ Soldering to the logic board is quite easy. These instructions are for a LiftMas
 
 Things you will need:
 
-* A ratgdo shield **[Buy shield only](https://square.link/u/xNP2Orez)**
-* A wemos D1 Mini pin compatible ESP8266 development board **[Buy shield + D1 mini Clone](https://square.link/u/JaMwtjLL)**
+* A ratgdo
 * A soldering iron & basic soldering skills. Good solder (lead/tin works best) & flux.
-* 3 pieces of thin gauge flexible wire, approximately 1' long (length depends on where you want to physically mount the ratgdo shield)
+* 3 pieces of thin gauge flexible wire, approximately 1' long (length depends on where you want to physically mount the ratgdo control board)
 * A phillips screw driver or 1/4" nut driver
 * A small flat blade screw driver for the ratgdo terminals
 * Two small zip ties, one for strain relief of the wires and the other to mount the board
@@ -30,10 +29,10 @@ Procedure:
 5. The logic board is attached to this cover and will come out with the cover. There are two main cables connecting the logic board to the motor and rotary encoder. 
     * Optional - disconnect the two cable connectors if you want to completely remove the back cover and logic board for soldering.
 6. Locate the RPM1, RPM2 and 3.3v pins on the logic board. See diagram(s).
-7. Solder a wire to each of these pins. Make sure you keep track of which wire is which. Hooking them up to the ratgdo shield incorrectly will cause a malfunction.
+7. Solder a wire to each of these pins. Make sure you keep track of which wire is which. Hooking them up to the ratgdo terminals incorrectly will cause a malfunction.
 8. Route the wires as shown in the picture. Use a small zip tie to provide strain relief.
 9. Reconnect the logic board cables if you disconnected them in step 5, and reinstall the cover.
-10. Connect the 6 wires from the door opener to the ratgdo shield according to this diagram:
+10. Connect the 6 wires from the door opener to the ratgdo board according to this diagram:
 
 <a href="https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png">
 ![image](https://user-images.githubusercontent.com/4663918/217019759-a3fdc892-a104-44d3-bdf0-4fcb058cfe35.png)

@@ -56,13 +56,13 @@ The following statuses are broadcast over MQTT:
 ### Dry contacts
 
 #### Triggers
-The following dry contact triggers on the ratgdo shield are at 3.3v<sup>4</sup> and can be pulled to ground to trigger the door opener as follows:
+The following dry contact triggers on ratgdo are at 3.3v<sup>4</sup> and can be pulled to ground to trigger the door opener as follows:
 
 * open<sup>2</sup> - opens the door.
 * close<sup>2</sup> - closes the door.
 * light<sup>3</sup> - toggles the light on or off.
 
-If you do not want to use the discrete open/close dry contacts and wish to have a toggle instead, then simply connect your switch/relay to both the open & close terminals on the ratgdo shield.
+If you do not want to use the discrete open/close dry contacts and wish to have a toggle instead, then simply connect your switch/relay to both the open & close terminals on ratgdo.
 
 #### Statuses
 The following dry contact statuses are available:

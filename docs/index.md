@@ -4,8 +4,8 @@
 Boards ordered before September 12th will ship by the end of September.
 Orders received after the 12th will ship by the end of October. After October I expect to be caught up on inventory and will have enough stock to avoid future backorders. Thank you for your patience!
 
-* Buy [ratgdo v2.0 shield only](https://square.link/u/xNP2Orez) $15
-* Buy [ratgdo v2.0 shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
+> * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
+> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $42
 
 TOC
 * [Main](index.md)
@@ -24,9 +24,12 @@ TOC
 # About ratgdo 
 ratgdo gives you **local** MQTT & dry contact control plus status feedback for your Chamberlain/LiftMaster Security+ 2.0 garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. 
 
-ratgdo is a hardware shield (circuit board) & firmware for the ESP8266 based Wemos D1 Mini development board that wires to your door opener's terminals and restores dry contact control. It also allows you to control the door with MQTT over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
+ratgdo is a hardware control board & firmware for the ESP8266 based Wemos D1 Mini development board that wires to your door opener's terminals. It allows you to control the door with MQTT or ESPHome over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
 
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
+
+## Version 2.5
+Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. 
 
 ## Version 2.0
 Version 2.0 eliminates the need to solder to your garage door's logic board. It works with all Security + 2.0 openers, including 45 series logic boards. 
@@ -35,12 +38,13 @@ Version 2.0 also provides discrete light on/off commands.
 
 
 
-> **ratgdo shields available to order**
-> Shields are available and shipping domestic USA via USPS.
+> **ratgdo v2.5 available to order**
+> Boards are available and shipping domestic USA via USPS.
 > Shipping to Canada is also available, but costs $14.
+> Shipping to the EU and Austrailia varies between $15 and $20.
 >
-> * [ratgdo v2.0 shield only](https://square.link/u/xNP2Orez) $15
-> * [ratgdo v2.0 shield with ESP8266 D1 Clone](https://square.link/u/JaMwtjLL) $30
+> * [ratgdo v2.5 controller only](https://square.link/u/B5pW7OZW) $30
+> * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $42
 
 ![image](https://user-images.githubusercontent.com/4663918/177624921-042e4da7-b284-43e8-84e4-b950a0d34840.png)
 
@@ -50,14 +54,14 @@ These instructions explain how to flash the ratgdo firmware onto your ESP8266 di
 
 ## Installing the firmware
 1. You must use Google Chrome or a Chromium based browser. No other browsers support serial device communication at this time.
-2. Connect ESP8266 with USB cable. It's recommended to do this with the ESP8266 removed from the ratgdo shield.
+2. Connect ratgdo to your Mac or PC with USB cable (Additional USB to UART drivers may be required).
 3. [Click here to launch the ratgdo ESP Web Tools flasher](flash.html)
 4. Choose the version you wish to install
   * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After the ESP8266 connects to your network, you will be given the option to _Vist Device_ so you can configure the MQTT settings.
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting Suggestion
-The ratgdo shield has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
+The ratgdo board has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
 
 ## Disclaimer
 Use this device at your own risk.
