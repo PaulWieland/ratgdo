@@ -86,7 +86,7 @@ The following statuses are broadcast over MQTT:
 There is an ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
 
 * [Web Tools installer](https://ratgdo.github.io/esphome-ratgdo/)
-* (GitHub Repo)[https://github.com/ratgdo/esphome-ratgdo]
+* [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo)
 
 
 ### Dry contacts
