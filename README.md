@@ -9,8 +9,8 @@ ratgdo is *not* a cloud device and does *not* require a subscription service. Th
 > **ratgdo available to order**
 > Shipping domestic USA via USPS or internaltional via Global Post.
 >
-> * [ratgdo v2.5 controller only](https://square.link/u/B5pW7OZW) $30
-> * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $42
+> * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
+> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $42
 
 # [Visit the github.io page for instructions](https://paulwieland.github.io/ratgdo/).
 [ratgdo on GitHub.io](https://paulwieland.github.io/ratgdo/)
