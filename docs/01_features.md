@@ -8,9 +8,9 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 ## Features
-Version 2 of the shield supports detecting the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Signal and Obstruction) are connected to the terminal 
+ratgdo detects the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Control and Obstruction) are connected to the terminals of the garage door opener.
 
-See [v1 Features](01_features_v1.md) if you have a an original ratgdo shield with a blue printed circuit board.
+See [v1 Features](01_features_v1.md) if you have a an original ratgdo with a blue printed circuit board.
 
 ### MQTT
 
@@ -30,62 +30,85 @@ The following MQTT commands are supported:
 * light/off - turns the light off.
 * lock/lock - locks out the wiresss remotes.
 * lock/unlock - unlocks the use of wireless remotes.
-* set_code_counter - sets the rolling code counter. Send a payload with an integer. Only needed to restore the rolling code counter if you completely erase the esp8266 flash memory.
-* sync - syncs the rolling code counter with your door opener - must be called after <em>set_code_counter</em> (this also happens whenever rebooting the esp).
 
 ##### Examples
 
 If:
 
-* Device Name = "My Garage Door"
+* Device Name = "MyGarageDoor"
 * mqtt Prefix = "home/garage"
 
 Then:
 
-* mqtt.topic = "home/garage/My Garage Door/command/door"; mqtt.payload = "open"; - opens the door
-* mqtt.topic = "home/garage/My Garage Door/command/door"; mqtt.payload = "close"; - closes the door
-* mqtt.topic = "home/garage/My Garage Door/set_code_counter"; mqtt.payload = 537; - sets the rolling code counter to 537
-* mqtt.topic = "home/garage/My Garage Door/command"; mqtt.payload = "sync" - syncs the current rolling code counter with the garage door. 
+* mqtt.topic = "home/garage/MyGarageDoor/command/door"; mqtt.payload = "open"; - opens the door
+* mqtt.topic = "home/garage/MyGarageDoor/command/door"; mqtt.payload = "close"; - closes the door
 
-<strong>Notice</strong> Older Security + 2.0 garage door openers with a logic board model# starting with 45 will not accept repeated rolling codes. You must use a rolling code value greater than the last one used with ratgdo. For this reason it is important to take note of the latest rolling code counter (displayed in the serial monitor output) whenever doing a full erase of the esp8266 flash storage.
 
 #### Statuses
 The following statuses are broadcast over MQTT:
 
-* prefix/status/availability
- * online - once ratgdo connects to the MQTT broker.
- * offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.
-* prefix/status/obstruction
- * obstructed - when an object breaks the obstruction sensor beam.
- * clear - when an obstruction is cleared.
-* prefix/status/door
- * opening - when the door is opening.
- * open - when the door is fully open.
- * closing - when the door is closing.
- * closed - when the door is fully closed.
-* prefix/status/light
- * on - when the light is on
- * off - when the light is off
-* prefix/status/lock
- * locked - when the door opener is locked
- * unlocked - when unlocked
+<ul>
+	<li>refix/status/availability
+		<ul>
+			<li>online - once ratgdo connects to the MQTT broker.</li>
+			<li>offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.</li>
+		</ul>
+	</li>
+	<li>prefix/status/obstruction
+		<ul>
+			<li>obstructed - when an object breaks the obstruction sensor beam.</li>
+			<li>clear - when an obstruction is cleared.</li>
+		</ul>
+	</li>
+	<li>prefix/status/door
+		<ul>
+			<li>opening - when the door is opening.</li>
+			<li>open - when the door is fully open.</li>
+			<li>closing - when the door is closing.</li>
+			<li>closed - when the door is fully closed.</li>
+		</ul>
+	</li>
+	<li>prefix/status/light
+		<ul>
+			<li>on - when the light is on</li>
+			<li>off - when the light is off</li>
+		</ul>
+	</li>
+	<li>prefix/status/lock
+		<ul>
+			<li>locked - when the door opener is locked</li>
+			<li>unlocked - when unlocked</li>
+		</ul>
+	</li>
+</ul>
 
 ### ESPHome
-There is a third party ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
+There is an ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
 
 * [Web Tools installer](https://ratgdo.github.io/esphome-ratgdo/)
-* (GitHub Repo)[https://github.com/ratgdo/esphome-ratgdo]
+* [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo)
 
-Please note that I do not maintain the ESPHome version and cannot offer support for it if you run into problems.
 
 ### Dry contacts
 
 #### Triggers
-The following dry contact triggers on the ratgdo shield are at 3.3v<sup>2</sup> and can be pulled to ground to trigger the door opener as follows:
+##### Chamberlain / Liftmaster openers
+When using either Security + 1.0 or Security + 2.0 door opener, ratgdo's dry contact triggers can be pulled to ground to trigger the door opener as follows:
 
 * open<sup>1</sup> - opens the door.
 * close<sup>1</sup> - closes the door.
 * light - toggles the light on or off.
+
+##### Other openers
+When using a door opener that supports standard dry contact control (door bell style), the trigger inputs are used to detect the door state.
+For these openers connect as follows:
+
+* trigger open terminal - wire to door open limit switch
+* trigger close terminal - wire to door closed limit switch
+
+Wire it in such a way that the trigger input is connected with ground when the limit switch is closed. Some door openers (e.g. Genie) have screw terminals on them for each limit switch in addition to the control terminal for opening the door. If your opener doesn't expose its internal limit switches to user accessible terminals you can add simple reed switches to the door track to detect it's state.
+
+With these two limit switches connected, ratgdo can detect all four door states (closed, opening, open, closing).
 
 #### Statuses
 The following dry contact statuses are available:
@@ -96,4 +119,3 @@ The following dry contact statuses are available:
 
 ### Notes
 1. <sup>1</sup> Repeated open commands (or repeated close commands) will be ignored. This gives discrete open/close control over the door which is better than a toggle.
-1. <sup>2</sup> Using the ESP8266's internal INPUT_PULLUP resistor.
