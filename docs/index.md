@@ -62,7 +62,7 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting Suggestion
-The ratgdo shield has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover. A mounting exclosure for v2.0 by samwiseg0 can be found on [printables](https://www.printables.com/model/602600-ratdgo-v2-pcb-enclosure).
+The ratgdo board has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover. A mounting exclosure for v2.0 by samwiseg0 can be found on [printables](https://www.printables.com/model/602600-ratdgo-v2-pcb-enclosure).
 
 ## Disclaimer
 Use this device at your own risk.
