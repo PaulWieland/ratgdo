@@ -20,6 +20,23 @@ If you have a *non* Chamberlain/LiftMaster opener that supports dry contact cont
 * you have limit switches which close to ground for sensing when the door is fully open AND fully closed.
 	* some models provide user accessible terminals for the built in limit switches, otherwise you have to add your own external switches. A pair of inexpensive magnetic reed switchs is the best way to add these if you cannot use the door opener's built in switches.
 
+## Which control protocol (Security + 1.0, Security + 2.0, dry contact, etc) do I need?
+
+Door openers manufactured by the Chamberlain Group have a learn button on them. The color of the learn button can (mostly) tell you which control protocol the opener uses.
+
+* Residential overhead mounted openers
+	* with a yellow learn button are Security + 2.0
+	* with a red, purple or orange learn button are Security + "1.0"
+* Residential wall mounted jackshaft openers
+	* With model 8500**W** are Security + 2.0
+	* All others are Security + 1.0
+
+* Security + 2.0 door openers require ratgdo v2.0 control board or later
+* Security + 1.0 & Dry Contact door openers require v2.5 control board or later
+
+
+Many non Chamberlain openers can be controlled with dry contacts, but also require the connection of limit switches to ratgdo in order for it to interpret the door positions (Closed, Opening, Open, Closing). See the [Wiring](03_wiring.md) section for an explanation of how to wire dry contact openers.
+
 ## ratgdo isn't able to control my door
 The #1 most common mistake is with wiring. Double check your wiring compared to the diagram. The terminals are labeled on the **back** side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
 
