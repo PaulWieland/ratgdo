@@ -1,5 +1,5 @@
 # ORDER
-### LEADTIME NOTICE:
+### LEAD TIME NOTICE:
 Please allow 2-3 weeks for shipment.
 This increased leadtime is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
 Leadtimes will continue to improve.
