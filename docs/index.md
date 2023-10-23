@@ -1,8 +1,8 @@
 # ORDER
-### BACKORDER NOTICE:
-
-Boards ordered before September 12th will ship by the end of September.
-Orders received after the 12th will ship by the end of October. After October I expect to be caught up on inventory and will have enough stock to avoid future backorders. Thank you for your patience!
+### LEADTIME NOTICE:
+Please allow 2-3 weeks for shipment.
+This increased leadtime is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
+Leadtimes will continue to improve.
 
 > * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $42
