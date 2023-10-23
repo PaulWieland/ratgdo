@@ -11,9 +11,7 @@ TOC
 # FAQ & Troubleshooing
 
 ## Will ratgdo work with my garage door opener model?
-Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a yellow learn button, it is supported by ratgdo 2.0 or greater.
-
-If your opener is a wall mounted jackshaft opener or has a red, purpose or orange learn button, it is supported by ratgdo 2.5 or greater.
+Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo 2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo 2.5 or greater.
 
 If you have a *non* chamberlain opener that supports dry contact control, it is supported by ratgdo 2.5 **if**:
 
