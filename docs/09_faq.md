@@ -8,19 +8,37 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 
-# Troubleshooing & FAQ
+# FAQ & Troubleshooing
 
 ## Will ratgdo work with my garage door opener model?
-Any door opener with a wall control panel which has an X in the 2011+ column of [this chart](https://www.windsordoor.com/assets/uploads/modules/accessory-compatibility-chart-91817-82926.pdf) should work with ratgdo v2.
+Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a yellow learn button, it is supported by ratgdo 2.0 or greater.
 
-If you can't find your model in the chart, short your wall control panel wires together. If the door moves, then ratgdo will not work. A future release of ratgdo will work with the older control protocols.
+If your opener is a wall mounted jackshaft opener or has a red, purpose or orange learn button, it is supported by ratgdo 2.5 or greater.
 
-## Converting V1.x board to V2.0
+If you have a *non* chamberlain opener that supports dry contact control, it is supported by ratgdo 2.5 **if**:
+
+* the obstruction sensors operate at 5-6v
+	* ratgdo will still be able to control the door but it will not provide obstruction status if the sensors operate at a different voltage. CAUTION: connecting higher voltage sensors will destroy the obstruction input circuit.
+* you have limit switches which close to ground for sensing when the door is fully open AND fully closed.
+	* some models provide user accessible terminals for the built in limit switches, otherwise you have to add your own external switches. A pair of inexpensive magnetic reed switchs is the best way to add these if you cannot use the door opener's built in switches.
+
+## ratgdo isn't able to control my door
+Double check your wiring. The terminals labeled on the back side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
+
+## My PC can't connect with ratgdo
+Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. An FTDI serial device should show up. The FTDI usb to serial or usb to uart driver should work. Modern OS's come with the driver pre-installed.
+
+## My door opens/closes when ratgdo reboots
+Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
+
+If you own an opener with a purple or red learn button, you have a security + 1.0 opener and you need a v2.5 ratgdo control board.
+
+<!-- ## Converting V1.x board to V2.0
 Upgrading a V1 board to V2 requires the addition of a 2n7000 Mosfet.
 
 Solder connections:
 - source = ground
 - gate = red/ctrl
-- drain = RPM2
+- drain = RPM2 -->
 
 [Please open an issue on GitHub for support](https://github.com/PaulWieland/ratgdo/issues). FAQs will be added here.
