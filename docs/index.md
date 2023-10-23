@@ -68,6 +68,8 @@ The ratgdo board has a pair of holes in it which can be used to physically mount
 Use this device at your own risk.
 
 
-ratgdo is a product of ratCloud llc
+ratgdo is a product of ratCloud llc and is not affiliated in anyway with the Chamberlain Group.
 
-© 2022 Paul Wieland
+Security +, Security + 2.0, myQ are trademarks of the Chamberlain Group.
+
+© 2023 ratCloud llc
