@@ -1,8 +1,8 @@
 # ORDER
 ### LEAD TIME NOTICE:
 Please allow 2-3 weeks for shipment.
-This increased leadtime is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
-Leadtimes will continue to improve.
+This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
+Lead times will continue to improve.
 
 > * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $42
