@@ -1,8 +1,8 @@
 # ORDER
-### BACKORDER NOTICE:
-
-Boards ordered before September 12th will ship by the end of September.
-Orders received after the 12th will ship by the end of October. After October I expect to be caught up on inventory and will have enough stock to avoid future backorders. Thank you for your patience!
+### LEAD TIME NOTICE:
+Please allow 2-3 weeks for shipment.
+This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
+Lead times will continue to improve.
 
 > * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $42
@@ -19,7 +19,7 @@ TOC
 # Quick Start
 * [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
 * A port of ratgdo to ESPHome exists. If you are interested in using ESPHome instead of MQTT check out the [ESPHome installer](http://ratgdo.github.io/esphome-ratgdo/) & [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo).
-* [Version 2.5 Wiring Diagram]()<br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
+* [Version 2.5 Wiring Diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png) <br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
 * [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png) <br/><a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png"><img src="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png" alt="v2.0 wiring diagram" width="75"/></a>
 
 # About ratgdo 
@@ -58,7 +58,7 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
 2. Connect ratgdo to your Mac or PC with USB cable (Additional USB to UART drivers may be required).
 3. [Click here to launch the ratgdo ESP Web Tools flasher](flash.html)
 4. Choose the version you wish to install
-  * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After ratgdo connects to your network, you will be given the option to _Vist Device_ so you can configure the MQTT settings.
+  * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After ratgdo connects to your network, you will be given the option to _Visit Device_ so you can configure the MQTT settings.
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting Suggestion
@@ -68,6 +68,8 @@ The ratgdo board has a pair of holes in it which can be used to physically mount
 Use this device at your own risk.
 
 
-ratgdo is a product of ratCloud llc
+ratgdo is a product of ratCloud llc and is not affiliated in anyway with the Chamberlain Group.
 
-© 2022 Paul Wieland
+Security +, Security + 2.0, myQ are trademarks of the Chamberlain Group.
+
+© 2023 ratCloud llc
