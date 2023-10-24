@@ -11,12 +11,14 @@ TOC
 # FAQ & Troubleshooing
 
 ## Will ratgdo work with my garage door opener model?
-Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo 2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo 2.5 or greater.
+Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo hardware v2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo hardware v2.5 or greater.
+
+There is also a [wiki page](https://github.com/PaulWieland/ratgdo/wiki) to document models which have been tested.
 
 If you have a *non* Chamberlain/LiftMaster opener that supports dry contact control, it is supported by ratgdo 2.5 **if**:
 
-* the obstruction sensors operate at 5-6v, then ratgdo will be able to read them. A firmware patch may be required if they use a dramatically different feedback method than Chamberlain sensors.
-	* If the sensors are not 5-6v, ratgdo will still be able to control the door but it will not provide obstruction status. CAUTION: connecting higher than 6v sensors will destroy the obstruction input circuit.
+* the obstruction sensors operate at 5-7v, then ratgdo will be able to read them. A firmware patch may be required if they use a dramatically different feedback method than Chamberlain sensors.
+	* If the sensors are not 5-7v, ratgdo will still be able to control the door but it will not provide obstruction status. CAUTION: connecting higher than 6v sensors will destroy the obstruction input circuit.
 * you have limit switches which close to ground for sensing when the door is fully open AND fully closed.
 	* some models provide user accessible terminals for the built in limit switches, otherwise you have to add your own external switches. A pair of inexpensive magnetic reed switchs is the best way to add these if you cannot use the door opener's built in switches.
 
