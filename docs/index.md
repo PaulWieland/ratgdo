@@ -58,7 +58,7 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
 2. Connect ratgdo to your Mac or PC with USB cable (Additional USB to UART drivers may be required).
 3. [Click here to launch the ratgdo ESP Web Tools flasher](flash.html)
 4. Choose the version you wish to install
-  * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After ratgdo connects to your network, you will be given the option to _Vist Device_ so you can configure the MQTT settings.
+  * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After ratgdo connects to your network, you will be given the option to _Visit Device_ so you can configure the MQTT settings.
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting Suggestion
