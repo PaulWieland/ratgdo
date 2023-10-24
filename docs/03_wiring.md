@@ -28,7 +28,8 @@ Procedure:
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo firmware.
 1. Unplug the door opener.
 1. Wiring between the v2.0 and v2.5 boards are very similar. v2.5 adds extra terminals to make wiring in parallel with your control panel and sensors easier.
-	* v2.5 diagram <a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png">![image](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)</a>
+	* v2.5 diagram Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png">![image](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)</a>
+	* v2.5 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/277820261-14136b0c-200d-479d-a55e-6097e33f4a3c.png">![image](https://user-images.githubusercontent.com/4663918/277820261-14136b0c-200d-479d-a55e-6097e33f4a3c.png)</a>
 	* v2.0  diagram <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
 2. Power ratgdo with the USB power brick & cable.
 3. Plug the door opener back in.
