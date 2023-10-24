@@ -22,6 +22,8 @@ If you have a *non* Chamberlain/LiftMaster opener that supports dry contact cont
 
 ## Which control protocol (Security + 1.0, Security + 2.0, dry contact, etc) do I need?
 
+A matrix of compatible openers is being matinained in the [ratgdo wiki on github](https://github.com/PaulWieland/ratgdo/wiki).
+
 Door openers manufactured by the Chamberlain Group have a learn button on them. The color of the learn button can (mostly) tell you which control protocol the opener uses.
 
 * Residential overhead mounted openers
