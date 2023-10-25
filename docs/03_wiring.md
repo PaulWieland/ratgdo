@@ -46,13 +46,16 @@ Security + 1.0 & 2.0 openers with multiple wires sharing a terminal on GDO:
 Suggested Mounting method using a zip tie to secure the control board to the plastic light shield:
 ![image](https://user-images.githubusercontent.com/4663918/278091821-02f85f5f-ebda-4603-9ee5-bd998bf8e7ee.jpeg)
 
-Example wiring for Genie which has user accessible limit switch terminals:
-![image](https://user-images.githubusercontent.com/4663918/278091841-2c0b9a98-649f-43c7-8506-f76a528d6972.jpeg)
+
+Example wiring for a Genie opener which has user accessible limit switch terminals:
 
 * Green wire = wht/gnd -> terminal 2 / ground
 * Orange wire = red/ctrl -> terminal 1 / control
 * Blue wire = trigger open -> terminal 4 / open limit switch
 * White wire = trigger close -> terminal 6 / close limit switch
+
+![image](https://user-images.githubusercontent.com/4663918/278091841-2c0b9a98-649f-43c7-8506-f76a528d6972.jpeg)
+
 ![image](https://user-images.githubusercontent.com/4663918/278091855-f231ff4d-575b-4ab6-9263-7d590645e7f5.jpeg)
 
 ## Version 1.0 Owners Only:
