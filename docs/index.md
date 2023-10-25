@@ -20,8 +20,8 @@ TOC
 * [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
 * A port of ratgdo to ESPHome exists. If you are interested in using ESPHome instead of MQTT check out the [ESPHome installer](http://ratgdo.github.io/esphome-ratgdo/) & [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo).
 * [Version 2.5 Security + 1/2 Wiring Diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png) <br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
-* [Version 2.5 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/277820261-14136b0c-200d-479d-a55e-6097e33f4a3c.png)
-<br/><a href="https://user-images.githubusercontent.com/4663918/277820261-14136b0c-200d-479d-a55e-6097e33f4a3c.png"><img src="https://user-images.githubusercontent.com/4663918/277820261-14136b0c-200d-479d-a55e-6097e33f4a3c.png" alt="v2.5 dry contact diagram" width="75"/></a>
+* [Version 2.5 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)
+<br/><a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png"><img src="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png" alt="v2.5 dry contact diagram" width="75"/></a>
 * [Version 2.0 Wiring Diagram](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png) <br/><a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png"><img src="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png" alt="v2.0 wiring diagram" width="75"/></a>
 
 # About ratgdo 
