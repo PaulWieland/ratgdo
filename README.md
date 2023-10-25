@@ -1,10 +1,12 @@
 # ratgdo
 
-ratgdo gives you **local** MQTT & dry contact control plus status feedback for your residential Chamberlain/LiftMaster garage door opener _including_ Security+ 2.0 openers. (Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door). 
+ratgdo gives you **local** MQTT & dry contact control plus status feedback for your residential Chamberlain/LiftMaster/Merlin garage door opener _including_ Security+ 2.0 openers. (Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door). 
 
 ratgdo wires to your door opener's terminals and restores dry contact control. It also allows you to control the door with MQTT over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device.
 
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
+
+ratgdo also can control door openers that use a dry contact interface. Status feedback is provided through two reed switches.
 
 > **ratgdo available to order**
 > Shipping domestic USA via USPS or internaltional via Global Post.
