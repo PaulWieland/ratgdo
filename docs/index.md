@@ -49,7 +49,7 @@ Version 2.0 also provides discrete light on/off commands.
 > * [ratgdo v2.5 controller only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $42
 
-![image](https://user-images.githubusercontent.com/4663918/177624921-042e4da7-b284-43e8-84e4-b950a0d34840.png)
+![image](https://user-images.githubusercontent.com/4663918/278084155-fc6e5234-40e9-4a87-bcde-97ae78eeb684.jpeg)
 
 
 # ratgdo ESP Flasher
