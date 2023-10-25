@@ -34,6 +34,27 @@ Procedure:
 2. Power ratgdo with the USB power brick & cable.
 3. Plug the door opener back in.
 
+### Examples
+
+Security + 1.0 & 2.0 openers using passthrough ports on control board (one wire per terminal):
+![image](https://user-images.githubusercontent.com/4663918/278091586-63ff87f9-f67b-49a5-bc8a-c3c8a5bdab73.jpeg)
+![image](https://user-images.githubusercontent.com/4663918/278091772-464265aa-a377-4ef8-b5d9-5b4bfb77d189.jpeg)
+
+Security + 1.0 & 2.0 openers with multiple wires sharing a terminal on GDO:
+![image](https://user-images.githubusercontent.com/4663918/278091799-a520915d-c475-4ac9-8b06-f9fca015f0c2.jpeg)
+
+Suggested Mounting method using a zip tie to secure the control board to the plastic light shield:
+![image](https://user-images.githubusercontent.com/4663918/278091821-02f85f5f-ebda-4603-9ee5-bd998bf8e7ee.jpeg)
+
+Example wiring for Genie which has user accessible limit switch terminals:
+![image](https://user-images.githubusercontent.com/4663918/278091841-2c0b9a98-649f-43c7-8506-f76a528d6972.jpeg)
+
+* Green wire = wht/gnd -> terminal 2 / ground
+* Orange wire = red/ctrl -> terminal 1 / control
+* Blue wire = trigger open -> terminal 4 / open limit switch
+* White wire = trigger close -> terminal 6 / close limit switch
+![image](https://user-images.githubusercontent.com/4663918/278091855-f231ff4d-575b-4ab6-9263-7d590645e7f5.jpeg)
+
 ## Version 1.0 Owners Only:
 There are two ways you can connect an original ratgdo board to your garage door opener.
 
