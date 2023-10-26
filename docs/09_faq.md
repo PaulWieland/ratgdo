@@ -32,7 +32,7 @@ Door openers manufactured by the Chamberlain Group have a learn button on them. 
 	* with a yellow learn button are Security + 2.0
 	* with a red, purple or orange learn button are Security + "1.0"
 * Residential wall mounted jackshaft openers
-	* With model 8500**W** are Security + 2.0
+	* With model 8500**W** or RJ070 are Security + 2.0
 	* All others are Security + 1.0
 
 * Security + 2.0 door openers require ratgdo v2.0 control board or later
