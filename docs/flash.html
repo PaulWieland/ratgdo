@@ -15,27 +15,24 @@
 	
 	<label for="selectManifest">Choose version:</label>
 	<select id="selectManifest" onchange="setManifest()">
-		<optgroup label="White 2.0 Boards Only">
-			<option value="flasher/manifest.json">ratgdo v2.1</option>
-			<option value="flasher/manifest_no_wifi.json">ratgdo v2.1 (WiFi disabled)</option>
-			<option value="flasher/manifest_alpha.json">ratgdo v2.26a (secplus 1.0)</option>
-			<!-- <option value="flasher/manifest_alpha2.json">ratgdo v2.1b</option>
-			<option value="flasher/manifest_alpha3.json">ratgdo v2.1c</option> -->
+		<option value="">Please Choose Firmware Version:</option>
+		<optgroup label="Black v2.5 Boards Only">
+			<option value="flasher/manifest_v25.json">ratgdo v2.5, Security + 1.0, 2.0 & Dry Contact</option>
 		</optgroup>
-		<optgroup label="Blue 1.0 Boards Only">
-			<option value="flasher/manifest_v1.json">ratgdo v1.8</option>
-			<option value="flasher/manifest_no_wifi_v1.json">ratgdo v1.8 (WiFi disabled)</option>
+		<optgroup label="White v2.0 Boards Only">
+			<option value="flasher/manifest_v2.json">ratgdo v2.2, Security + 2.0</option>
+			<option value="flasher/manifest_v2_no_wifi.json">ratgdo v2.2, Security + 2.0 (WiFi disabled)</option>
+			<option value="flasher/manifest_v2_alpha.json">ratgdo v2.26a, Security + 2.0 (secplus 1.0 alpha)</option>
 		</optgroup>
-		<optgroup label="Debugging">
+		<optgroup label="Blue v1.0 Boards Only">
+			<option value="flasher/manifest_v1.json">ratgdo v1.8, Security + 2.0</option>
+			<option value="flasher/manifest_v1_no_wifi.json">ratgdo v1.8, Security + 2.0 (WiFi disabled)</option>
+		</optgroup>
+		<!-- <optgroup label="Debugging">
 			<option value="flasher/manifest_serial_dump.json">secplus 1.0 serial dump</option>
-		</optgroup>
+		</optgroup> -->
 		<!-- <option value="flasher/manifest_alpha.json">ratgdo v1.71a</option> -->
 	</select>
-
-	<br/>
-	<p><strong>Note:</strong> <em>Erase Device</em> will erase your configuration and last used rolling code counter. 
-		<strong>Before</strong> you use this option, open the <em>Logs & Console</em>, send a command to your opener and 
-		take note of the last used counter. Then after flashing, send an mqtt <em>set_code_counter</em> command to restore the counter value and then <em>sync</em> with the opener. <a href="01_features.html">See docs</a>.</p>
 
 	<br/>
 	
@@ -46,8 +43,17 @@
 		var manifest = $("#manifest").attr("manifest",`flasher/manifest.json`);
 
 		function setManifest(){
+			if($("#selectManifest").val() === ""){
+				alert("Please choose a firmware from the drop down.");
+				$("esp-web-install-button").hide();
+			}else{
+				$("esp-web-install-button").show();
+			}
+
 			$("#manifest").attr("manifest",$("#selectManifest").val());
 		}
+
+		$("esp-web-install-button").hide();
 	</script>
 </body>
 </html>
