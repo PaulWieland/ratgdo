@@ -5,12 +5,12 @@ It works with virtually any residential Chamberlain or Liftmaster manufactured g
 
 It can control the door and report back the actual status of the door (closed, opening, open, closing). For Security + 2.0 door openers, the obstruction sensors, light, wireless lockout and even motion sensing are also integrated.
 
- [See here for more information regarding which features work with which door opener.](01_features.md)
+[See here for more information regarding which features work with which door opener.](01_features.md)
 
 # ORDER
 ### LEAD TIME NOTICE:
-Please allow 2-3 weeks for shipment.
-This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5). 
+Please allow 3 weeks for shipment.
+This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5).
 Lead times will continue to improve.
 
 > * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
