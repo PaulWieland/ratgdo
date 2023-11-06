@@ -38,39 +38,39 @@ The features supported depend on the type of garage door opener you have. This t
 <tbody>
 	<tr>
 		<th>Door Control</th>
-		<td>X</td>
-		<td>X</td>
-		<td>X</td>
+		<td align="center">X</td>
+		<td align="center">X</td>
+		<td align="center">X</td>
 	</tr>
 	<tr>
 		<th>Door Status</th>
-		<td>X</td>
-		<td>X</td>
-		<td>*<sup>1</sup></td>
+		<td align="center">X</td>
+		<td align="center">X</td>
+		<td align="center">*<sup>1</sup></td>
 	</tr>
 	<tr>
 		<th>Light Control</th>
-		<td>X</td>
-		<td>X</td>
-		<td>&nbsp;</td>
+		<td align="center">X</td>
+		<td align="center">X</td>
+		<td align="center">&nbsp;</td>
 	</tr>
 	<tr>
 		<th>Light Status</th>
-		<td>X</td>
-		<td>X</td>
-		<td>&nbsp;</td>
+		<td align="center">X</td>
+		<td align="center">X</td>
+		<td align="center">&nbsp;</td>
 	</tr>
 	<tr>
 		<th>Obstruction Status</th>
-		<td>X</td>
-		<td>X</td>
-		<td>*<sup>2</sup></td>
+		<td align="center">X</td>
+		<td align="center">X</td>
+		<td align="center">*<sup>2</sup></td>
 	</tr>
 	<tr>
 		<th>Motion Detection</th>
-		<td>*<sup>3</sup></td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td align="center">*<sup>3</sup></td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
 	</tr>
 </tbody>
 </table>	
