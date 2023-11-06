@@ -1,5 +1,5 @@
 # What is ratgdo?
-ratgdo is a WiFi control board for your garage door opener that works over MQTT or ESPHome. It connects to your door opener with three simple wires.
+ratgdo is a WiFi control board for your garage door opener that works over your *local network* using MQTT or ESPHome. It connects to your door opener with three simple wires.
 
 It works with virtualy any Chamberlain or Liftmaster garage door opener and also offers basic support for other brands which use dry contacts to control the door. [see here for more information](01_features.md)
 
