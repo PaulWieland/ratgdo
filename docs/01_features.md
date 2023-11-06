@@ -12,6 +12,74 @@ ratgdo detects the garage door's position (opening, open, closing, closed) from 
 
 See [v1 Features](01_features_v1.md) if you have a an original ratgdo with a blue printed circuit board.
 
+## Feature Matrix
+The features supported depend on the type of garage door opener you have. This table is meant to help clarify what features work with which opener.
+
+<table>
+<thead>
+	<tr>
+		<th>&nbsp;</th>
+		<th colspan="2">Manufactured by Chamberlain / Liftmaster</th>
+		<th>Other</th>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th>Security + 2.0</th>
+		<th>Security + 1.0</th>
+		<th>Dry Contact</th>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th>Yellow Learn Button</th>
+		<th>Purple, Red, Orange Learn Buttons</th>
+		<th>&nbsp;</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>Door Control</th>
+		<td>X</td>
+		<td>X</td>
+		<td>X</td>
+	</tr>
+	<tr>
+		<th>Door Status</th>
+		<td>X</td>
+		<td>X</td>
+		<td>*<sup>1</sup></td>
+	</tr>
+	<tr>
+		<th>Light Control</th>
+		<td>X</td>
+		<td>X</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Light Status</th>
+		<td>X</td>
+		<td>X</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Obstruction Status</th>
+		<td>X</td>
+		<td>X</td>
+		<td>*<sup>2</sup></td>
+	</tr>
+	<tr>
+		<th>Motion Detection</th>
+		<td>*<sup>3</sup></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+</tbody>
+</table>	
+
+1. Openers with dry contact control require that limit switches be connected to ratgdo to detect the door state. See [Dry Contact Wiring](03_wiring.md).
+1. Obstruction sensors must have a peak voltage between 4.5 and 7 volts.
+1. Motion detection requires a wall control panel with a built in motion detector such as the 880LMW.
+
+
 ### MQTT
 
 #### Home Assistant Auto Discovery
