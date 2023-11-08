@@ -13,26 +13,50 @@ ratgdo detects the garage door's position (opening, open, closing, closed) from 
 See [v1 Features](01_features_v1.md) if you have a an original ratgdo with a blue printed circuit board.
 
 ## Feature Matrix
-The features supported depend on the type of garage door opener you have. This table is meant to help clarify what features work with which opener.
+The features supported depend on the type of garage door opener you have and the firmware you are using. This table is meant to help clarify what features work with which opener.
+
+Firmware types:
+
+* <strong><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></strong>QTT - for MQTT based home automation integration (NodeRED, Home Assistant, etc)
+* <strong><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></strong>SP Home - for ESP Home / Home Assistant
+* <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - (in development) if you just want iOS integration without the need for a home automation platform
+
+* X - fully supported
+* * - partial support, see note
+* o - coming soon
 
 <table>
 <thead>
 	<tr>
 		<th>&nbsp;</th>
-		<th colspan="2">Manufactured by Chamberlain / Liftmaster</th>
+		<th style="border-right: 1px solid #e5e5e5;" colspan="6">Manufactured by Chamberlain / Liftmaster</th>
 		<th>Other</th>
 	</tr>
 	<tr>
 		<th>&nbsp;</th>
-		<th>Security + 2.0</th>
-		<th>Security + 1.0</th>
-		<th>Dry Contact</th>
+		<th style="border-right: 1px solid #e5e5e5" colspan="3">Security + 2.0</th>
+		<th style="border-right: 1px solid #e5e5e5" colspan="3">Security + 1.0</th>
+		<th colspan="3">Dry Contact</th>
 	</tr>
 	<tr>
-		<th>&nbsp;</th>
-		<th>Yellow Learn Button</th>
-		<th>Purple, Red, Orange Learn Buttons</th>
-		<th>&nbsp;</th>
+		<th style="width: 25%;">&nbsp;</th>
+		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Yellow Learn Button</th>
+		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Red, Orange Learn Buttons</th>
+		<th style="width: 25%" colspan="3">&nbsp;</th>
+	</tr>
+	<tr>
+		<th>Firmware</th>
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></th>
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></th>
+		<th style="text-align: center; border-right: 1px solid #e5e5e5"><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></th>
+
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></th>
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></th>
+		<th style="text-align: center; border-right: 1px solid #e5e5e5"><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></th>
+
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></th>
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></th>
+		<th style="text-align: center;"><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></th>		
 	</tr>
 </thead>
 <tbody>
@@ -40,35 +64,98 @@ The features supported depend on the type of garage door opener you have. This t
 		<th>Door Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center;">o</td>
+
 	</tr>
 	<tr>
 		<th>Door Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
 		<td style="text-align: center;">*<sup>1</sup></td>
+		<td style="text-align: center;">o<sup>1</sup></td>
+		<td style="text-align: center;">o<sup>1</sup></td>
 	</tr>
 	<tr>
 		<th>Light Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
 	</tr>
 	<tr>
 		<th>Light Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
 	</tr>
 	<tr>
 		<th>Obstruction Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
 		<td style="text-align: center;">*<sup>2</sup></td>
+		<td style="text-align: center;">o<sup>2</sup></td>
+		<td style="text-align: center;">o<sup>2</sup></td>
+	</tr>
+	<tr>
+		<th>Wireless Remote Lockout</th>
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center;">X</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">&nbsp;</td>
+
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
 	</tr>
 	<tr>
 		<th>Motion Detection</th>
 		<td style="text-align: center;">*<sup>3</sup></td>
+		<td style="text-align: center;">*<sup>3</sup></td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o<sup>3</sup></td>
+
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">&nbsp;</td>
+
+		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
 	</tr>
