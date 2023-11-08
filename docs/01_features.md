@@ -205,7 +205,7 @@ Then:
 The following statuses are broadcast over MQTT:
 
 <ul>
-	<li>refix/status/availability
+	<li>prefix/status/availability
 		<ul>
 			<li>online - once ratgdo connects to the MQTT broker.</li>
 			<li>offline - the mqtt last will message which is broadcast by the broker when the ratgdo client loses its connection.</li>
