@@ -22,8 +22,8 @@ Firmware types:
 * <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - (in development) if you just want iOS integration without the need for a home automation platform
 
 * X - fully supported
-* * - partial support, see note
-* o - coming soon
+* o - partial support, see note
+* + - coming soon
 
 <table>
 <thead>
@@ -64,40 +64,40 @@ Firmware types:
 		<th>Door Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">+</td>
 
 	</tr>
 	<tr>
 		<th>Door Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
-		<td style="text-align: center;">*<sup>1</sup></td>
 		<td style="text-align: center;">o<sup>1</sup></td>
-		<td style="text-align: center;">o<sup>1</sup></td>
+		<td style="text-align: center;">+<sup>1</sup></td>
+		<td style="text-align: center;">+<sup>1</sup></td>
 	</tr>
 	<tr>
 		<th>Light Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
@@ -107,11 +107,11 @@ Firmware types:
 		<th>Light Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
@@ -121,21 +121,21 @@ Firmware types:
 		<th>Obstruction Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">o</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
-		<td style="text-align: center;">*<sup>2</sup></td>
 		<td style="text-align: center;">o<sup>2</sup></td>
-		<td style="text-align: center;">o<sup>2</sup></td>
+		<td style="text-align: center;">+<sup>2</sup></td>
+		<td style="text-align: center;">+<sup>2</sup></td>
 	</tr>
 	<tr>
 		<th>Wireless Remote Lockout</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
@@ -147,9 +147,9 @@ Firmware types:
 	</tr>
 	<tr>
 		<th>Motion Detection</th>
-		<td style="text-align: center;">*<sup>3</sup></td>
-		<td style="text-align: center;">*<sup>3</sup></td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o<sup>3</sup></td>
+		<td style="text-align: center;">o<sup>3</sup></td>
+		<td style="text-align: center;">o<sup>3</sup></td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+<sup>3</sup></td>
 
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
