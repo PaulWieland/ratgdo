@@ -21,9 +21,11 @@ Firmware types:
 * <strong><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></strong>SP Home - for ESP Home / Home Assistant
 * <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - (in development) if you just want iOS integration without the need for a home automation platform
 
-* X - fully supported
-* o - partial support, see note
-* &plus; - coming soon
+<ul>
+	<li>X - fully supported</li>
+	<li>o - partial support, see note</li>
+	<li>+ - coming soon</li>
+</ul>
 
 <table>
 <thead>
