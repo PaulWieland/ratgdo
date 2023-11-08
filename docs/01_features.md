@@ -23,7 +23,7 @@ Firmware types:
 
 * X - fully supported
 * o - partial support, see note
-* + - coming soon
+* &plus; - coming soon
 
 <table>
 <thead>
