@@ -45,7 +45,12 @@ Many non Chamberlain openers can be controlled with dry contacts, but also requi
 The #1 most common mistake is with wiring. Double check your wiring compared to the diagram. The terminals are labeled on the **back** side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
 
 ## My PC can't connect with ratgdo
+The most common problem is a bad USB cable. Unfortunately many USB cables are power only (for charging a device) and do not include the data wires. Make sure you are using a USB cable that is an actual data cable.
+
 Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. An FTDI serial device should show up. The FTDI usb to serial or usb to uart driver should work. Modern OS's come with the driver pre-installed.
+
+## I have more than one door, do I need more than one ratgdo?
+Yes. You need one ratgdo control board per door, just like you need one wired wall button per door.
 
 ## My door opens/closes when ratgdo reboots
 Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
