@@ -7,6 +7,9 @@ TOC
 * [Home Assistant Example](05_homeassistant_example.md)
 * [FAQ & Troubleshooting](09_faq.md)
 
+# THESE DIRECTIONS ARE FOR HARDWARE V1.0 ONLY
+Do not use these instructions unless you are using the v1.0 of the ratgdo control board.
+
 ## Soldered method - uses door opener's rotary encoder and power supply
 
 Soldering to the logic board is quite easy. These instructions are for a LiftMaster Model 8365W.
