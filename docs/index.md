@@ -76,8 +76,7 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
 The ratgdo board has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
 
 ## Disclaimer
-Use this device at your own risk.
-
+Use this device at your own risk. To avoid risk of injury or property damage only operate the garage door within line of sight.
 
 ratgdo is a product of ratCloud llc and is not affiliated in anyway with the Chamberlain Group.
 
