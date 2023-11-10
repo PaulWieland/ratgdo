@@ -34,7 +34,6 @@
 		</optgroup> -->
 		<!-- <option value="flasher/manifest_alpha.json">ratgdo v1.71a</option> -->
 	</select>
-
 	<br/>
 	
 	<h4>ESP Home:</h4>
@@ -44,6 +43,14 @@
 
 	<!-- <h4>Native HomeKit:</h4>
 	<p>A native HomeKit version of ratgdo is in development <a href="https://ratgdo.github.io/homekit-ratgdo/" target="_blank">HomeKit port</a> & <a href="https://github.com/ratgdo/esphome-ratgdo">GitHub Repo</a>.</p> -->
+
+	
+	<h4>Drivers</h4>
+	<p>If you can't connect to your ratgdo board make sure you have the right driver installed for the type of board you have.</p>
+	<ul>
+		<li>ratgdo v2.5i uses a CH340 USB to Serial chipset. [<a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" target="_blank">driver download</a>]</li>
+		<li>Most D1 Minis use an FTDI USB to Serial chipset. [<a href="https://ftdichip.com/drivers/vcp-drivers/" target="_blank">driver download</a>]</li>
+	</ul>
 
     <esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
 	<script>
