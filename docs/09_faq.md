@@ -44,6 +44,14 @@ Many non Chamberlain openers can be controlled with dry contacts, but also requi
 ## ratgdo isn't able to control my door
 The #1 most common mistake is with wiring. Double check your wiring compared to the diagram. The terminals are labeled on the **back** side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
 
+## Drivers?
+If you can't connect to your ratgdo board make sure you have the right driver installed for the type of board you have.
+
+<ul>
+	<li>ratgdo v2.5i uses a CH340 USB to Serial chipset. [<a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" target="_blank">driver download</a>]</li>
+	<li>Most D1 Minis use an FTDI USB to Serial chipset. [<a href="https://ftdichip.com/drivers/vcp-drivers/" target="_blank">driver download</a>]</li>
+</ul>
+
 ## My PC can't connect with ratgdo
 The most common problem is a bad USB cable. Unfortunately many USB cables are power only (for charging a device) and do not include the data wires. Make sure you are using a USB cable that is an actual data cable.
 
