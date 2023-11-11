@@ -61,16 +61,9 @@ Make sure you have a USB to UART driver installed. If on windows, open your devi
 Yes. You need one ratgdo control board per door, just like you need one wired wall button per door.
 
 ## My door opens/closes when ratgdo reboots
-Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
+Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 and have a yellow learn button, but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
 
-If you own an opener with a purple or red learn button, you have a security + 1.0 opener and you need a v2.5 ratgdo control board.
+If you own one of the aformentioned jack shaft openers, or an opener with a purple, red or orange learn button, you have a security + 1.0 opener and you need a v2.5 (or later) ratgdo control board.
 
-<!-- ## Converting V1.x board to V2.0
-Upgrading a V1 board to V2 requires the addition of a 2n7000 Mosfet.
-
-Solder connections:
-- source = ground
-- gate = red/ctrl
-- drain = RPM2 -->
 
 [Please open an issue on GitHub for support](https://github.com/PaulWieland/ratgdo/issues). FAQs will be added here.
