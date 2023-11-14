@@ -20,7 +20,7 @@ If you have a question about your order, reply to the receipt email you received
 A clear and concise description of what the issue is. 
 
 ### Version information
-* ratgdo board version:
+* ratgdo board version: [1.0, 2.0, 2.5]
 * ratgdo firmware variant: [MQTT, ESPHome]
 * control protocol: [Sec+2, Sec+1, Dry Contact]
 
