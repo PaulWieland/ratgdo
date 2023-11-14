@@ -11,10 +11,9 @@ assignees: ''
 Please do not open issues for questions about your order.
 If you have a question about your order, reply to the receipt email you received from square.
 
-
 **Describe the bug**
 A clear and concise description of what the bug is. 
-Include a photo of your wiring!
+**A photo of your ratgdo board & wiring is required!**
 
 **Version information**
 * which ratgdo board version?
