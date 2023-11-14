@@ -7,18 +7,26 @@ assignees: ''
 
 ---
 
+
+
 **IMPORTANT**
+
+**A photo of your ratgdo board and wiring is required.**
+
 Please do not open issues for questions about your order.
 If you have a question about your order, reply to the receipt email you received from square.
 
-**Describe the Issue**
+### Describe the Issue
 A clear and concise description of what the issue is. 
-Include a photo of your wiring!
 
-**Version information**
-* which ratgdo board version?
-* which ratgdo firmware variant and version (MQTT or ESPHome?)
-* which garage door control protocol?
+### Version information
+* ratgdo board version:
+* ratgdo firmware variant: [MQTT, ESPHome]
+* control protocol: [Sec+2, Sec+1, Dry Contact]
 
-**Additional context**
+### Additional context
 Add any other context about the problem here.
+
+```
+paste ratgdo serial console log here
+```
