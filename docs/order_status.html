@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Order Status</h1>
+	<h2 id="last_update"></h2>
+	<script src="jquery-3.6.0.min.js"></script>
+	<style type="text/css">
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		
+	</style>
+	
+	<table id="order_status" cellspacing="0" style="width: 300px">
+		<thead>
+			<tr>
+				<th>order date</th>
+				<th>production %</th>
+				<th>state</th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+
+	<script>
+		function calculate(first, second, percentage) {
+			let result = {};
+			Object.keys(first).forEach((key) => {
+				let start = first[key];
+				let end = second[key];
+				let offset = (start - end) * percentage;
+				if(offset >= 0) {
+					Math.abs(offset); 
+				}
+				result[key] = (start - offset);
+			});
+			return result;
+		}
+
+		var data = `last update 2023-11-17		
+order date	production %	state
+2023-10-19	100%	in transit
+2023-10-20	100%	in transit
+2023-10-21	100%	in transit
+2023-10-22	100%	in transit
+2023-10-23	76%	in production
+2023-10-24	76%	in production
+2023-10-25	76%	in production
+2023-10-26	76%	in production
+2023-10-27	76%	in production
+2023-10-28	76%	in production
+2023-10-29	76%	in production
+2023-10-30	76%	in production
+2023-10-31	76%	in production
+2023-11-01	76%	in production
+2023-11-02	76%	in production
+2023-11-03	76%	in production
+2023-11-04	76%	in production
+2023-11-05	52%	in production
+2023-11-06	52%	in production
+2023-11-07	52%	in production
+2023-11-08	52%	in production
+2023-11-09	52%	in production
+2023-11-10	52%	in production
+2023-11-11	35%	in production
+2023-11-12	5%	in production
+2023-11-13	5%	in production
+2023-11-14	5%	in production
+2023-11-15	5%	in production
+2023-11-16	5%	in production`.split("\n");
+
+		var table = $("#order_status tbody");
+		$("#last_update").html(data.shift());
+		data.shift();
+
+		data.forEach(e => {
+			var row = $('<tr>');
+			
+			e.split("\t").forEach((c,i) => {
+				console.log(i);
+				var style = ``;
+				if(i == 1){
+					var num = parseFloat(c.replace('%',''));
+					num = num / 100;
+
+					var color = calculate({r: 247,g:243,b:126},{r: 50, g: 168, b: 83},num);
+					style = `style="background-color: rgb(${color['r']},${color['g']},${color['b']})"`;
+				}
+				row.append(`<td ${style}>${c}</td>`);
+			});
+
+			table.append(row);
+		});
+	</script>
+</body>
+</html>
