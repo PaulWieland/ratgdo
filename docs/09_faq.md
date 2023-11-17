@@ -60,6 +60,11 @@ Make sure you have a USB to UART driver installed. If on windows, open your devi
 ## I have more than one door, do I need more than one ratgdo?
 Yes. You need one ratgdo control board per door, just like you need one wired wall button per door.
 
+## After hooking up ratgdo the range of my wireless remotes seems to be reduced
+Some people have reported that the USB power bricks they used were generating noise that was interfering with the garage door opener's wireless signal. By swapping to a different USB brick, the problem was cured.
+
+ratgdo operates on 2.4GHz WiFi while most wireless garage door openers operate at 310MHz, so they will not interfere with each other. However, signal attenuation can occur if wires or physical objects are touching or near the GDO's antenna. Make sure the GDO's antenna (just a loose piece of wire) is hanging down from the opener and that the ratgdo control board (and wiring) is at least 6" away from it.
+
 ## My door opens/closes when ratgdo reboots
 Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 and have a yellow learn button, but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
 
