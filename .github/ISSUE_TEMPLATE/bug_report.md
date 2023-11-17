@@ -8,18 +8,19 @@ assignees: ''
 ---
 
 **IMPORTANT**
+
+**A photo of your ratgdo board and wiring is required.**
+
 Please do not open issues for questions about your order.
 If you have a question about your order, reply to the receipt email you received from square.
 
-
-**Describe the bug**
+### Describe the Bug
 A clear and concise description of what the bug is. 
-Include a photo of your wiring!
 
-**Version information**
-* which ratgdo board version?
-* which ratgdo firmware variant and version (MQTT or ESPHome?)
-* which garage door control protocol?
+### Version information
+* ratgdo board version: [1.0, 2.0, 2.5]
+* ratgdo firmware variant: [MQTT, ESPHome]
+* control protocol: [Sec+2, Sec+1, Dry Contact]
 
 **To Reproduce**
 Steps to reproduce the behavior:
@@ -31,5 +32,9 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Additional context**
+### Additional context
 Add any other context about the problem here.
+
+```
+paste ratgdo serial console log here
+```
