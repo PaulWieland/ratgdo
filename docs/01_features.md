@@ -139,9 +139,9 @@ Firmware types:
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
-		<td style="text-align: center;">&nbsp;</td>
-		<td style="text-align: center;">&nbsp;</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">&nbsp;</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
 		<td style="text-align: center;">&nbsp;</td>
