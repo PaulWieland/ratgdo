@@ -42,42 +42,43 @@
 			return result;
 		}
 
-		var data = `last update 2023-12-04		
+		var data = `last update 2023-12-06		
 order date	production %	state
-2023-10-31	100%	kitting
 2023-11-01	100%	kitting
 2023-11-02	100%	kitting
 2023-11-03	100%	kitting
 2023-11-04	100%	kitting
 2023-11-05	100%	kitting
-2023-11-06	100%	in transit for kitting
-2023-11-07	100%	in transit for kitting
-2023-11-08	100%	in transit for kitting
-2023-11-09	100%	in transit for kitting
-2023-11-10	85%	in production
-2023-11-11	85%	in production
-2023-11-12	85%	in production
-2023-11-13	85%	in production
-2023-11-14	85%	in production
-2023-11-15	85%	in production
-2023-11-16	85%	in production
-2023-11-17	85%	in production
-2023-11-18	85%	in production
-2023-11-19	85%	in production
-2023-11-20	85%	in production
-2023-11-21	85%	in production
-2023-11-22	85%	in production
-2023-11-23	85%	in production
-2023-11-24	85%	in production
-2023-11-25	85%	in production
-2023-11-26	85%	in production
-2023-11-27	85%	in production
-2023-11-28	85%	in production
-2023-11-29	85%	in production
-2023-11-30	57%	in production
-2023-12-01	57%	in production
-2023-12-02	57%	in production
-2023-12-03	57%	in production`.split("\n");
+2023-11-06	100%	kitting
+2023-11-07	100%	kitting
+2023-11-08	100%	kitting
+2023-11-09	100%	kitting
+2023-11-10	90%	in production
+2023-11-11	90%	in production
+2023-11-12	90%	in production
+2023-11-13	90%	in production
+2023-11-14	90%	in production
+2023-11-15	90%	in production
+2023-11-16	90%	in production
+2023-11-17	90%	in production
+2023-11-18	90%	in production
+2023-11-19	90%	in production
+2023-11-20	90%	in production
+2023-11-21	90%	in production
+2023-11-22	90%	in production
+2023-11-23	90%	in production
+2023-11-24	90%	in production
+2023-11-25	90%	in production
+2023-11-26	90%	in production
+2023-11-27	90%	in production
+2023-11-28	90%	in production
+2023-11-29	90%	in production
+2023-11-30	90%	in production
+2023-12-01	88%	in production
+2023-12-02	88%	in production
+2023-12-03	88%	in production
+2023-12-04	88%	in production
+2023-12-05	88%	in production`.split("\n");
 
 		var table = $("#order_status tbody");
 		$("#last_update").html(data.shift());
