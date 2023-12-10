@@ -5,7 +5,7 @@
     {
       "chipFamily": "ESP8266",
       "parts": [
-        { "path": "ratgdo_esp8266_hV25_sV2.53.bin", "offset": 0 }
+        { "path": "ratgdo_esp8266_hV25_sV2.54.bin", "offset": 0 }
       ]
     }
   ]
