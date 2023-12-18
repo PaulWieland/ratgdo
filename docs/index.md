@@ -28,6 +28,7 @@ TOC
 # Quick Start
 * [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
 * A port of ratgdo to ESPHome exists. If you are interested in using ESPHome instead of MQTT check out the [ESPHome installer](http://ratgdo.github.io/esphome-ratgdo/) & [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo).
+* A port of ratgdo for HomeKit exists. HomeKit does not require a home automation server. [ratgdo for HomeKit installer](https://ratgdo.github.io/homekit-ratgdo) & [GitHub Repo](https://github.com/ratgdo/homekit/ratgdo)
 * [Version 2.53 Security + 1/2 Wiring Diagram]()<br/><a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png"><img src="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png" alt="v2.53 wiring diagram" width="75"/></a>
 * [Version 2.53 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)<br/><a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png"><img src="" alt="v2.53 wiring diagram" width="75"/></a>
 * [Version 2.5 Security + 1/2 Wiring Diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png) <br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
@@ -43,7 +44,7 @@ ratgdo is a hardware control board that wires to your door opener's terminals. T
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
 
 ## Version 2.5
-Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. 
+Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. Security +1.0 requires an 889LM wall control panel. If you do not have an 889LM, ratgdo offers an emulation mode but it will interfere with your wall control's functions. dry contact control mode can be used with security +1.0 openers as a fall back. 
 
 ## Version 2.0
 Version 2.0 eliminates the need to solder to your garage door's logic board. It works with all Security + 2.0 openers, including 45 series logic boards. 
