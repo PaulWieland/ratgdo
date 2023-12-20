@@ -24,7 +24,7 @@ Firmware types:
 <ul>
 	<li>X - fully supported</li>
 	<li>o - partial support, see note</li>
-	<li>+ - coming soon</li>
+	<li>+ - implementation is possible</li>
 </ul>
 
 <table>
