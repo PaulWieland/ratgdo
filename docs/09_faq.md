@@ -47,6 +47,28 @@ Many non Chamberlain openers can be controlled with dry contacts, but also requi
 ## ratgdo isn't able to control my door
 The #1 most common mistake is with wiring. Double check your wiring compared to the diagram. The terminals are labeled on the **back** side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
 
+## ratgdo is wired correctly and won't control my door
+Reinstall the firmware and choose the "Erase" option which will force the generation of a new client ID for communicating with the door (Security + 2.0 doors only).
+
+## ratgdo can't detect the door status of my Security + 1.0 opener
+Security + 1.0 openers require that the wall control panel ask for the door opener for it's status. ratgdo listens to this communication and reports what it hears. myQ branded wall panels should all query for the door status. Non myQ wall panels have no reason to query for door status. These "dumb" wall panels fall into two categories: digital or analog.
+
+Analog wall panels (such as the 78LM) do not communicate with the door opener at all, and in this case ratgdo is able to query the garage door opener for status directly. This allows ratgdo to know the door state, but it has the side effect of disabling the analog wall panel's light and lock buttons (the door open button still works normally).
+
+Non myQ digital wall panels use digitial communication to control the door opener, but they do not ask the door opener for it's status and so ratgdo has no way to know what the door status is. If you have one of these wall panels then there are two options:
+
+1. Use ratgdo's dry contact control and reed switches to get the door status
+2. Buy either an Analog wall panel (a simple door bell/momentary contact switch will work), or a digital one which is myQ compatible such as the 889LM, which queries the door for it's state.
+
+## My Security + 1.0 wall panel's light and lock buttons don't work after connecting ratgdo
+You have an analog control wall panel. ratgdo in Security + 1.0 control mode requires a digital communication with the garage door opener in order to both control the door and to get the door's status. When the door opener is in digital communication mode, the analog light and lock controls are ignored.
+
+If this is a deal breaker for you, you have two choices:
+
+1. Use ratgdo's dry contact control and reed switches to get the door status
+2. Buy a digital wall control which is myQ compatible such as the 889LM.
+
+
 ## Drivers?
 If you can't connect to your ratgdo board make sure you have the right driver installed for the type of board you have.
 
