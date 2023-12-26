@@ -139,7 +139,7 @@ Firmware types:
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
@@ -167,7 +167,7 @@ Firmware types:
 1. Openers with dry contact control require that limit switches be connected to ratgdo to detect the door state. See [Dry Contact Wiring](03_wiring.md).
 1. Obstruction sensors must have a peak voltage between 4.5 and 7 volts.
 1. Motion detection requires a wall control panel with a built in motion detector such as the 889LM.
-1. Security + 1.0 openers can report door status over the data line, but not all wall panels are compatible. ratgdo listens for a wall panel to communicate with the door, and if it detects one (such as an [889LM](https://www.google.com/search?q=889lm+chamberlain)) it listens and reports the door status. If ratgdo doesn't hear wall panel communication then it switches to emulation mode, where it streams the query commands necessary to get the door opener status. Emulation mode will cause certain "dumb" wall panels (e.g. [78LM](https://www.google.com/search?q=78LM+chamberlain)) to not be able to control the lights or lockout the wireless remotes because their commands will be obscured by the door status polling.
+1. Security + 1.0 openers can report door status over the data line, but not all wall panels are compatible. ratgdo listens for a wall panel to communicate with the door, and if it detects one (such as an [889LM](https://www.google.com/search?q=889lm+chamberlain)) it listens and reports the door status. If ratgdo doesn't hear wall panel communication then it switches to emulation mode, where it streams the query commands necessary to get the door opener status. Emulation mode will cause analog wall panels (e.g. [78LM](https://www.google.com/search?q=78LM+chamberlain)) to not be able to control the lights or lockout the wireless remotes because their analog commands will be ignored by the door opener.
 
 
 ### MQTT
@@ -182,12 +182,13 @@ See [Home Assistant](05_homeassistant_example.md) for more information.
 #### Triggers
 The following MQTT commands are supported:
 
-* door/open - opens the door.
-* door/close - closes the door.
-* light/on - turns the light on.
-* light/off - turns the light off.
-* lock/lock - locks out the wiresss remotes.
-* lock/unlock - unlocks the use of wireless remotes.
+* command/door:open - opens the door.
+* command/door:close - closes the door.
+* command/light:on - turns the light on.
+* command/light:off - turns the light off.
+* command/lock:lock - locks out the wiresss remotes.
+* command/lock:unlock - unlocks the use of wireless remotes.
+* command:query - queries the door opener for current status.
 
 ##### Examples
 
