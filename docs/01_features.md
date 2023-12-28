@@ -66,7 +66,7 @@ Firmware types:
 		<th>Door Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
@@ -81,11 +81,11 @@ Firmware types:
 		<th>Door Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center; color: red;">X/O<sup>4</sup></td>
-		<td style="text-align: center;">+</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center;">+<sup>4</sup></td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+<sup>4</sup></td>
 
 		<td style="text-align: center;">o<sup>1</sup></td>
 		<td style="text-align: center;">+<sup>1</sup></td>
@@ -95,7 +95,7 @@ Firmware types:
 		<th>Light Control</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
@@ -109,7 +109,7 @@ Firmware types:
 		<th>Light Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
@@ -123,7 +123,7 @@ Firmware types:
 		<th>Obstruction Status</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
