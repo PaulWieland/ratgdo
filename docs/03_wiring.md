@@ -28,8 +28,8 @@ Procedure:
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo firmware.
 1. Unplug the door opener.
 1. Wiring between the v2.0 and v2.5 boards are very similar. v2.5 adds extra terminals to make wiring in parallel with your control panel and sensors easier.
-	* v2.53 Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png">![image](https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png)</a>
-	* v2.53 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png">![image](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)</a>
+	* v2.52 &amp; v2.53 Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png">![image](https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png)</a>
+	* v2.52 &amp; v2.53 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png">![image](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)</a>
 	* v2.5  Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png">![image](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)</a>
 	* v2.5 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png">![image](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)</a>
 	* v2.0  diagram <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
@@ -39,7 +39,7 @@ Procedure:
 ### Examples
 
 Security + 1.0 & 2.0 openers using passthrough ports on control board (one wire per terminal):
-v2.53
+v2.52 &amp; v2.53
 ![image](https://user-images.githubusercontent.com/4663918/288452495-ddd455ae-9a48-4e74-9ed5-9a75639225b2.jpg)
 
 v2.5
