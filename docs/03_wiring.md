@@ -63,18 +63,3 @@ Example wiring for a Genie opener which has user accessible limit switch termina
 ![image](https://user-images.githubusercontent.com/4663918/278091841-2c0b9a98-649f-43c7-8506-f76a528d6972.jpeg)
 
 ![image](https://user-images.githubusercontent.com/4663918/278091855-f231ff4d-575b-4ab6-9263-7d590645e7f5.jpeg)
-
-## Version 1.0 Owners Only:
-There are two ways you can connect an original ratgdo board to your garage door opener.
-
-* The first "Solder Free" method requires you to power ratgdo from a USB power brick and mount a reed switch for the door status.
-  **[Solder Free Method &raquo;](03_wiring_solder_free.md)**
-
-* The second "Solder" method uses the door opener's built in rotary encoder for detailed door status and also powers the ratgdo board.
-  The soldered method requires you to solder three wires to the door opener's logic board. This method provides a couple of benefits.
-
-  1. First, it allows ratgdo to know whether the garage door is opening, open, closing or closed. These statuses are broadcast out to the MQTT status topic.
-  2. Second, no additional hardware such as a USB Charger, usb cable, or reed switch are needed.
-  3. Last, the installation is cleaner looking.
-
-  **[Solder Method &raquo;](03_wiring_soldered.md)**
