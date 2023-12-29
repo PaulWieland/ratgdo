@@ -13,7 +13,6 @@ Please allow 3 weeks for shipment.
 This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5).
 Lead times will continue to improve.
 
-> * [ratgdo v2.5 control board only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $44
 
 TOC
@@ -58,7 +57,6 @@ Version 2.0 also provides discrete light on/off commands.
 > Shipping to Canada is also available, but costs $14.
 > Shipping to the EU and Austrailia varies between $15 and $20.
 >
-> * [ratgdo v2.5 controller only](https://square.link/u/B5pW7OZW) $30
 > * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $44
 
 ![image](https://user-images.githubusercontent.com/4663918/288453570-79721193-2798-4147-98fc-b6cef1c61795.jpg)
