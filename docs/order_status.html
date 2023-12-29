@@ -42,20 +42,26 @@
 			return result;
 		}
 
-		var data = `last update 2023-12-19		
+		var data = `last update 2023-12-29		
 order date	production %	state
-2023-12-08	100%	kitting
-2023-12-09	100%	kitting
-2023-12-10	100%	kitting
-2023-12-11	100%	kitting
-2023-12-12	100%	in transit
-2023-12-13	100%	in transit
-2023-12-14	100%	in transit
-2023-12-15	100%	in transit
-2023-12-16	100%	in transit
-2023-12-17	100%	in transit
-2023-12-18	100%	in transit
-2023-12-19	100%	in transit`.split("\n");
+2023-12-12	100%	kitting
+2023-12-13	100%	kitting
+2023-12-14	100%	kitting
+2023-12-15	100%	kitting
+2023-12-16	100%	kitting
+2023-12-17	100%	kitting
+2023-12-18	100%	kitting
+2023-12-19	70%	in production
+2023-12-20	70%	in production
+2023-12-21	70%	in production
+2023-12-22	70%	in production
+2023-12-23	70%	in production
+2023-12-24	70%	in production
+2023-12-25	70%	in production
+2023-12-26	70%	in production
+2023-12-27	70%	in production
+2023-12-28	70%	in production
+`.split("\n");
 
 		var table = $("#order_status tbody");
 		$("#last_update").html(data.shift());
