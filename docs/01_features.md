@@ -42,7 +42,7 @@ Firmware types:
 	</tr>
 	<tr>
 		<th style="width: 25%;">&nbsp;</th>
-		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Yellow Learn Button</th>
+		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Yellow Learn Button<sup>5</sup></th>
 		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Red, Orange Learn Buttons</th>
 		<th style="width: 25%" colspan="3">&nbsp;</th>
 	</tr>
@@ -168,6 +168,7 @@ Firmware types:
 1. Obstruction sensors must have a peak voltage between 4.5 and 7 volts.
 1. Motion detection requires a wall control panel with a built in motion detector such as the 889LM.
 1. Security + 1.0 openers can report door status over the data line, but not all wall panels are compatible. ratgdo listens for a wall panel to communicate with the door, and if it detects one (such as an [889LM](https://www.google.com/search?q=889lm+chamberlain)) it listens and reports the door status. If ratgdo doesn't hear wall panel communication then it switches to emulation mode, where it streams the query commands necessary to get the door opener status. Emulation mode will cause analog wall panels (e.g. [78LM](https://www.google.com/search?q=78LM+chamberlain)) to not be able to control the lights or lockout the wireless remotes because their analog commands will be ignored by the door opener.
+1. All yellow learn button openers EXCEPT the jackshaft wall mounted 8500/RJ020 & 8500C/RJ020C are Security + 2.0. The 8500/RJ020 & 8500C/RJ020C use Security + 1.0.
 
 
 ### MQTT
