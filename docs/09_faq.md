@@ -78,9 +78,9 @@ If you can't connect to your ratgdo board make sure you have the right driver in
 </ul>
 
 ## My PC can't connect with ratgdo
-The most common problem is a bad USB cable. Unfortunately many USB cables are power only (for charging a device) and do not include the data wires. Make sure you are using a USB cable that is an actual data cable.
+The most common problem is a bad USB cable. Unfortunately many USB cables are power only (for charging a device) and do not include the data wires. Some data cables can simply go bad from being flexed too many times. Make sure you are using a USB cable that is an actual data cable and if possible try another cable or device to rule out the cable.
 
-Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. An FTDI serial device should show up. The FTDI usb to serial or usb to uart driver should work. Modern OS's come with the driver pre-installed.
+Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. A serial device should show up. ratgdo v2.5i, v2.51i, v2.52i & v2.53i use the CH40 USB to Uart driver.
 
 ## I have more than one door, do I need more than one ratgdo?
 Yes. You need one ratgdo control board per door, just like you need one wired wall button per door.
