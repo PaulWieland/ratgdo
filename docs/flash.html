@@ -19,11 +19,11 @@
 	<select id="selectManifest" onchange="setManifest()">
 		<option value="">Please Choose Firmware Version:</option>
 		<optgroup label="Black v2.5x Boards Only">
-			<option value="flasher/manifest_v25.json">ratgdo v2.56, Security + 1.0, 2.0 & Dry Contact</option>
+			<option value="flasher/manifest_v25.json">ratgdo v2.57, Security + 1.0, 2.0 & Dry Contact</option>
 		</optgroup>
 		<optgroup label="White v2.0 Boards Only">
-			<option value="flasher/manifest_v2.json">ratgdo v2.26, Security + 2.0</option>
-			<option value="flasher/manifest_v2_no_wifi.json">ratgdo v2.26, Security + 2.0 (WiFi disabled)</option>
+			<option value="flasher/manifest_v2.json">ratgdo v2.27, Security + 2.0</option>
+			<option value="flasher/manifest_v2_no_wifi.json">ratgdo v2.27, Security + 2.0 (WiFi disabled)</option>
 		</optgroup>
 		<optgroup label="Blue v1.0 Boards Only">
 			<option value="flasher/manifest_v1.json">ratgdo v1.8, Security + 2.0</option>
@@ -61,7 +61,7 @@
 
 	<h3>Downloading firmware files for OTA Updates</h3>
 	<p>In order to do an OTA update, you have to download the .bin file to your computer and then upload it to the ratgdo web server.</p>
-	<p>The firmware bin files are located <a href="https://github.com/PaulWieland/ratgdo/tree/main/docs/flasher">here</a>.</p>
+	<p>The firmware bin files are located <a href="https://github.com/ratgdo/mqtt-ratgdo/releases">under releases</a>.</p>
 
 	<script>
 		var manifest = $("#manifest").attr("manifest",`flasher/manifest.json`);

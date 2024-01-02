@@ -5,7 +5,7 @@
       {
         "chipFamily": "ESP8266",
         "parts": [
-          { "path": "ratgdo_esp8266_hV2_nowifi_sV2.26.bin", "offset": 0 }
+          { "path": "ratgdo_esp8266_hV2_nowifi_sV2.27.bin", "offset": 0 }
         ]
       }
     ]
