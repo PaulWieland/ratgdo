@@ -14,6 +14,7 @@
 		}
 	</style>
 	
+	<img src="images/mqtt_logo.png" alt="ESP Home" style="float: left; width: 75px;" />
 	<label for="selectManifest">Choose version:</label>
 	<select id="selectManifest" onchange="setManifest()">
 		<option value="">Please Choose Firmware Version:</option>
@@ -35,18 +36,18 @@
 	</select>
 	<br/>
 	
-	<h3>ESP Home:</h3>
 	<img src="images/esphome_logo.png" alt="ESP Home" style="float: left; width: 75px;" />
+	<h3>ESP Home:</h3>
 	<p>If you want to use ESPHome with Home Assistant, check out the <a href="https://ratgdo.github.io/esphome-ratgdo/" target="_blank">ESPHome port</a> & <a href="https://github.com/ratgdo/esphome-ratgdo">GitHub Repo</a>.</p>
 
 	<p>For a comparison of available features for the different firmware options, please refer to the <a href="https://paulwieland.github.io/ratgdo/01_features.html">feature matrix</a>.</p>
 
-	<h3>Native HomeKit:</h3>
 	<img src="images/homekit_logo.png" alt="HomeKit" style="float: left; width: 75px;" />
+	<h3>Native HomeKit:</h3>
 	<p>There is also a native <a href="https://ratgdo.github.io/homekit-ratgdo/flash.html" target="_blank">HomeKit port</a> for ratgdo. <a href="https://github.com/ratgdo/homekit-ratgdo">GitHub Repo</a>.</p>
 
 	
-	<h3>Drivers</h3>
+	<h3 style="clear:both;">Drivers</h3>
 	<p>If you can't connect to your ratgdo board make sure you have the right driver installed for the type of board you have. See trouble shooting USB connections for more information.</p>
 	<ul>
 		<li>ratgdo v2.5i uses a CH340 USB to Serial chipset. [<a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" target="_blank">driver download</a>]</li>
