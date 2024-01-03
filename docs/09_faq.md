@@ -82,6 +82,11 @@ The most common problem is a bad USB cable. Unfortunately many USB cables are po
 
 Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. A serial device should show up. ratgdo v2.5i, v2.51i, v2.52i & v2.53i use the CH40 USB to Uart driver.
 
+Here is a walkthrough video explaining how to install the drivers and flash the firmware.
+
+<iframe width="640" height="360" src="https://youtube.com/embed/9WecAUTC9iI"></iframe>
+
+
 ## I have more than one door, do I need more than one ratgdo?
 Yes. You need one ratgdo control board per door, just like you need one wired wall button per door.
 
