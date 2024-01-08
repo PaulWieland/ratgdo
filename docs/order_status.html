@@ -42,7 +42,7 @@
 			return result;
 		}
 
-		var data = `last update 2024-01-03		
+		var data = `last update 2024-01-08		
 order date	production %	state
 2023-12-19	100%	in transit
 2023-12-20	100%	in transit
@@ -60,8 +60,12 @@ order date	production %	state
 2023-01-01	100%	in transit
 2023-01-02	100%	in transit
 2023-01-02	100%	in transit
-2023-01-03	20%	in production
-2023-01-04	20% in production`.split("\n");
+2023-01-03	57%	in production
+2023-01-04	57% in production
+2023-01-05	57% in production
+2023-01-06	57% in production
+2023-01-07	57% in production
+2023-01-08	57% in production`.split("\n");
 
 		var table = $("#order_status tbody");
 		$("#last_update").html(data.shift());
