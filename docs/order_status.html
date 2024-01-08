@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>Order Status</h1>
+	<h1>Order Status</h1>
 	<h2 id="last_update"></h2>
 	<script src="jquery-3.6.0.min.js"></script>
 	<style type="text/css">
@@ -44,22 +44,24 @@
 
 		var data = `last update 2024-01-03		
 order date	production %	state
-2023-12-19	90%	in production
-2023-12-20	90%	in production
-2023-12-21	90%	in production
-2023-12-22	90%	in production
-2023-12-23	90%	in production
-2023-12-24	90%	in production
-2023-12-25	90%	in production
-2023-12-26	90%	in production
-2023-12-27	90%	in production
-2023-12-28	90%	in production
-2023-12-29	90% in production
-2023-12-30	90%	in production
-2023-12-31	90%	in production
-2023-01-01	90%	in production
-2023-01-02	90%	in production
-2023-01-02	90%	in production`.split("\n");
+2023-12-19	100%	in transit
+2023-12-20	100%	in transit
+2023-12-21	100%	in transit
+2023-12-22	100%	in transit
+2023-12-23	100%	in transit
+2023-12-24	100%	in transit
+2023-12-25	100%	in transit
+2023-12-26	100%	in transit
+2023-12-27	100%	in transit
+2023-12-28	100%	in transit
+2023-12-29	100%	in transit
+2023-12-30	100%	in transit
+2023-12-31	100%	in transit
+2023-01-01	100%	in transit
+2023-01-02	100%	in transit
+2023-01-02	100%	in transit
+2023-01-03	20%	in production
+2023-01-04	20% in production`.split("\n");
 
 		var table = $("#order_status tbody");
 		$("#last_update").html(data.shift());
