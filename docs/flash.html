@@ -19,40 +19,23 @@
 			margin-top: 0px;
 		}
 	</style>
-	
-	<img src="images/mqtt_logo.png" alt="ESP Home" style="float: left; width: 75px; margin-bottom: 15px;" />
-	<label for="selectManifest">Choose version:</label>
-	<select id="selectManifest" onchange="setManifest()">
-		<option value="">Please Choose Firmware Version:</option>
-		<optgroup label="Black v2.5x Boards Only">
-			<option value="flasher/manifest_v25.json">ratgdo v2.57, Security + 1.0, 2.0 & Dry Contact</option>
-		</optgroup>
-		<optgroup label="White v2.0 Boards Only">
-			<option value="flasher/manifest_v2.json">ratgdo v2.27, Security + 2.0</option>
-			<option value="flasher/manifest_v2_no_wifi.json">ratgdo v2.27, Security + 2.0 (WiFi disabled)</option>
-		</optgroup>
-		<optgroup label="Blue v1.0 Boards Only">
-			<option value="flasher/manifest_v1.json">ratgdo v1.8, Security + 2.0</option>
-			<option value="flasher/manifest_v1_no_wifi.json">ratgdo v1.8, Security + 2.0 (WiFi disabled)</option>
-		</optgroup>
-		<!-- <optgroup label="Debugging">
-			<option value="flasher/manifest_serial_dump.json">secplus 1.0 serial dump</option>
-		</optgroup> -->
-		<!-- <option value="flasher/manifest_alpha.json">ratgdo v1.71a</option> -->
-	</select>
-    <esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
-	
+		
 	<hr style="clear:both" />
 
-	<h2>ratgdo Firmware Choices</h2>
-	<p>There are other excellent firmware options available for ratgdo.</p>
-	<p>For a comparison of available features for the different firmware options, please refer to the <a href="https://paulwieland.github.io/ratgdo/01_features.html">feature matrix</a>.</p>
+	<img src="images/ratgdo.png" alt="ratgdo" style="float: left; width: 100px; border-radius: 4px;" />
+	<div style="padding-left: 105px; margin-bottom: 15px">
+		<h1>ratgdo Firmware Choices</h1>
+
+		<p>There are several excellent firmware options available for ratgdo.</p>
+		<p><strong>For a comparison of available features for the different firmware options, please refer to the <a href="https://paulwieland.github.io/ratgdo/01_features.html">feature matrix</a>.</strong></p>
+	</div>
 
 	<img src="images/esphome_logo.png" alt="ESP Home" style="float: left; width: 75px;" />
 	<div style="padding-left: 80px; margin-bottom: 15px">
 		<h3>ESPHome</h3>
-		<p>The best option for Home Assistant is the ESPHome ratgdo firmware: [<a href="https://ratgdo.github.io/esphome-ratgdo/">ESPHome installer</a>]</p>
+		<p>The best option for Home Assistant is the ESPHome ratgdo firmware: [<a href="https://ratgdo.github.io/esphome-ratgdo/">ESPHome installer</a>].</p>
 		<p>Home Assitant can be used to create HomeKit, Google and Alexa integrations, as well as many others.</p>
+		<p style="font-size: 75%"><em>Note that ESPHome is currently limited to Security + 2.0 openers with a yellow learn button.</em></p>
 	</div>
 
 	<img src="images/control4_logo.png" alt="Control4" style="float: left; width: 75px;" />
@@ -65,7 +48,36 @@
 	<div style="padding-left: 80px; margin-bottom: 15px">
 		<h3>Native HomeKit</h3>
 		<p>For those who want a pure Apple HomeKit solution, install the <a href="https://ratgdo.github.io/homekit-ratgdo/flash.html">HomeKit for ratgdo firmware</a>.</p>
+		<p style="font-size: 75%"><em>Note that the HomeKit firmware is currently limited to Security + 2.0 openers with a yellow learn button.</em></p>
 	</div>
+
+	<img src="images/mqtt_logo.png" alt="HomeKit" style="float: left; width: 75px; clear: left;" />
+	<div style="padding-left: 80px; margin-bottom: 15px">
+		<h3>MQTT</h3>
+		<p>If you have an MQTT broker and like messaging APIs, then use the MQTT firmware below:</p>
+		<label for="selectManifest">Choose version:</label>
+		<select id="selectManifest" onchange="setManifest()">
+			<option value="">Please Choose Firmware Version:</option>
+			<optgroup label="Black v2.5x Boards Only">
+				<option value="flasher/manifest_v25.json">ratgdo v2.57, Security + 1.0, 2.0 & Dry Contact</option>
+			</optgroup>
+			<optgroup label="White v2.0 Boards Only">
+				<option value="flasher/manifest_v2.json">ratgdo v2.27, Security + 2.0</option>
+				<option value="flasher/manifest_v2_no_wifi.json">ratgdo v2.27, Security + 2.0 (WiFi disabled)</option>
+			</optgroup>
+			<optgroup label="Blue v1.0 Boards Only">
+				<option value="flasher/manifest_v1.json">ratgdo v1.8, Security + 2.0</option>
+				<option value="flasher/manifest_v1_no_wifi.json">ratgdo v1.8, Security + 2.0 (WiFi disabled)</option>
+			</optgroup>
+			<!-- <optgroup label="Debugging">
+				<option value="flasher/manifest_serial_dump.json">secplus 1.0 serial dump</option>
+			</optgroup> -->
+			<!-- <option value="flasher/manifest_alpha.json">ratgdo v1.71a</option> -->
+		</select>
+		<esp-web-install-button manifest="" id="manifest"></esp-web-install-button>
+	
+	</div>
+
 
 	<hr style="clear:both" />
 
