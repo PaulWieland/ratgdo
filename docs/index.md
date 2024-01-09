@@ -10,8 +10,6 @@ It can control the door and report back the actual status of the door (closed, o
 # ORDER
 ### LEAD TIME NOTICE:
 Please allow 3 weeks for shipment.
-This increased lead time is due to the necessity of issuing a hardware revision (v2.0 to v2.5).
-Lead times will continue to improve.
 
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $44
 
@@ -36,11 +34,16 @@ TOC
 
 
 # About ratgdo 
-ratgdo gives you **local** MQTT / ESPHome & dry contact control plus full status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
+ratgdo gives you **local** MQTT / ESPHome / HomeKit or dry contact control plus full status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
 
 ratgdo is a hardware control board that wires to your door opener's terminals. The firmware allows you to control the door with MQTT or ESPHome over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
 
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
+
+# ratgdo Firmware
+* ESPHome - best for Home Assistant &amp; [Control4](https://chowmain.software/drivers/control4-ratgdo) integrations
+* HomeKit - best for those with iOS and without home automation platforms
+* MQTT - best for NodeRED or other custom MQTT integrations
 
 ## Version 2.5
 Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. Security +1.0 requires an 889LM wall control panel. If you do not have an 889LM, ratgdo offers an emulation mode but it will interfere with your wall control's functions. dry contact control mode can be used with security +1.0 openers as a fall back. 
