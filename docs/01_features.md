@@ -137,7 +137,7 @@ Firmware types:
 		<th>Wireless Remote Lockout</th>
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o</td>
+		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
 		<td style="text-align: center;">+</td>
