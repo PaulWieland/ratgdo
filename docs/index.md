@@ -1,11 +1,11 @@
 # What is ratgdo?
-ratgdo is a WiFi control board for your garage door opener that works over your *local network* using MQTT or ESPHome. It connects to your door opener with three simple wires.
+ratgdo is a WiFi control board for your garage door opener that works over your *local network* using ESPHome, HomeKit or MQTT.
 
-It works with virtually any residential Chamberlain or Liftmaster manufactured garage door opener and also offers basic support for other brands which use dry contacts to control the door. 
+It works with virtually any residential Chamberlain or Liftmaster manufactured garage door opener and also offers basic support for other brands which use dry contacts to control the door.
 
-It can control the door and report back the actual status of the door (closed, opening, open, closing). For Security + 2.0 door openers, the obstruction sensors, light, wireless lockout and even motion sensing are also integrated.
+It can control the door and report back the actual status of the door (closed, opening, open, closing). For "yellow learn button" Security + 2.0 door openers, the obstruction sensors, light, wireless lockout and even motion sensing are also integrated.
 
-[See here for more information regarding which features work with which door opener.](01_features.md)
+[View the Feature Matrix for more information regarding which features & firmware work with which door opener.](01_features.md)
 
 # ORDER
 ### LEAD TIME NOTICE:
@@ -23,14 +23,15 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 # Quick Start
-* [Click here to launch the ratgdo ESP Web Tools flasher to install the firmware](flash.html)
-* A port of ratgdo to ESPHome exists. If you are interested in using ESPHome instead of MQTT check out the [ESPHome installer](http://ratgdo.github.io/esphome-ratgdo/) & [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo).
-* A port of ratgdo for HomeKit exists. HomeKit does not require a home automation server. [ratgdo for HomeKit installer](https://ratgdo.github.io/homekit-ratgdo) & [GitHub Repo](https://github.com/ratgdo/homekit/ratgdo)
-* [Version 2.52 &amp; v2.53 Security + 1/2 Wiring Diagram]()<br/><a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png"><img src="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png" alt="v2.52 & v2.53 wiring diagram" width="75"/></a>
-* [Version 2.52 &amp; v2.53 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)<br/><a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png"><img src="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png" alt="v2.52 &amp; v2.53 wiring diagram" width="75"/></a>
-* [Version 2.5 Security + 1/2 Wiring Diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png) <br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
-* [Version 2.5 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)
-<br/><a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png"><img src="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png" alt="v2.5 dry contact diagram" width="75"/></a>
+* [Firmware installation](flash.html)
+  * If you are interested in using ESPHome check out the [ESPHome installer](http://ratgdo.github.io/esphome-ratgdo/).
+  * The native HomeKit firmware allows you to adopt ratgdo into your Apple HomeKit environment without any central home automation server. [ratgdo for HomeKit installer](https://ratgdo.github.io/homekit-ratgdo)
+* Wiring
+  * [Version 2.52 &amp; v2.53 Security + 1/2 Wiring Diagram]()<br/><a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png"><img src="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png" alt="v2.52 & v2.53 wiring diagram" width="75"/></a>
+  * [Version 2.52 &amp; v2.53 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)<br/><a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png"><img src="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png" alt="v2.52 &amp; v2.53 wiring diagram" width="75"/></a>
+  * [Version 2.5 Security + 1/2 Wiring Diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png) <br /><a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png"><img src="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png" alt="v2.5 wiring diagram" width="75"/></a>
+  * [Version 2.5 Dry Contact Wiring Diagram](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)
+  <br/><a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png"><img src="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png" alt="v2.5 dry contact diagram" width="75"/></a>
 
 
 # About ratgdo 
@@ -54,9 +55,8 @@ Version 2.0 eliminates the need to solder to your garage door's logic board. It 
 Version 2.0 also provides discrete light on/off commands.
 
 
-
 > **ratgdo v2.5 available to order**
-> Boards are available and shipping domestic USA via USPS.
+> Boards are available and shipping domestic USA via USPS Ground Advantage.
 > Shipping to Canada is also available, but costs $14.
 > Shipping to the EU and Austrailia varies between $15 and $20.
 >
