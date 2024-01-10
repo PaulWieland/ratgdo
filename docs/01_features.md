@@ -19,7 +19,7 @@ Firmware types:
 
 * <strong><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></strong>QTT - for MQTT based home automation integration (NodeRED, Home Assistant, etc)
 * <strong><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></strong>SP Home - for ESP Home / Home Assistant
-* <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - (in development) if you just want iOS integration without the need for a home automation platform
+* <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - if you just want iOS integration without the need for a home automation server
 
 <ul>
 	<li>X - fully supported</li>
