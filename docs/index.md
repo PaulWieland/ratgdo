@@ -47,7 +47,7 @@ ratgdo is *not* a cloud device and does *not* require a subscription service. Th
 * MQTT - best for NodeRED or other custom MQTT integrations
 
 ## Version 2.5
-Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. Security +1.0 requires an 889LM wall control panel. If you do not have an 889LM, ratgdo offers an emulation mode but it will interfere with your wall control's functions. dry contact control mode can be used with security +1.0 openers as a fall back. 
+Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. Security +1.0 requires an 889LM / 041A7928-3MC wall control panel. If you do not have an 889LM / 041A7928-3MC, ratgdo offers an emulation mode but it will interfere with your wall control's functions. dry contact control mode can be used with security +1.0 openers as a fall back. 
 
 ## Version 2.0
 Version 2.0 eliminates the need to solder to your garage door's logic board. It works with all Security + 2.0 openers, including 45 series logic boards. 
