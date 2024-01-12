@@ -11,6 +11,7 @@ It can control the door and report back the actual status of the door (closed, o
 ### LEAD TIME NOTICE:
 Please allow 2 weeks for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
 
+### PURCHASE
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $44
 
 TOC
