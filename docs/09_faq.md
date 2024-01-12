@@ -58,7 +58,7 @@ Analog wall panels (such as the 78LM) do not communicate with the door opener at
 Non myQ digital wall panels use digitial communication to control the door opener, but they do not ask the door opener for it's status and so ratgdo has no way to know what the door status is. If you have one of these wall panels then there are two options:
 
 1. Use ratgdo's dry contact control and reed switches to get the door status
-2. Buy either an Analog wall panel (a simple door bell/momentary contact switch will work), or a digital one which is myQ compatible such as the 889LM, which queries the door for it's state.
+2. Buy either an Analog wall panel (a simple door bell/momentary contact switch will work), or a digital one which is myQ compatible such as the 889LM / 041A7928-3MC, which queries the door for it's state.
 
 ## My Security + 1.0 wall panel's light and lock buttons don't work after connecting ratgdo
 You have an analog control wall panel. ratgdo in Security + 1.0 control mode requires a digital communication with the garage door opener in order to both control the door and to get the door's status. When the door opener is in digital communication mode, the analog light and lock controls are ignored.
@@ -66,7 +66,7 @@ You have an analog control wall panel. ratgdo in Security + 1.0 control mode req
 If this is a deal breaker for you, you have two choices:
 
 1. Use ratgdo's dry contact control and reed switches to get the door status
-2. Buy a digital wall control which is myQ compatible such as the 889LM.
+2. Buy a digital wall control which is myQ compatible such as the 889LM / 041A7928-3MC.
 
 
 ## Drivers?
@@ -79,6 +79,8 @@ If you can't connect to your ratgdo board make sure you have the right driver in
 
 ## My PC can't connect with ratgdo
 The most common problem is a bad USB cable. Unfortunately many USB cables are power only (for charging a device) and do not include the data wires. Some data cables can simply go bad from being flexed too many times. Make sure you are using a USB cable that is an actual data cable and if possible try another cable or device to rule out the cable.
+
+The second most common problem are USB hubs. Plug your USB cable directly into a port on your computer.
 
 Make sure you have a USB to UART driver installed. If on windows, open your device manager and look to see if an unknown device shows up under the Ports -> USB. If on MacOS, open System Information.app and look under the USB Tree. A serial device should show up. ratgdo v2.5i, v2.51i, v2.52i & v2.53i use the CH40 USB to Uart driver.
 
