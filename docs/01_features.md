@@ -43,7 +43,7 @@ Firmware types:
 	<tr>
 		<th style="width: 25%;">&nbsp;</th>
 		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Yellow Learn Button<sup>5</sup></th>
-		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Red, Orange Learn Buttons</th>
+		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Orange, Red Learn Buttons</th>
 		<th style="width: 25%" colspan="3">&nbsp;</th>
 	</tr>
 	<tr>
