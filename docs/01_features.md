@@ -8,7 +8,7 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 ## Features
-If you have a security + 2.0 door opener, or a security + 1.0 opener with compatible wall control panel, ratgdo detects the garage door's position (opening, open, closing, closed) from the encrypted signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Control and Obstruction) are connected to the terminals of the garage door opener.
+If you have a security + 2.0 door opener, or a security + 1.0 opener with compatible wall control panel, ratgdo detects the garage door's position (opening, open, closing, closed) from the signal wire. No soldering or additional sensors are required to get the door status. Three simple wires (Ground, Control and Obstruction) are connected to the terminals of the garage door opener.
 
 If you have a dry contact control door opener (e.g. Genie, old Chamberlain, etc) then ratgdo can control your door and detect the door's position using two simple reed switches (not included).
 

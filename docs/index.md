@@ -9,7 +9,7 @@ It can control the door and report back the actual status of the door (closed, o
 
 # ORDER
 ### LEAD TIME NOTICE:
-Please allow 2 weeks for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
+Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
 
 ### PURCHASE
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $44
@@ -36,7 +36,7 @@ TOC
 
 
 # About ratgdo 
-ratgdo gives you **local** MQTT / ESPHome / HomeKit or dry contact control plus full status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an encrypted serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
+ratgdo gives you **local** MQTT / ESPHome / HomeKit or dry contact control plus full status feedback for your Chamberlain/LiftMaster garage door opener. Security+ 2.0 uses an obfuscated serial signal to control the door opener's open/close and light functions, which makes it impossible to use Shelly One, Go Control, Insteon I/O linc or any other dry contact relay device to control the door. ratgdo supports virtually all residential garage door openers made by Chamberlain, and also supports other manufacturers through dry contact control.
 
 ratgdo is a hardware control board that wires to your door opener's terminals. The firmware allows you to control the door with MQTT or ESPHome over your local WiFi network which can be used to integrate directly with NodeRED or Home Assistant, eliminating the need for another "smart" device. WiFi is **not** required if you wish to only use the dry contact interface.
 
