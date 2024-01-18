@@ -12,7 +12,7 @@ It can control the door and report back the actual status of the door (closed, o
 Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
 
 ### PURCHASE
-> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $44
+> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
 
 TOC
 * [Main](index.md)
@@ -58,10 +58,10 @@ Version 2.0 also provides discrete light on/off commands.
 
 > **ratgdo v2.5 available to order**
 > Boards are available and shipping domestic USA via USPS Ground Advantage.
-> Shipping to Canada is also available, but costs $14.
-> Shipping to the EU and Austrailia varies between $15 and $20.
+> Shipping to Canada via FedEx is $16.
+> Shipping to the EU and Austrailia via FedEx varies between $15 and $20.
 >
-> * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $44
+> * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $45
 
 ![image](https://user-images.githubusercontent.com/4663918/288453570-79721193-2798-4147-98fc-b6cef1c61795.jpg)
 
