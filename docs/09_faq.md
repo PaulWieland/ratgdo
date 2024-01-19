@@ -48,7 +48,11 @@ Many non Chamberlain openers can be controlled with dry contacts, but also requi
 The #1 most common mistake is with wiring. Double check your wiring compared to the diagram. The terminals are labeled on the **back** side of the board. From the front, the three control/ground/obstruction wires are on the right. When you flip the board over (the back has the QR code) they are on the left. The wiring diagram shows the back of the board (note the QR code) where the silkscreen is located.
 
 ## ratgdo is wired correctly and won't control my door
-Reinstall the firmware and choose the "Erase" option which will force the generation of a new client ID for communicating with the door (Security + 2.0 doors only).
+Verify that you are using the correct control protocol for your door opener model. 
+
+Yellow Learn button openers (except for the jack shaft wall mounted 8500/RJ020 8500C/RJ020C) use Security + 2.0. Purple / orange and some red learn button openers use Security + 1.0. Everything else uses dry contact control.
+
+If you are using Security + 2.0, you can try and reinstall the firmware and choose the "Erase" option which will force the generation of a new client ID for communicating with the door.
 
 ## ratgdo can't detect the door status of my Security + 1.0 opener
 Security + 1.0 openers require that the wall control panel ask for the door opener for it's status. ratgdo listens to this communication and reports what it hears. myQ branded wall panels should all query for the door status. Non myQ wall panels have no reason to query for door status. These "dumb" wall panels fall into two categories: digital or analog.
