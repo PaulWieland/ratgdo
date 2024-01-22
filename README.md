@@ -9,7 +9,7 @@ ratgdo is *not* a cloud device and does *not* require a subscription service. Th
 ratgdo also can control door openers that use a dry contact interface. Status feedback is provided through two reed switches.
 
 > **ratgdo available to order**
-> Shipping domestic USA via USPS or internaltional via FedEx.
+> Shipping domestic USA via USPS or international via FedEx.
 >
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
 

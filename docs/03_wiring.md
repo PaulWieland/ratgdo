@@ -9,38 +9,30 @@ TOC
 
 
 ## Connecting ratgdo v2.0 or v2.5 to your garage door opener
-
-Things you will need:
-
-* A complete ratgdo install kit **[Buy here](https://square.link/u/FKqlMSWT)**
-
-OR
-
-* A ratgdo control board **[Buy here](https://square.link/u/B5pW7OZW)**
-* A Micro USB cable
-* A USB power brick
-* 3 pieces of thin wire (22-26 gauge recommended)
-* A small zip tie for mounting the board
-* (v2.0 only) Small flat blade screw driver
-
-Procedure:
-
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo firmware.
 1. Unplug the door opener.
-1. Wiring between the v2.0 and v2.5 boards are very similar. v2.5 adds extra terminals to make wiring in parallel with your control panel and sensors easier.
+1. Connect the wires according to the diagram below
+1. Plug the door opener back in
+1. Power ratgdo with the USB power brick & cable.
+
+* For Security + 2.0 door openers within **North America**, and for all compatible Security + 1.0 openers, connect the red, white & black terminals:
 	* v2.52 &amp; v2.53 Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png">![image](https://user-images.githubusercontent.com/4663918/288449523-9ddf3da2-9eac-4be0-beed-11867dc8d446.png)</a>
-	* v2.52 &amp; v2.53 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png">![image](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)</a>
 	* v2.5  Security + 1/2 diagram <a href="https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png">![image](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)</a>
+* If your Security + 2.0 door opener has an eserial terminal (common outside of North America) connect the red/ctrl wire to eserial and **not** the red terminal. Only connect the black obstruction sensor wire if you have obstruction sensors.
+
+* For Dry Contact door openers, you will need reed switches for door position status:
+	* v2.52 &amp; v2.53 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png">![image](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)</a>
 	* v2.5 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png">![image](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)</a>
-	* v2.0  diagram <a href="https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png">![image](https://user-images.githubusercontent.com/4663918/235453980-04a642fa-a181-4297-b4f3-06e1315e02fa.png)</a>
-2. Power ratgdo with the USB power brick & cable.
-3. Plug the door opener back in.
+
 
 ### Examples
 
 Security + 1.0 & 2.0 openers using passthrough ports on control board (one wire per terminal):
-v2.52 &amp; v2.53
-![image](https://user-images.githubusercontent.com/4663918/288452495-ddd455ae-9a48-4e74-9ed5-9a75639225b2.jpg)
+v2.52 &amp; v2.53 (North America)
+![image](images/sec2.0-wiring.jpg)
+
+Rest of World Security + 2.0 Openers with e-serial terminal. Leave black obstruction wire disconnected unless you have obstruction sensors.
+![image](images/sec2.0-row-wiring.jpg)
 
 v2.5
 ![image](https://user-images.githubusercontent.com/4663918/278091586-63ff87f9-f67b-49a5-bc8a-c3c8a5bdab73.jpeg)
