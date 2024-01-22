@@ -8,7 +8,7 @@ TOC
 * [FAQ & Troubleshooting](09_faq.md)
 
 
-## Connecting ratgdo v2.0 or v2.5 to your garage door opener
+## Connecting ratgdo to your garage door opener
 0. Make sure you have already [installed](flash.html) and [configured](02_configuration.md) the ratgdo firmware.
 1. Unplug the door opener.
 1. Connect the wires according to the diagram below
