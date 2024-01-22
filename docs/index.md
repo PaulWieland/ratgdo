@@ -1,3 +1,11 @@
+# ORDER
+### LEAD TIME NOTICE:
+Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
+
+### PURCHASE
+> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
+
+
 # What is ratgdo?
 ratgdo is a WiFi control board for your garage door opener that works over your *local network* using ESPHome, HomeKit or MQTT.
 
@@ -6,13 +14,6 @@ It works with virtually any residential Chamberlain or Liftmaster manufactured g
 It can control the door and report back the actual status of the door (closed, opening, open, closing). For "yellow learn button" Security + 2.0 door openers, the obstruction sensors, light, wireless lockout and even motion sensing are also integrated.
 
 [View the Feature Matrix for more information regarding which features & firmware work with which door opener.](01_features.md)
-
-# ORDER
-### LEAD TIME NOTICE:
-Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
-
-### PURCHASE
-> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
 
 TOC
 * [Main](index.md)
