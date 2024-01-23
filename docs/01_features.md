@@ -18,7 +18,7 @@ The features supported depend on the type of garage door opener you have and the
 Firmware types:
 
 * <strong><a href="http://github.com/ratgdo/mqtt-ratgdo">M</a></strong>QTT - for MQTT based home automation integration (NodeRED, Home Assistant, etc)
-* <strong><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></strong>SP Home - for ESP Home / Home Assistant
+* <strong><a href="http://github.com/ratgdo/esphome-ratgdo">E</a></strong>SP Home - for ESPHome / Home Assistant
 * <strong><a href="http://github.com/ratgdo/homekit-ratgdo">H</a></strong>omeKit - if you just want iOS integration without the need for a home automation server
 
 <ul>
@@ -69,7 +69,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">X</td>
@@ -84,7 +84,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center; color: red;">X/O<sup>4</sup></td>
-		<td style="text-align: center;">+<sup>4</sup></td>
+		<td style="text-align: center; color: red;">X/O<sup>4</sup><sup>4</sup></td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+<sup>4</sup></td>
 
 		<td style="text-align: center;">o<sup>1</sup></td>
@@ -98,7 +98,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
@@ -112,7 +112,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
@@ -126,7 +126,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">o<sup>2</sup></td>
@@ -140,7 +140,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center;">X</td>
-		<td style="text-align: center;">+</td>
+		<td style="text-align: center;">X</td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+</td>
 
 		<td style="text-align: center;">&nbsp;</td>
@@ -153,8 +153,8 @@ Firmware types:
 		<td style="text-align: center;">o<sup>3</sup></td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">o<sup>3</sup></td>
 
-		<td style="text-align: center;">&nbsp;</td>
-		<td style="text-align: center;">&nbsp;</td>
+		<td style="text-align: center;">o<sup>3</sup></td>
+		<td style="text-align: center;">o<sup>3</sup></td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">&nbsp;</td>
 
 		<td style="text-align: center;">&nbsp;</td>
@@ -166,7 +166,7 @@ Firmware types:
 
 1. Openers with dry contact control require that limit switches be connected to ratgdo to detect the door state. See [Dry Contact Wiring](03_wiring.md).
 1. Obstruction sensors must have a peak voltage between 4.5 and 7 volts.
-1. Motion detection requires a wall control panel with a built in motion detector such as the 880LMW.
+1. Motion detection requires a wall control panel with a built in motion detector such as the 880LMW. On Security + 1.0, motion detection is reported when the light turns on.
 1. Security + 1.0 openers can report door status over the data line, but not all wall panels are compatible. ratgdo listens for a wall panel to communicate with the door, and if it detects one (such as an [889LM](https://www.google.com/search?q=889lm+liftmaster)) or [041A7928-3MC](https://www.google.com/search?q=041A7928-3MC+chamberlain) it listens and reports the door status. If ratgdo doesn't hear wall panel communication then it switches to emulation mode, where it streams the query commands necessary to get the door opener status. Emulation mode will cause analog wall panels (e.g. [78LM](https://www.google.com/search?q=78LM+chamberlain)) to not be able to control the lights or lockout the wireless remotes because their analog commands will be ignored by the door opener.
 1. All yellow learn button openers are Security + 2.0 EXCEPT the jackshaft wall mounted 8500/RJ020 & 8500C/RJ020C which use the Security + 1.0 protocol.
 
@@ -241,12 +241,6 @@ The following statuses are broadcast over MQTT:
 		</ul>
 	</li>
 </ul>
-
-### ESPHome
-There is an ESPHome port of ratgdo available. For the time being this port might not be feature compatible with the MQTT version of ratgdo.
-
-* [Web Tools installer](https://ratgdo.github.io/esphome-ratgdo/)
-* [GitHub Repo](https://github.com/ratgdo/esphome-ratgdo)
 
 
 ### Dry contacts
