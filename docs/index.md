@@ -3,7 +3,7 @@
 Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
 
 ### PURCHASE
-> **BACK ORDER NOTICE - Please allow 3 weeks for shipment**
+> **BACK ORDER NOTICE - Please allow 1 week for shipment**
 > * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
 
 

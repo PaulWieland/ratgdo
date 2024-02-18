@@ -40,16 +40,20 @@
 			return result;
 		}
 
-		var data = `last update 2024-02-14
+		var data = `last update 2024-02-18
 order date	production %	state
-2024-02-07	89%	in production
-2024-02-08	89%	in production
-2024-02-09	89%	in production
-2024-02-10	89%	in production
-2024-02-11	89%	in production
-2024-02-12	89%	in production
-2024-02-13	89%	in production
-2024-02-14	89%	in production`.split("\n");
+2024-02-07	100%	in transit for kitting
+2024-02-08	100%	in transit for kitting
+2024-02-09	100%	in transit for kitting
+2024-02-10	100%	in transit for kitting
+2024-02-11	100%	in transit for kitting
+2024-02-12	100%	in transit for kitting
+2024-02-13	100%	in transit for kitting
+2024-02-14	100%	in transit for kitting
+2024-02-15	100%	in transit for kitting
+2024-02-16	100%	in transit for kitting
+2024-02-17	100%	in transit for kitting
+2024-02-18	100%	in transit for kitting`.split("\n");
 
 		var table = $("#order_status tbody");
 		$("#last_update").html(data.shift());
