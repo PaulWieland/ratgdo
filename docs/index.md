@@ -60,9 +60,9 @@ Version 2.0 also provides discrete light on/off commands.
 
 > **ratgdo v2.5 available to order**
 > Boards are available and shipping domestic USA via USPS Ground Advantage.
-> When possible international shipments are sent via FedEx.
-> Shipping to Canada is $16.
-> Shipping to the EU and Austrailia varies between $15 and $20.
+> When possible international shipments are sent via FedEx or UPS dedpending on availability.
+> Shipping to Canada is $17.
+> Shipping to the EU and Austrailia varies between $15 and $24.
 >
 > * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $45
 
