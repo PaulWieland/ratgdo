@@ -63,6 +63,7 @@ Version 2.0 also provides discrete light on/off commands.
 > When possible international shipments are sent via FedEx or UPS dedpending on availability.
 > Shipping to Canada is $17.
 > Shipping to the EU and Austrailia varies between $15 and $24.
+> International shipments are shipped under DDU incoterms.
 >
 > * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $45
 
