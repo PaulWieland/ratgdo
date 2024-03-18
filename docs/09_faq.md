@@ -38,10 +38,6 @@ Door openers manufactured by the Chamberlain Group have a learn button on them. 
 	* With model 8500**W** or RJ070 are Security + 2.0
 	* All others are Security + 1.0
 
-* Security + 2.0 door openers require ratgdo v2.0 control board or later
-* Security + 1.0 & Dry Contact door openers require v2.5 control board or later
-
-
 Many non Chamberlain openers can be controlled with dry contacts, but also require the connection of limit switches to ratgdo in order for it to interpret the door positions (Closed, Opening, Open, Closing). See the [Wiring](03_wiring.md) section for an explanation of how to wire dry contact openers.
 
 ## ratgdo isn't able to control my door
@@ -98,11 +94,6 @@ Yes. You need one ratgdo control board per door, just like you need one wired wa
 
 ## After hooking up ratgdo the range of my wireless remotes seems to be reduced
 ratgdo operates on 2.4GHz WiFi while most wireless garage door openers operate at 310MHz, so they will not interfere with each other. However, signal attenuation can occur if wires or physical objects are touching or near the GDO's antenna. Make sure the GDO's antenna (just a loose piece of wire) is hanging down from the opener and that the ratgdo control board (and wiring) is as far away from it as practical.
-
-## My door opens/closes when ratgdo reboots
-Version 2.0 (white PCB) ratgdo control boards are only compatible with Security + 2.0 openers. Wall mounted jackshaft openers (model 8500, 8500C and RJO20) are labeled as security + 2.0 and have a yellow learn button, but they use the older wireline protocol from the Security + 1.0 openers. If you have one of these openers and you purchased a V2.0 shield, please contact me for a replacement shield. 
-
-If you own one of the aformentioned jack shaft openers, or an opener with a purple, red or orange learn button, you have a security + 1.0 opener and you need a v2.5 (or later) ratgdo control board.
 
 ## Which version of the board will I receive?
 Due to high demand and part availabilty constraints I have multiple manufacturers producing ratgdo control boards in the 2.5x range. **My main goal is to get the entire backlog of orders taken care of as fast as I can.** Orders are being shipped out in the order they are received using the stock that arrives first. All control boards starting with v2.5 are functionally identical but physical differences are present due to availability of parts and manufacturing process. One revision of 2.5x is not better than another.
