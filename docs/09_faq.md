@@ -11,7 +11,7 @@ TOC
 # FAQ & Troubleshooing
 
 ## When will my order ship?
-I'm working as fast as I can to ship orders while also dealing with a large volume of email inquiries asking when orders will ship. This takes away from the time I have available to support other questions and actually ship units once I receive them. In an effort to inform everyone of what's going on with their order, I created this [order status page](order_status.html) which I will update once a week.
+Orders typically ship within one business day.
 
 ## Will ratgdo work with my garage door opener model?
 Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo hardware v2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo hardware v2.5 or greater.

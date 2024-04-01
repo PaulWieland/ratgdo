@@ -49,24 +49,24 @@ order date	production %	state
 		$("#last_update").html(data.shift());
 		data.shift();
 
-		data.forEach(e => {
-			var row = $('<tr>');
+		// data.forEach(e => {
+		// 	var row = $('<tr>');
 			
-			e.split("\t").forEach((c,i) => {
-				console.log(i);
-				var style = ``;
-				if(i == 1){
-					var num = parseFloat(c.replace('%',''));
-					num = num / 100;
+		// 	e.split("\t").forEach((c,i) => {
+		// 		console.log(i);
+		// 		var style = ``;
+		// 		if(i == 1){
+		// 			var num = parseFloat(c.replace('%',''));
+		// 			num = num / 100;
 
-					var color = calculate({r: 247,g:243,b:126},{r: 50, g: 168, b: 83},num);
-					style = `style="background-color: rgb(${color['r']},${color['g']},${color['b']})"`;
-				}
-				row.append(`<td ${style}>${c}</td>`);
-			});
+		// 			var color = calculate({r: 247,g:243,b:126},{r: 50, g: 168, b: 83},num);
+		// 			style = `style="background-color: rgb(${color['r']},${color['g']},${color['b']})"`;
+		// 		}
+		// 		row.append(`<td ${style}>${c}</td>`);
+		// 	});
 
-			table.append(row);
-		});
+		// 	table.append(row);
+		// });
 	</script>
 </body>
 </html>
