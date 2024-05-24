@@ -21,8 +21,7 @@ TOC
 * If your Security + 2.0 door opener has an eserial terminal (common outside of North America) connect the red/ctrl wire to eserial and **not** the red terminal. Only connect the black obstruction sensor wire if you have obstruction sensors.
 
 * For Dry Contact door openers, you will need reed switches for door position status:
-	* v2.52 &amp; v2.53 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png">![image](https://user-images.githubusercontent.com/4663918/288450016-0caa5d03-325a-4c89-a144-a145ac907dfa.png)</a>
-	* v2.5 dry contact diagram <a href="https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png">![image](https://user-images.githubusercontent.com/4663918/277838851-e338c3bf-4eda-447a-9e79-737aa1a622a0.png)</a>
+	* v2.5x dry contact diagram <a href="images/dry_contact_diagram.png">![image](images/dry_contact_diagram.png)</a>
 
 
 ### Examples
