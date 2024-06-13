@@ -43,7 +43,7 @@ Firmware types:
 	<tr>
 		<th style="width: 25%;">&nbsp;</th>
 		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Yellow Learn Button<sup>5</sup></th>
-		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Orange, Red Learn Buttons</th>
+		<th style="border-right: 1px solid #e5e5e5; width: 25%" colspan="3">Purple, Orange, Red<sup>6</sup> Learn Buttons</th>
 		<th style="width: 25%" colspan="3">&nbsp;</th>
 	</tr>
 	<tr>
@@ -84,7 +84,7 @@ Firmware types:
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">X</td>
 
 		<td style="text-align: center; color: red;">X/O<sup>4</sup></td>
-		<td style="text-align: center; color: red;">X/O<sup>4</sup><sup>4</sup></td>
+		<td style="text-align: center; color: red;">X/O<sup>4</sup></td>
 		<td style="text-align: center; border-right: 1px solid #e5e5e5;">+<sup>4</sup></td>
 
 		<td style="text-align: center;">o<sup>1</sup></td>
@@ -169,6 +169,7 @@ Firmware types:
 1. Motion detection requires a wall control panel with a built in motion detector such as the 880LMW. On Security + 1.0, motion detection is reported when the light turns on.
 1. Security + 1.0 openers can report door status over the data line, but not all wall panels are compatible. ratgdo listens for a wall panel to communicate with the door, and if it detects one (such as an [889LM](https://www.google.com/search?q=889lm+liftmaster)) or [041A7928-3MC](https://www.google.com/search?q=041A7928-3MC+chamberlain) it listens and reports the door status. If ratgdo doesn't hear wall panel communication then it switches to emulation mode, where it streams the query commands necessary to get the door opener status. Emulation mode will cause analog wall panels (e.g. [78LM](https://www.google.com/search?q=78LM+chamberlain)) to not be able to control the lights or lockout the wireless remotes because their analog commands will be ignored by the door opener.
 1. All yellow learn button openers are Security + 2.0 EXCEPT the jackshaft wall mounted 8500/RJ020 & 8500C/RJ020C which use the Security + 1.0 protocol.
+1. Not all red learn button openers support digital communication. If a red button opener doesn't use digital communication, it will not respond to door open/close commands and it will not report the door status. In such cases, use dry contact control instead of Security + 1.0 control.
 
 
 ### MQTT

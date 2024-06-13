@@ -14,7 +14,7 @@ TOC
 Orders typically ship within one business day.
 
 ## Will ratgdo work with my garage door opener model?
-Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo hardware v2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo hardware v2.5 or greater.
+Any residential door opener made in the last 25+ years by Chamberlain/Liftmaster should work. If your opener is mounted over head and has a **yellow** learn button, it is supported by ratgdo hardware v2.0 or greater. If your opener is a wall mounted jackshaft opener or has a **red, purple or orange** learn button, it is supported by ratgdo hardware v2.5 or greater. Some **red button** openers do not support digital communication and must use the dry contact control protocol.
 
 There is also a [wiki page](https://github.com/PaulWieland/ratgdo/wiki) to document models which have been tested.
 
@@ -24,6 +24,9 @@ If you have a *non* Chamberlain/LiftMaster opener that supports dry contact cont
 	* If the sensors are not 5-7v, ratgdo will still be able to control the door but it will not provide obstruction status. CAUTION: connecting higher than 6v sensors will destroy the obstruction input circuit.
 * you have limit switches which close to ground for sensing when the door is fully open AND fully closed.
 	* some models provide user accessible terminals for the built in limit switches, otherwise you have to add your own external switches. A pair of inexpensive magnetic reed switchs is the best way to add these if you cannot use the door opener's built in switches.
+
+## Can ratgdo control gate openers?
+Most gate openers can be controlled using the dry contact control interface. Limit switches are required to get the gate status (the same as with a dry contact control garage door).
 
 ## Which control protocol (Security + 1.0, Security + 2.0, dry contact, etc) do I need?
 
