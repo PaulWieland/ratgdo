@@ -101,10 +101,4 @@ ratgdo operates on 2.4GHz WiFi while most wireless garage door openers operate a
 ## Which version of the board will I receive?
 Due to high demand and part availabilty constraints I have multiple manufacturers producing ratgdo control boards in the 2.5x range. **My main goal is to get the entire backlog of orders taken care of as fast as I can.** Orders are being shipped out in the order they are received using the stock that arrives first. All control boards starting with v2.5 are functionally identical but physical differences are present due to availability of parts and manufacturing process. One revision of 2.5x is not better than another.
 
-## Do I need a case?
-No. A plastic case for a low voltage device like ratgdo is completely unecessary and will only generate plastic waste [which stands a very low chance of being recycled](https://www.google.com/search?q=what+percentage+of+plastic+is+recycled). ratgdo is going to get installed near your garage door opener and then forgotten. The suggested mounting method is to zip tie it to the plastic light housing cover (if you have one) so that the terminals do not touch any metal. It will then sit invisible doing its job.
-
-
-If you have a question about your order, you must reply to your square receipt.
-
 [Please send an email to ratgdo [a] gmail for support]. FAQs will be added here.

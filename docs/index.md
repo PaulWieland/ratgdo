@@ -1,10 +1,13 @@
 # ORDER
-<!-- ### LEAD TIME NOTICE:
-Please allow a week for shipment. If you already placed an order, please check [the order status page](order_status.html) for current order status.
+### NEW WEBSITE NOTICE
+New online store launched on July 9th: [http://ratcloud.llc](http://ratcloud.llc)
+
+The original [square checkout link](https://square.link/u/FKqlMSWT) will remain active as we transition to the new site.
 
 ### PURCHASE
 **BACK ORDER NOTICE - Please allow 1 week for shipment** -->
-> * [ratgdo v2.5 control board with installation kit](https://square.link/u/FKqlMSWT) $45
+> * [ratgdo v2.5 control board with installation kit](https://ratcloud.llc/products/ratgdo-v2-5i-kit) $45
+> * [ratgdo holster](https://ratcloud.llc/products/ratgdo-v2-53i-mount)
 
 
 # What is ratgdo?
@@ -65,7 +68,7 @@ Version 2.0 also provides discrete light on/off commands.
 > Shipping to the EU and Austrailia varies between $15 and $24.
 > International shipments are shipped under DDU incoterms.
 >
-> * [ratgdo v2.5 controller with installation kit](https://square.link/u/FKqlMSWT) $45
+> * [ratgdo v2.5 controller with installation kit](https://ratcloud.llc/products/ratgdo-v2-5i-kit) $45
 
 ![image](https://user-images.githubusercontent.com/4663918/288453570-79721193-2798-4147-98fc-b6cef1c61795.jpg)
 
