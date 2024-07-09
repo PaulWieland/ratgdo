@@ -82,8 +82,8 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
   * **ratgdo** - includes WiFi configuration through ESP Tools. After flashing the firmware, ESP tools will ask you for your WiFi credentials. After ratgdo connects to your network, you will be given the option to _Visit Device_ so you can configure the MQTT settings.
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
-## Mounting Suggestion
-The ratgdo board has a pair of holes in it which can be used to physically mount the board. The easiest method is to use a zip tie to mount the board to the slots in the translucent white light cover.
+## Mounting
+A holster for the ratgdo board is [available here](https://ratcloud.llc/products/ratgdo-v2-53i-mount). The holster is desiged to clip onto the GDO's mounting frame or translucent light cover.
 
 ## Disclaimer
 Use this device at your own risk. To avoid risk of injury or property damage only operate the garage door within line of sight.

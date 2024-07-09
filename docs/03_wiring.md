@@ -40,9 +40,6 @@ v2.5
 Security + 1.0 & 2.0 openers with multiple wires sharing a terminal on GDO:
 ![image](https://user-images.githubusercontent.com/4663918/278091799-a520915d-c475-4ac9-8b06-f9fca015f0c2.jpeg)
 
-Suggested Mounting method using a zip tie to secure the control board to the plastic light shield:
-![image](https://user-images.githubusercontent.com/4663918/278091821-02f85f5f-ebda-4603-9ee5-bd998bf8e7ee.jpeg)
-
 
 Example wiring for a Genie opener which has user accessible limit switch terminals:
 
