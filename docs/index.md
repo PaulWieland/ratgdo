@@ -83,7 +83,7 @@ These instructions explain how to flash the ratgdo firmware from your browser (G
   * **ratgdo (WiFi Disabled)** - If you do not wish to use WiFi or MQTT, choose the _WiFi Disabled_ version. With this version you can control the garage door with the ratgdo dry contacts only.
 
 ## Mounting
-A holster for the ratgdo board is [available here](https://ratcloud.llc/products/ratgdo-v2-53i-mount). The holster is desiged to clip onto the GDO's mounting frame or translucent light cover.
+A holster for the ratgdo board is [available here](https://ratcloud.llc/products/ratgdo-v2-53i-mount). The holster is designed to clip onto the GDO's mounting frame or translucent light cover.
 
 ## Disclaimer
 Use this device at your own risk. To avoid risk of injury or property damage only operate the garage door within line of sight.
