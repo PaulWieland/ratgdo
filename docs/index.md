@@ -46,7 +46,7 @@ ratgdo is a hardware control board that wires to your door opener's terminals. T
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
 
 # ratgdo Firmware
-* ESPHome - best for [Home Assistant](https://www.home-assistant.io), [Control4](https://chowmain.software/drivers/control4-ratgdo), [Elan](https://chowmain.software/drivers/elan-ratgdo), &amp; [Crestron](https://chowmain.software/drivers/crestronhome-ratgdo)  integrations
+* ESPHome - best for [Home Assistant](https://www.home-assistant.io), [Control4](https://chowmain.software/drivers/control4-ratgdo), [Nice/Elan](https://chowmain.software/drivers/elan-ratgdo), &amp; [Crestron](https://chowmain.software/drivers/crestronhome-ratgdo)  integrations
 * HomeKit - best for those with iOS and without home automation platforms
 * MQTT - best for NodeRED or other custom MQTT integrations
 
