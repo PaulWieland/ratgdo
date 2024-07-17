@@ -2,7 +2,7 @@
 ### NEW WEBSITE NOTICE
 New store launched on July 9th: [http://ratcloud.llc](http://ratcloud.llc)
 
-The original [square checkout link](https://square.link/u/FKqlMSWT) will remain active as we transition to the new site.
+<!-- The original [square checkout link](https://square.link/u/FKqlMSWT) will remain active as we transition to the new site. -->
 
 > * [ratgdo v2.5 control board with installation kit](https://ratcloud.llc/products/ratgdo-v2-5i-kit) $45
 > * [ratgdo holster](https://ratcloud.llc/products/ratgdo-v2-53i-mount) $9
