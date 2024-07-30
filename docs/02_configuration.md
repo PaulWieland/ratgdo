@@ -18,7 +18,7 @@ After the firmware is flashed, the ratgdo will reboot and attempt to connect to 
 
 * **Device Name** - Must be unique. Used as the device's hostname on the network, the mqtt device name, part of the path on the MQTT Topic (see MQTT prefix below), and the username for basic authentication to the ESP's built in web server.
 * **OTA Password** - Used for Over The Air firmware flashing and as the http basic authentication password for the web server configuration page. Use a very strong password if you leave the ota/web service enabled since anyone with access to ratgdo over the network could also gain control over your garage door.
-* **IP Address** - Will be filled in automatically with the DHCP address, but can also be set manually.
+* **IP Address** - Will be filled in automatically with the DHCP address. To set a static address, use a DHCP reservation.
 * **SSID** - Your WiFi network name (case sensitive).
 * **WiFi Password** - The password for the WiFi.
 * **Enable MQTT** - Leave checked. If you do not wish to use MQTT, there is no reason to use the WiFi version of the firmware.
