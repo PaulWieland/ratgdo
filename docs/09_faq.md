@@ -53,6 +53,8 @@ Yellow Learn button openers (except for the jack shaft wall mounted 8500/RJ020 8
 
 If you are using Security + 2.0, you can try and reinstall the firmware and choose the "Erase" option which will force the generation of a new client ID for communicating with the door.
 
+Also verify that you have installed the correct firmware for your board. Firmware meant for a different board version may still boot and even show the GDO status, but not be able to send commands to the door.
+
 ## ratgdo can't detect the door status of my Security + 1.0 opener
 Security + 1.0 openers require that the wall control panel ask for the door opener for it's status. ratgdo listens to this communication and reports what it hears. myQ branded wall panels should all query for the door status. Non myQ wall panels have no reason to query for door status. These "dumb" wall panels fall into two categories: digital or analog.
 
