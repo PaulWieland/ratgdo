@@ -1,6 +1,6 @@
 # ORDER
 ### NEW WEBSITE NOTICE
-New store launched on July 9th: [http://ratcloud.llc](http://ratcloud.llc)
+New store launched on July 9th 2024: [http://ratcloud.llc](http://ratcloud.llc)
 
 <!-- The original [square checkout link](https://square.link/u/FKqlMSWT) will remain active as we transition to the new site. -->
 > * [ratgdo32 control board & accessories](https://ratcloud.llc/collections/frontpage)
@@ -45,9 +45,8 @@ ratgdo is a hardware control board that wires to your door opener's terminals. T
 ratgdo is *not* a cloud device and does *not* require a subscription service. The firmware is open source and free for anyone to use.
 
 # ratgdo Firmware
-* ESPHome - best for [Home Assistant](https://www.home-assistant.io), [Control4](https://chowmain.software/drivers/control4-ratgdo), [Nice/Elan](https://chowmain.software/drivers/elan-ratgdo), &amp; [Crestron](https://chowmain.software/drivers/crestronhome-ratgdo)  integrations
+* ESPHome - best for [Home Assistant](https://www.home-assistant.io), Chowmainsoft's [Control4](https://chowmain.software/drivers/control4-ratgdo), [Nice/Elan](https://chowmain.software/drivers/elan-ratgdo), &amp; [Crestron](https://chowmain.software/drivers/crestronhome-ratgdo), Finite Lab's [Control4](https://github.com/finitelabs/control4-esphome) integrations, MQTT Integrations using a custom yaml
 * HomeKit - best for those with iOS and without home automation platforms
-* MQTT - best for NodeRED or other custom MQTT integrations
 
 ## Version 2.5
 Version 2.5 adds support for Security + 1.0 openers as well as standard dry contact openers. Extra wiring terminals for your wall control panel and obstruction sensors have been added which simplifies the installation. Security +1.0 requires an 889LM / 041A7928-3MC wall control panel. If you do not have an 889LM / 041A7928-3MC, ratgdo offers an emulation mode but it will interfere with your wall control's functions. dry contact control mode can be used with security +1.0 openers as a fall back. 
@@ -58,19 +57,19 @@ Version 2.0 eliminates the need to solder to your garage door's logic board. It 
 Version 2.0 also provides discrete light on/off commands.
 
 
-> **ratgdo v2.5 available to order**
+> **ratgdo v32 available to order**
 > Boards are available and shipping domestic USA via USPS Ground Advantage.
-> When possible international shipments are sent via FedEx or UPS dedpending on availability.
+> International shipments are sent via USPS Ground International
 > Shipping to Canada is $17.
 > Shipping to the EU and Austrailia varies between $15 and $24.
 > International shipments are shipped under DDU incoterms.
 >
-> * [ratgdo v2.5 controller with installation kit](https://ratcloud.llc/products/ratgdo-v2-5i-kit) $45
-
-![image](https://user-images.githubusercontent.com/4663918/288453570-79721193-2798-4147-98fc-b6cef1c61795.jpg)
+> * [ratgdo v32 controller with installation kit](https://ratcloud.llc/products/ratgdo32)
 
 
 # ratgdo ESP Flasher
+Please see our website for complete & up to date instructions. [https://ratcloud.llc/pages/firmware](https://ratcloud.llc/pages/firmware)
+
 These instructions explain how to flash the ratgdo firmware from your browser (Google Chrome or Chromium based browsers required).
 
 ## Installing the firmware
